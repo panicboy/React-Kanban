@@ -21,7 +21,6 @@ var cardSchema = Schema({
 });
 var Card = mongoose.model('Card',cardSchema);
 
-
 app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
