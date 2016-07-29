@@ -10,7 +10,7 @@ var PORT = 3000;
 
 
 
-var server = app.listen(portNum, function(){
+var server = app.listen(PORT, function(){
   var host = 'localhost';
   console.log(`Example app listening at http://${host}:${portNum}`);
 });
