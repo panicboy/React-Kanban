@@ -29,7 +29,12 @@ const Form = React.createClass({
     };
   },
   submit(data) {
-    alert(JSON.stringify(data, null, 4)); // on Submit
+    var req = new XMLHttpRequest();
+    req.open('POST', '/', true);
+    req.setRequestHeader("content-type","multipart/form-data");
+    var formdata = new FormData();
+    formdata.append('title',data.title);
+    req.send(formdata);
   },
   enableButton() {
     this.setState({
@@ -44,9 +49,11 @@ const Form = React.createClass({
   render() {
     return (
       <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="input">
-        <MyInput name="email" title="Email" validations="isEmail" validationError="This is not a valid email" required />
-        <MyInput name="password" title="Password" type="password" required />
-        <button type="submit" disabled={!this.state.canSubmit}>Submit</button>
+        <MyInput name="title" title="Title:" required />
+        <MyInput name="priority" title="Priority:" required />
+        <MyInput name="createdby" title="Created By:" required />
+        <MyInput name="assignedto" title="Assigned To:" required />
+        <button type="submit" disabled={!this.state.canSubmit}> Submit </button>
       </Formsy.Form>
     );
   }
