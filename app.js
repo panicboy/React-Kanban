@@ -21,10 +21,9 @@ var cardSchema = Schema({
 });
 var Card = mongoose.model('Card',cardSchema);
 
-app.use(methodOverride());
+// app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser());
 
 app.use(express.static(__dirname)); // + './public'
 
@@ -33,22 +32,20 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  console.log(req.headers);
-  console.log(req.body);
-  // var body = req.body.data;
-  // var newCard = new Card({
-  //   title:body.title,
-  //   priority: body.priority,
-  //   status: "Queue",
-  //   createdBy: body.createdby,
-  //   assignedTo: body.assignedto
-  // });
-  // newCard.save( (err, data) => {
-  //   if(err) console.log(err);
-  //   else {
-  //     console.log(`Saved : ' + ${data}`);
-  //   }
-  // });
+  var body = req.body;
+  var newCard = new Card({
+    title:body.title,
+    priority: body.priority,
+    status: "Queue",
+    createdBy: body.createdby,
+    assignedTo: body.assignedto
+  });
+  newCard.save( (err, data) => {
+    if(err) console.log(err);
+    else {
+      console.log(`Saved : ' + ${data}`);
+    }
+  });
 });
 
 app.listen(PORTNUM, () => {

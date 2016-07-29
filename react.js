@@ -29,12 +29,11 @@ const Form = React.createClass({
     };
   },
   submit(data) {
+    console.log(data);
     var req = new XMLHttpRequest();
     req.open('POST', '/', true);
-    req.setRequestHeader("content-type","multipart/form-data");
-    var formdata = new FormData();
-    formdata.append('title',data.title);
-    req.send(formdata);
+    req.setRequestHeader("Content-type", "application/json");
+    req.send(JSON.stringify(data));
   },
   enableButton() {
     this.setState({
