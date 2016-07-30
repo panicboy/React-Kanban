@@ -62,9 +62,7 @@ app.post('/', (req, res) => {
     priority: body.priority,
     status: "Queue",
     createdBy: body.createdby,
-    assignedTo: body.assignedto,
-    createdOn: new Date(),
-    updatedOn: null,
+    assignedTo: body.assignedto
   });
   newCard.save( (err, data) => {
     if(err) console.log(err);
