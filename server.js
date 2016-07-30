@@ -49,6 +49,9 @@ app.get('/data', (req, res) => {
   });
 });
 
+app.get('/edit/:id', (req, res) => {
+});
+
 app.post('/', (req, res) => {
   var body = req.body;
   var newCard = new Card({
@@ -56,7 +59,9 @@ app.post('/', (req, res) => {
     priority: body.priority,
     status: "Queue",
     createdBy: body.createdby,
-    assignedTo: body.assignedto
+    assignedTo: body.assignedto,
+    createdOn: new Date(),
+    updatedOn: null,
   });
   newCard.save( (err, data) => {
     if(err) console.log(err);
