@@ -6,7 +6,6 @@ import { Router, Route, hashHistory } from 'react-router';
 // import newCard from './static/newCard.jsx';
 // import Signup from './static/signup.jsx';
 import Form from './react/Form.jsx';
-
 import App from './App.js';
 
 ReactDOM.render(

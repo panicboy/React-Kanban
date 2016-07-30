@@ -45,7 +45,6 @@ var Column = React.createClass({
             <Card data={e} />
           )
           break;
-        // case 'Done':
       }
     });
     return [one, two, three];

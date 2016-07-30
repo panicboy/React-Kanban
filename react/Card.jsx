@@ -11,7 +11,8 @@ var Card = React.createClass({
           <li className="priority small">{this.props.data.priority}</li>
           <li className="status small">{this.props.data.status}</li>
         </ul>
-      </div>
+        <a href={'/edit/' + this.props.data._id}>Right</a>
+        </div>
     )
   }
 });
