@@ -1,11 +1,11 @@
-const MyInput = React.createClass({
+var MyInput = React.createClass({
   mixins: [Formsy.Mixin],
   changeValue(event) {
     this.setValue(event.currentTarget[this.props.type === 'checkbox' ? 'checked' : 'value']);
   },
   render() {
-    const className = 'form-group' + (this.props.className || ' ') + (this.showRequired() ? 'required' : this.showError() ? 'error' : null);
-    const errorMessage = this.getErrorMessage();
+    var className = 'form-group' + (this.props.className || ' ') + (this.showRequired() ? 'required' : this.showError() ? 'error' : null);
+    var errorMessage = this.getErrorMessage();
     return (
       <div className={className}>
         <label htmlFor={this.props.name}>{this.props.title}</label>
@@ -22,14 +22,13 @@ const MyInput = React.createClass({
   }
 });
 
-const Form = React.createClass({
+var Form = React.createClass({
   getInitialState() {
     return {
       canSubmit: false
     };
   },
   submit(data) {
-    console.log(data);
     var req = new XMLHttpRequest();
     req.open('POST', '/', true);
     req.setRequestHeader("Content-type", "application/json");
@@ -59,3 +58,61 @@ const Form = React.createClass({
 });
 
 ReactDOM.render(<Form />, document.getElementById('form'));
+
+var Board = React.createClass({
+  render() {
+    var columns = ColumnTypes.map( (element) => {
+      return (
+        <Column type={element} />
+      )
+    })
+  return (
+      <div>
+        {columns}
+      </div>
+  )
+  }
+});
+
+var ColumnTypes = ['Queue', 'InProgress', 'Done'];
+var Column = React.createClass({
+  render() {
+    switch(this.props.type) {
+      case 'Queue':
+        queryDatabase('');
+        break;
+      case 'InProgress':
+        queryDatabase('');
+        break;
+      case: 'Done':
+        queryDatabase('');
+        break;
+      default:
+
+    }
+    var cards = ..map( (e) => {
+      return (
+        <Card />
+      )
+    })
+    return (
+      <div id={this.props.type} className="column">
+        <Card />
+      </div>
+  )
+  }
+});
+function queryDatabase (e) {
+  // query database for things matching e
+}
+
+var Card = React.createClass({
+  render() {
+    return (
+      <div className="card">
+
+      </div>
+    )
+  }
+});
+ReactDOM.render(<Board />, document.getElementById("board"));
