@@ -52,7 +52,8 @@ app.get('/data', (req, res) => {
   });
 });
 
-app.get('/edit/:id', (req, res) => {
+app.put('/edit/', (req, res) => {
+  console.log(req.body);
 });
 
 app.post('/', (req, res) => {
