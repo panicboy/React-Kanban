@@ -1,11 +1,16 @@
 var path = require('path');
 var webpack = require('webpack');
 
+
+
 const config = {
   entry: [
   'webpack/hot/dev-server',
   'webpack-hot-middleware/client',
   './entry.jsx',
+  ],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
   ],
   output: {
     path: __dirname,

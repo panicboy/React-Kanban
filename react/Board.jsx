@@ -2,12 +2,15 @@ import React from 'react';
 import Column from './Column.jsx';
 
 var Board = React.createClass({
+  getInitialState: function(){
+    return {};
+  },
   componentDidMount() {
     this.queryDatabase();
   },
   queryDatabase () {
     var req = new XMLHttpRequest();
-    req.open('GET', '/data');
+    req.open('GET', 'http://localhost:3000/data');
     req.addEventListener('load', this.loadData);
     req.send();
   },
@@ -23,4 +26,11 @@ var Board = React.createClass({
     )
   }
 });
+Board.defaultProps = {
+  data: [],
+};
+
+Board.propTypes = {
+  data: React.PropTypes.array,
+};
 export default Board;

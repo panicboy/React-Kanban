@@ -4,7 +4,13 @@ var Card = React.createClass({
   render() {
     return (
       <div className="card">
-        <h1>{this.props.data.title}</h1>
+        <p>{this.props.data.title}</p>
+        <ul>
+          <li>{this.props.data.assignedTo}</li>
+          <li>{this.props.data.createdBy}</li>
+          <li>{this.props.data.priority}</li>
+          <li>{this.props.data.status}</li>
+        </ul>
       </div>
     )
   }

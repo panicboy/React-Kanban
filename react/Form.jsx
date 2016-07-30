@@ -1,3 +1,6 @@
+import React from 'react';
+import MyInput from './MyInput.jsx';
+
 var Form = React.createClass({
   getInitialState() {
     return {
@@ -32,5 +35,7 @@ var Form = React.createClass({
     );
   }
 });
+
+export default Form;
 
 export default Form;
