@@ -1,5 +1,10 @@
 var express = require('express');
 var app = express();
+var webpack = require('webpack');
+var webpackDevMiddleware = require('webpack-dev-middleware');
+var webpackHotMiddleware = require('webpack-hot-middleware');
+var config = require('./webpack.config');
+var compiler = webpack(config);
 var PORTNUM = 3000;
 
 var methodOverride = require('method-override');
@@ -25,11 +30,21 @@ app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname));
+app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    stats: {colors: true}
+}));
 
 app.get('/', (req, res) => {
-  console.log('test');
   res.render('index');
+});
+
+app.get('/data', (req, res) => {
+  Card.find({}, (err, card) => {
+    if (err) return err;
+    return res.json(card);
+  });
 });
 
 app.post('/', (req, res) => {
