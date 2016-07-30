@@ -3,7 +3,7 @@ import React from 'react';
 var Card = React.createClass({
   render() {
     return (
-      <div key={this.props.data._id} className="card small" data-id={this.props.data._id} data-createdat={this.props.data.createdAt}
+      <div key={this.props.data._id} className={'card small small-card ' + this.props.data.priority} data-id={this.props.data._id} data-createdat={this.props.data.createdAt}>
         <p className="title small">{this.props.data.title}</p>
         <ul>
           <li className="assigned-to small">{this.props.data.assignedTo}</li>

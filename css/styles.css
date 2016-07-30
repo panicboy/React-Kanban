@@ -1,0 +1,26 @@
+.small-card{
+  width: 10em;
+  height: 10em;
+  border: solid 1px black;
+}
+
+.low,
+.Low {
+  background-color: #99ff99;
+}
+
+.medium,
+.Medium {
+  background-color: #ffff99;
+}
+
+.high,
+.High {
+  background-color: #ffcccc;
+}
+
+
+.blocker,
+.Blocker {
+  background-color: #ff3333;
+}
