@@ -4,7 +4,7 @@
   "description": "> A digital Kanban board made with React",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --inline --content-base .",
+    "start": "webpack-dev-server --hot --progress --colors --inline --content-base .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

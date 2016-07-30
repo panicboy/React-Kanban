@@ -4,6 +4,7 @@ var webpack = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
 var config = require('./webpack.config');
+
 var compiler = webpack(config);
 var PORTNUM = 3000;
 
@@ -43,6 +44,7 @@ app.get('/', (req, res) => {
 app.get('/data', (req, res) => {
   Card.find({}, (err, card) => {
     if (err) return err;
+    res.set('Access-Control-Allow-Origin', '*');
     return res.json(card);
   });
 });

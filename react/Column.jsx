@@ -2,10 +2,16 @@ import React from 'react';
 import Card from './Card.jsx';
 
 var Column = React.createClass({
+  getDefaultProps() {
+    return {
+      data: []
+    };
+  },
   render() {
-    var cards = this.props.data.map( (e) => {
+    var data = this.props.data;
+    var cards = data.map( (e) => {
       return (
-        <Card data={e.data}/>
+        <Card data={e}/>
       )
     })
     return (
