@@ -52,8 +52,8 @@ app.get('/data', (req, res) => {
   });
 });
 
-app.get('/edit/:id', (req, res) => {
-  console.log(req.params.id);
+app.put('/edit/', (req, res) => {
+  console.log(req.body);
 });
 
 app.post('/', (req, res) => {
@@ -64,8 +64,6 @@ app.post('/', (req, res) => {
     status: "Queue",
     createdBy: body.createdby,
     assignedTo: body.assignedto,
-    createdOn: new Date(),
-    updatedOn: null,
   });
   newCard.save( (err, data) => {
     if(err) console.log(err);
