@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var webpack = require('webpack');
+var mongoose = require('mongoose');
+var timestamps = require('mongoose-timestamp');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
 var config = require('./webpack.config');
@@ -11,20 +13,21 @@ var PORTNUM = 3000;
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 
-var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
 var Schema = mongoose.Schema;
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-var cardSchema = Schema({
+var cardSchema = new Schema({
   title: String,
   priority: String,
   status: String,
   createdBy: String,
   assignedTo: String,
 });
+cardSchema.plugin(timestamps);
+mongoose.model('Card', cardSchema);
 var Card = mongoose.model('Card', cardSchema);
 
 app.use(methodOverride());

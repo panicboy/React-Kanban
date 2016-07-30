@@ -28,6 +28,7 @@
     "method-override": "^2.3.6",
     "mongodb": "^2.2.5",
     "mongoose": "^4.5.7",
+    "mongoose-timestamp": "^0.6.0",
     "react": "^15.2.1",
     "react-dom": "^15.3.0",
     "react-radio-group": "^3.0.1",
