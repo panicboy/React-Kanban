@@ -53,6 +53,7 @@ app.get('/data', (req, res) => {
 });
 
 app.get('/edit/:id', (req, res) => {
+  console.log(req.params.id);
 });
 
 app.post('/', (req, res) => {
