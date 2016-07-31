@@ -11,7 +11,7 @@ var Column = React.createClass({
     var data = this.props.data;
     var cards = this.createByColumn(data);
     return (
-      <div classname="container column-holder">
+      <div className="container column-holder">
         <div id="Queue" className="column">
           {cards[0]}
         </div>
