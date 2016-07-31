@@ -1,3 +1,11 @@
+#content{
+  width: 80em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
 .small-card{
   width: 10em;
   height: 10em;
@@ -23,4 +31,35 @@
 .blocker,
 .Blocker {
   background-color: #ff3333;
+}
+
+.column{
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 25em;
+  border: solid 1px black;
+}
+
+/*.column-holder{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: flex-start;
+  align-items: stretch;
+}*/
+
+#Queue{
+  background-color: orange;
+}
+
+#InProgress{
+  background-color: purple;
+}
+
+#Done{
+  background-color: yellow;
 }

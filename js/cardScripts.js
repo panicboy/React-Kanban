@@ -27,3 +27,7 @@ function statusMoveLeft(theStatus){
     break;
   }
 }
+
+
+//  { right: { queue: 'InProgress', inprogress: 'Done', done: 'Queue'},
+// left: { queue: 'Done', done: 'InProgress', inprogress: 'Queue'} }
