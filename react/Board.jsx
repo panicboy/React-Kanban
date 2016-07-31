@@ -5,6 +5,9 @@ var Board = React.createClass({
   getInitialState: function(){
     return {};
   },
+  updateBoard () {
+    this.queryDatabase();
+  },
   componentDidMount() {
     this.queryDatabase();
   },
@@ -21,7 +24,7 @@ var Board = React.createClass({
   render() {
     return (
       <div>
-        <Column data={this.state.data} />
+        <Column updateBoard={this.updateBoard} data={this.state.data} />
       </div>
     )
   }

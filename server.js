@@ -37,7 +37,9 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname));
 app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
-    stats: {colors: true}
+    stats: {
+      colors: true,
+    }
 }));
 
 app.get('/', (req, res) => {
@@ -53,11 +55,9 @@ app.get('/data', (req, res) => {
 });
 
 app.put('/edit/', (req, res) => {
-  console.log(req.body);
   Card.findByIdAndUpdate(req.body.id, { $set: { status: req.body.status }}, function (err, card) {
-    if (err) return console.log('Error: ', err);
-    console.log(card);
-    return res.json(card);
+  if (err) return console.log('Error: ', err);
+  return res.json(card);
   });
 });
 

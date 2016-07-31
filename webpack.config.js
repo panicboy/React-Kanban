@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 
 
-const config = {
+var config = {
   entry: [
   'webpack/hot/dev-server',
   'webpack-hot-middleware/client',
