@@ -55,9 +55,21 @@ app.get('/data', (req, res) => {
 });
 
 app.put('/edit/', (req, res) => {
-  Card.findByIdAndUpdate(req.body.id, { $set: { status: req.body.status }}, function (err, card) {
-  if (err) return console.log('Error: ', err);
-  return res.json(card);
+  Card.findByIdAndUpdate(req.body.id, {
+    $set: {
+      status: req.body.status
+  }},
+  function (err, card) {
+    if (err) return console.log('Error: ', err);
+    return res.json(card);
+  });
+});
+
+app.delete('/delete/', (req, res) => {
+  Card.findByIdAndRemove({"_id":req.body.id},
+  function (err, card) {
+    if (err) return console.log('Error: ', err);
+    return res.json(card);
   });
 });
 
