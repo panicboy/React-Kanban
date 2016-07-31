@@ -11,7 +11,7 @@ var Column = React.createClass({
     var data = this.props.data;
     var cards = this.createByColumn(data);
     return (
-      <div>
+      <div classname="container column-holder">
         <div id="Queue" className="column">
           {cards[0]}
         </div>
@@ -25,29 +25,29 @@ var Column = React.createClass({
     )
   },
   createByColumn(data) {
-    var one = [];
-    var two = [];
-    var three = [];
+    var queueArr = [];
+    var inProgressArr = [];
+    var doneArr = [];
     data.forEach( (e) => {
       switch(e.status) {
         case 'Queue':
-          one.push(
+          queueArr.push(
             <Card data={e} />
           )
           break;
         case 'InProgress':
-          two.push(
+          inProgressArr.push(
             <Card data={e} />
           )
           break;
         case 'Done':
-          three.push(
+          doneArr.push(
             <Card data={e} />
           )
           break;
       }
     });
-    return [one, two, three];
+    return [queueArr, inProgressArr, doneArr];
   },
 });
 
