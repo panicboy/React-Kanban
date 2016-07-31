@@ -49,6 +49,10 @@ var Column = React.createClass({
     });
     return [queueArr, inProgressArr, doneArr];
   },
+
+sayHi(){
+  console.log('Hi!');
+},
 });
 
 export default Column;

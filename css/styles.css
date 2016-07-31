@@ -42,7 +42,7 @@
   flex-wrap: wrap;
   width: 30%;
   min-height: 15em;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-content: flex-start;
   border: solid 1px black;
   padding: 15px;
