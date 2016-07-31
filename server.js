@@ -37,7 +37,9 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname));
 app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
-    stats: {colors: true}
+    stats: {
+      colors: true,
+    }
 }));
 
 app.get('/', (req, res) => {
@@ -53,7 +55,6 @@ app.get('/data', (req, res) => {
 });
 
 app.put('/edit/', (req, res) => {
-  console.log(req.body);
 });
 
 app.post('/', (req, res) => {
