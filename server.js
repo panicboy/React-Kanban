@@ -55,6 +55,10 @@ app.get('/data', (req, res) => {
 });
 
 app.put('/edit/', (req, res) => {
+  Card.findByIdAndUpdate(req.body.id, { $set: { status: req.body.status }}, function (err, card) {
+  if (err) return console.log('Error: ', err);
+  return res.json(card);
+  });
 });
 
 app.post('/', (req, res) => {

@@ -32,17 +32,17 @@ var Column = React.createClass({
       switch(e.status) {
         case 'Queue':
           one.push(
-            <Card data={e} />
+            <Card updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'InProgress':
           two.push(
-            <Card data={e} />
+            <Card updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'Done':
           three.push(
-            <Card data={e} />
+            <Card updateBoard={this.props.updateBoard} data={e} />
           )
           break;
       }
