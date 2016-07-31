@@ -38,10 +38,12 @@ var Card = React.createClass({
     this.createReq(status);
   },
   createReq (status) {
-    console.log('STATUS' + status);
     var req = new XMLHttpRequest();
       req.open('PUT', `/edit/`);
       req.setRequestHeader("Content-Type", "application/json");
+      req.addEventListener('load', (data) => {
+        this.props.updateBoard();
+      });
       req.send(JSON.stringify({
      "id":`${this.props.data._id}`,
      "status": `${status}`
@@ -60,13 +62,13 @@ var Card = React.createClass({
   },
   render() {
     return (
-      <div key={this.props.data._id} className={'card small small-card ' + this.props.data.priority} data-createdat={this.props.data.createdAt}>
-        <span onClick={this.deleteItem} className="close">×</span>
+      <div key={this.props.data._id} className={'card small small-card ' + this.props.data.priority} data-id={this.props.data._id} data-createdat={this.props.data.createdAt}>
         <span className="title small">{this.props.data.title}</span>
-        <span className="assigned-to small">{this.props.data.assignedTo}</span>
-        <span className="created-by small">{this.props.data.createdBy}</span>
-        <span className="priority small">{this.props.data.priority}</span>
-        <span className="status small">{this.props.data.status}</span>
+          <span onClick={this.deleteItem} className="close">×</span>
+          <span className="assigned-to small">{this.props.data.assignedTo}</span>
+          <span className="created-by small">{this.props.data.createdBy}</span>
+          <span className="priority small">{this.props.data.priority}</span>
+          <span className="status small">{this.props.data.status}</span>
         <button onClick={this.handleStatusLeft}>Left</button>
         <button onClick={this.handleStatusRight}>Right</button>
         </div>
