@@ -52,13 +52,11 @@ var Card = React.createClass({
   render() {
     return (
       <div key={this.props.data._id} className={'card small small-card ' + this.props.data.priority} data-id={this.props.data._id} data-createdat={this.props.data.createdAt}>
-        <p className="title small">{this.props.data.title}</p>
-        <ul>
-          <li className="assigned-to small">{this.props.data.assignedTo}</li>
-          <li className="created-by small">{this.props.data.createdBy}</li>
-          <li className="priority small">{this.props.data.priority}</li>
-          <li className="status small">{this.props.data.status}</li>
-        </ul>
+        <h2 className="title small">{this.props.data.title}</h2>
+          <p className="assigned-to small">{this.props.data.assignedTo}</p>
+          <p className="created-by small">{this.props.data.createdBy}</p>
+          <p className="priority small">{this.props.data.priority}</p>
+          <p className="status small">{this.props.data.status}</p>
         <button onClick={this.handleStatusLeft}>Left</button>
         <button onClick={this.handleStatusRight}>Right</button>
         </div>
