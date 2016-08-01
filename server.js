@@ -55,10 +55,19 @@ app.get('/data', (req, res) => {
 });
 
 app.put('/edit/', (req, res) => {
+  // now updates a single field
+   var reqObject = {};
+    for(var key in req.body) {
+      if(req.body.hasOwnProperty(key) && key != 'id') reqObject[key] = req.body[key];
+    }
+  console.log('req.body: ', req.body);
+  console.log('reqObject: ', reqObject);
   Card.findByIdAndUpdate(req.body.id, {
-    $set: {
-      status: req.body.status
-  }},
+    // $set: {
+    //   status: req.body.status
+    // }
+    $set: reqObject
+  },
   function (err, card) {
     if (err) return console.log('Error: ', err);
     return res.json(card);
