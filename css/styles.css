@@ -96,17 +96,29 @@ header h1 {
 }
 
 .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
+  color: #aaaaaa;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-    color: #ff0000;
-    text-decoration: none;
-    cursor: pointer;
+  color: #ff0000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.edit {
+  color:#4d4d4d;
+  float:right;
+  font-size:24px;
+  font-weight:bold;
+}
+.edit:hover,
+.edit:focus {
+  color: #ff0000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .small-card > .title{
@@ -122,7 +134,7 @@ form {
   display: table;
   margin: 40px auto;
   background: #f2f2f2;
-  padding:50px 100px;
+  padding:25px 100px;
   border-radius:3px;
 }
 form label {
@@ -148,5 +160,6 @@ form span {
 form button {
   display:block;
   margin:10px auto;
+  text-transform: uppercase;
 }
 
