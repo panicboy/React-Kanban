@@ -13,26 +13,26 @@ var Card = React.createClass({
   },
   createReq (status) {
     var req = new XMLHttpRequest();
-      req.open('PUT', `/edit/`);
-      req.setRequestHeader("Content-Type", "application/json");
-      req.addEventListener('load', (data) => {
-        this.props.updateBoard();
-      });
-      req.send(JSON.stringify({
-     "id":`${this.props.data._id}`,
-     "status": `${status}`
+    req.open('PUT', `/edit/`);
+    req.setRequestHeader("Content-Type", "application/json");
+    req.addEventListener('load', (data) => {
+      this.props.updateBoard();
+    });
+    req.send(JSON.stringify({
+   "id":`${this.props.data._id}`,
+   "status": `${status}`
     }));
   },
   deleteItem () {
     var req = new XMLHttpRequest();
-      req.open('DELETE', '/delete/');
-      req.setRequestHeader("Content-Type", "application/json");
-      req.addEventListener('load', (data) => {
-        this.props.updateBoard();
-      });
-      req.send(JSON.stringify({
-        "id":`${this.props.data._id}`,
-      }))
+    req.open('DELETE', '/delete/');
+    req.setRequestHeader("Content-Type", "application/json");
+    req.addEventListener('load', (data) => {
+      this.props.updateBoard();
+    });
+    req.send(JSON.stringify({
+      "id":`${this.props.data._id}`,
+    }))
   },
   render() {
     return (
@@ -46,8 +46,9 @@ var Card = React.createClass({
         <br/>
         <button onClick={this.handleStatusLeft}>&larr;</button>
         <button onClick={this.handleStatusRight}>&rarr;</button>
-        </div>
+      </div>
     )
   }
 });
+
 export default Card;
