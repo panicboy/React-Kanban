@@ -73,7 +73,7 @@ header h1 {
   flex-wrap: wrap;
   width: 33.33%;
   min-height: 15em;
-  justify-content: center;
+  justify-content: space-between;
   align-content: flex-start;
   padding: 15px;
   background-color:grey;
@@ -96,10 +96,10 @@ header h1 {
 }
 
 .close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 20px;
-  font-weight: bold;
+    color: #aaaaaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .close:hover,
@@ -115,6 +115,38 @@ header h1 {
   margin-bottom: 5px;
 }
 button{
-  padding: 5px 7.5px;
+  padding: 3% 5%;
   background: #fff;
 }
+form {
+  display: table;
+  margin: 40px auto;
+  background: white;
+  padding:50px 100px;
+  border-radius:3px;
+}
+form label {
+  position: relative;
+  display: block;
+  color: #000;
+  font-size:20px;
+}
+form input {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+form span {
+  color:red;
+}
+form button {
+  display:block;
+  margin:10px auto;
+}
+

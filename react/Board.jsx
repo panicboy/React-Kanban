@@ -5,7 +5,7 @@ var Board = React.createClass({
   getInitialState: function(){
     return {};
   },
-  updateBoard () {
+  updateBoard () { //passed down to children as a prop to update board when adding/moving a card
     this.queryDatabase();
   },
   componentDidMount() {
@@ -18,8 +18,7 @@ var Board = React.createClass({
     req.send();
   },
   loadData (data) {
-    var parsedData = JSON.parse(data.currentTarget.response);
-    this.setState({data:parsedData});
+    this.setState({data:JSON.parse(data.currentTarget.response)});
   },
   render() {
     return (
@@ -29,11 +28,4 @@ var Board = React.createClass({
     )
   }
 });
-Board.defaultProps = {
-  data: [],
-};
-
-Board.propTypes = {
-  data: React.PropTypes.array,
-};
 export default Board;

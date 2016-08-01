@@ -8,8 +8,7 @@ var Column = React.createClass({
     };
   },
   render() {
-    var data = this.props.data;
-    var cards = this.createByColumn(data);
+    var cards = this.createByColumn(this.props.data);
     return (
       <div className="container column-holder">
         <div id="Queue" className="column">

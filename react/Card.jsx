@@ -1,40 +1,14 @@
 import React from 'react';
 
 var Card = React.createClass({
-  statusMoveLeft(theStatus){
-    switch (theStatus) {
-      case 'Queue':
-        return 'Done';
-      break;
-      case 'Done':
-        return 'InProgress';
-      break;
-      case 'InProgress':
-        return 'Queue';
-      break;
-    }
-  },
-  statusMoveRight(theStatus){
-    switch (theStatus) {
-      case 'Queue':
-        return 'InProgress';
-      break;
-      case 'InProgress':
-        return 'Done';
-      break;
-      case 'Done':
-        return 'Queue';
-      break;
-    }
-  },
   handleStatusLeft () {
     var status = this.props.data.status;
-    status = this.statusMoveLeft(status);
+    status = {Queue: 'Done', Done: 'InProgress', InProgress: 'Queue'}[status];
     this.createReq(status);
   },
   handleStatusRight () {
     var status = this.props.data.status;
-    status = this.statusMoveRight(status);
+    status = {Queue: 'InProgress', InProgress: 'Done', Done: 'Queue'}[status];
     this.createReq(status);
   },
   createReq (status) {
@@ -62,7 +36,7 @@ var Card = React.createClass({
   },
   render() {
     return (
-      <div key={this.props.data._id} className={'card small small-card ' + this.props.data.priority} data-id={this.props.data._id} data-createdat={this.props.data.createdAt}>
+      <div key={this.props.data._id} className={'card small small-card ' + this.props.data.priority} data-id={this.props.data._id} data-createdat={this.props.data.createdAt} draggable="true">
         <span onClick={this.deleteItem} className="close">×</span>
         <span className="title small">{this.props.data.title}</span>
         <span className="assigned-to small">{this.props.data.assignedTo}</span>
