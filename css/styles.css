@@ -30,21 +30,42 @@ header h1 {
   height:100%;
   width: 100%;
 }
+.center {
+  display:flex;
+  justify-content: center;
+}
+.newCard {
+  font-size:10em;
+  cursor:pointer;
+  color:aqua;
+  text-shadow: 1px 1px aqua;
+}
 
 .small-card{
   font-size: 12px;
   line-height: 15px;
-  width: 30%;
-  height: 10em;
+  height: 40%;
   border: solid 1px black;
   padding: 10px;
   margin-bottom: 15px;
   margin-left: 20px;
   background-color: #8D56E5;
 }
-.small-card {
-  text-align:center;
+
+@media (min-width:1200px) {
+  .small-card {
+    width:100%;
+    position:relative;
+
+  }
 }
+@media (min-width:1600px) {
+  .small-card {
+    width:40%;
+    position:relative;
+  }
+}
+
 
 .low,
 .Low {
@@ -72,7 +93,7 @@ header h1 {
   flex-direction: row;
   flex-wrap: wrap;
   width: 33.33%;
-  min-height: 15em;
+  min-height: 10em;
   justify-content: space-between;
   align-content: flex-start;
   padding: 15px;

@@ -1,4 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+
+import Form from './Form.jsx';
 import Column from './Column.jsx';
 
 var Board = React.createClass({
@@ -20,10 +23,16 @@ var Board = React.createClass({
   loadData (data) {
     this.setState({data:JSON.parse(data.currentTarget.response)});
   },
+  renderForm () {
+    ReactDOM.render(<Form />, document.getElementById('content'));
+  },
   render() {
     return (
       <div>
         <Column updateBoard={this.updateBoard} data={this.state.data} />
+        <div className="center">
+          <span onClick={this.renderForm} className="newCard">&#43;</span>
+        </div>
       </div>
     )
   }

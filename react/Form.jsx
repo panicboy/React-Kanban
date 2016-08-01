@@ -12,6 +12,7 @@ var Form = React.createClass({
       priority: '',
       createdBy: '',
       assignedTo: '',
+      status: '',
     };
   },
   componentDidMount() {
@@ -20,6 +21,7 @@ var Form = React.createClass({
       priority: this.props.priority,
       createdBy: this.props.createdBy,
       assignedTo: this.props.assignedTo,
+      status: this.props.status,
     });
   },
   submit(data) { //on data submit, send all data as a normal form
@@ -46,6 +48,7 @@ var Form = React.createClass({
         <MyInput value={this.state.priority} name="priority" title="Priority" validations="isIn:['low','medium','high','blocker','Low','Medium','High','Blocker']" validationError="Please choose either low, medium, high, or blocker." required />
         <MyInput value={this.state.createdBy} name="createdby" title="Created By" required />
         <MyInput value={this.state.assignedTo} name="assignedto" title="Assigned To" required />
+        <MyInput value={this.state.status} name="status" type="hidden" />
         <button type="submit" disabled={!this.state.canSubmit}> Submit </button>
       </Formsy.Form>
     );

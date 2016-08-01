@@ -10,24 +10,26 @@ var Card = React.createClass({
       priority: '',
       createdBy: '',
       assignedTo: '',
+      status: '',
     };
   },
   componentDidMount() {
     this.setState({
-    title: this.props.data.title,
-    priority: this.props.data.priority,
-    createdBy: this.props.data.createdBy,
-    assignedTo: this.props.data.assignedTo,
+      title: this.props.data.title,
+      priority: this.props.data.priority,
+      createdBy: this.props.data.createdBy,
+      assignedTo: this.props.data.assignedTo,
+      status: this.props.data.status,
     });
   },
   handleStatusLeft () {
-    var status = this.props.data.status;
-    status = {Queue: 'Done', Done: 'InProgress', InProgress: 'Queue'}[status];
+    var status = this.props.data.status.replace(/\s/g, '');;
+    status = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[status];
     this.createReq(status);
   },
   handleStatusRight () {
-    var status = this.props.data.status;
-    status = {Queue: 'InProgress', InProgress: 'Done', Done: 'Queue'}[status];
+    var status = this.props.data.status.replace(/\s/g, '');
+    status = {Queue: 'In Progress', InProgress: 'Done', Done: 'Queue'}[status];
     this.createReq(status);
   },
   createReq (status) {
@@ -56,7 +58,7 @@ var Card = React.createClass({
   editItem () {
     //on edit button click
     ReactDOM.render(<Form {...this.state}/>,document.getElementById('content'));
-    this.deleteItem(); //delete item so no duplicates
+    this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
   },
   render() {
     return (
@@ -64,10 +66,10 @@ var Card = React.createClass({
         <span onClick={this.deleteItem} className="close">&#120;</span>
         <span onClick={this.editItem} className="edit">&#9998;</span>
         <span className="title small">{this.state.title}</span>
-        <span className="assigned-to small">{this.state.assignedTo}</span>
-        <span className="created-by small">{this.state.createdBy}</span>
-        <span className="priority small">{this.state.priority}</span>
-        <span className="status small">{this.state.status}</span>
+        <span className="assigned-to small">Assignee: {this.state.assignedTo}</span>
+        <span className="created-by small">Assignor: {this.state.createdBy}</span>
+        <span className="priority small">Priority: {this.state.priority}</span>
+        <span className="status small">Status: {this.state.status}</span>
         <button onClick={this.handleStatusLeft}>&larr;</button>
         <button onClick={this.handleStatusRight}>&rarr;</button>
       </div>

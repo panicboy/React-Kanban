@@ -34,7 +34,7 @@ var Column = React.createClass({
             <Card updateBoard={this.props.updateBoard} data={e} />
           )
           break;
-        case 'InProgress':
+        case 'In Progress':
           inProgressArr.push(
             <Card updateBoard={this.props.updateBoard} data={e} />
           )

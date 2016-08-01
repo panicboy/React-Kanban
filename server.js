@@ -36,10 +36,10 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(express.static(__dirname));
 app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    stats: {
-      colors: true,
-    }
+  publicPath: config.output.publicPath,
+  stats: {
+    colors: true,
+  }
 }));
 
 app.get('/', (req, res) => {
@@ -57,7 +57,7 @@ app.get('/data', (req, res) => {
 app.put('/edit/', (req, res) => {
   Card.findByIdAndUpdate(req.body.id, {
     $set: {
-      status: req.body.status
+      status: req.body.status,
   }},
   function (err, card) {
     if (err) return console.log('Error: ', err);
@@ -76,11 +76,11 @@ app.delete('/delete/', (req, res) => {
 app.post('/', (req, res) => {
   var body = req.body;
   var newCard = new Card({
-    title:body.title,
-    priority: body.priority,
-    status: "Queue",
-    createdBy: body.createdby,
-    assignedTo: body.assignedto,
+    title: body.title || "Title",
+    priority: body.priority || "Priority",
+    status: body.status || "Queue",
+    createdBy: body.createdby || "Created By",
+    assignedTo: body.assignedto || "Assigned To",
   });
   newCard.save( (err, data) => {
     if(err) console.log(err);
