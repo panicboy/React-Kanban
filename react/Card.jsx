@@ -2,16 +2,14 @@ import React from 'react';
 
 var Card = React.createClass({
   handleStatusLeft () {
-    var status = this.props.data.status;
-    status = {Queue: 'Done', Done: 'InProgress', InProgress: 'Queue'}[status];
-    this.createReq(status);
+    status = {Queue: 'Done', Done: 'InProgress', InProgress: 'Queue'}[this.props.data.status];
+    this.createReq(status, 'status');
   },
   handleStatusRight () {
-    var status = this.props.data.status;
-    status = {Queue: 'InProgress', InProgress: 'Done', Done: 'Queue'}[status];
-    this.createReq(status);
+    status = {Queue: 'InProgress', InProgress: 'Done', Done: 'Queue'}[this.props.data.status];
+    this.createReq(status, 'status');
   },
-  createReq (status) {
+  createReq (fieldValue, fieldToUpdate) {
     var req = new XMLHttpRequest();
       req.open('PUT', `/edit/`);
       req.setRequestHeader("Content-Type", "application/json");
@@ -20,8 +18,13 @@ var Card = React.createClass({
       });
       req.send(JSON.stringify({
      "id":`${this.props.data._id}`,
-     "status": `${status}`
+     `"#{fieldToUpdate}"`: `${fieldValue}`
     }));
+  },
+  cyclePriority(thePriority){
+    if('low medium high blocker Low Medium High Blocker'.indexOf(thePriority) < 0) return 'Low';
+    return {Low: 'Medium', Medium: 'High', High: 'Blocker', Blocker: 'Low'}[thePriority];
+    this.createReq(thePriority, 'priority');
   },
   deleteItem () {
     var req = new XMLHttpRequest();
@@ -41,8 +44,8 @@ var Card = React.createClass({
         <span className="title small">{this.props.data.title}</span>
         <span className="assigned-to small">{this.props.data.assignedTo}</span>
         <span className="created-by small">{this.props.data.createdBy}</span>
-        <span className="priority small">{this.props.data.priority}</span>
-        <span className="status small">{this.props.data.status}</span>
+        <span className="priority small">{this.props.data.priority}  onClick={this.cyclePriority}</span>
+        <span className="status small">{this.props.data.status} onClick={this.handleStatusRight}</span>
         <br/>
         <button onClick={this.handleStatusLeft}>&larr;</button>
         <button onClick={this.handleStatusRight}>&rarr;</button>
