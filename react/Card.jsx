@@ -38,13 +38,14 @@ var Card = React.createClass({
     return (
       <div key={this.props.data._id} className={'card small small-card ' + this.props.data.priority} data-id={this.props.data._id} data-createdat={this.props.data.createdAt} draggable="true">
         <span onClick={this.deleteItem} className="close">×</span>
-        <span className="title small" contenteditable="true">{this.props.data.title}</span>
+        <span className="title small">{this.props.data.title}</span>
         <span className="assigned-to small">{this.props.data.assignedTo}</span>
         <span className="created-by small">{this.props.data.createdBy}</span>
         <span className="priority small">{this.props.data.priority}</span>
-        <span className="status small" onClick={this.handleStatusRight}>{this.props.data.status}</span>
-        <button onClick={this.handleStatusLeft}>Left</button>
-        <button onClick={this.handleStatusRight}>Right</button>
+        <span className="status small">{this.props.data.status}</span>
+        <br/>
+        <button onClick={this.handleStatusLeft}>&larr;</button>
+        <button onClick={this.handleStatusRight}>&rarr;</button>
         </div>
     )
   }

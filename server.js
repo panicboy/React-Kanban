@@ -41,7 +41,7 @@ app.use(webpackDevMiddleware(compiler, {
       colors: true,
     }
 }));
-//l
+
 app.get('/', (req, res) => {
   res.render('index');
 });
