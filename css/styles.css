@@ -78,17 +78,8 @@ header h1 {
   padding: 15px;
   background-color:grey;
   border-bottom: 20px ridge silver;
-}
-#Queue {
-  border-left: 20px ridge silver;
-}
-#InProgress{
-  height:100%;
-  border-left: 20px ridge silver;
-  border-right: 20px groove silver;
-}
-#Done {
-  border-right: 20px groove silver;
+  border-left: 10px ridge silver;
+  border-right: 10px groove silver;
 }
 
 .column-holder{
@@ -103,7 +94,6 @@ header h1 {
 .small-card > span{
   display: table;
 }
-
 
 .close {
   color: #aaaaaa;
@@ -123,4 +113,8 @@ header h1 {
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 5px;
+}
+button{
+  padding: 5px 7.5px;
+  background: #fff;
 }
