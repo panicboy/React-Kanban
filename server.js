@@ -60,12 +60,8 @@ app.put('/edit/', (req, res) => {
     for(var key in req.body) {
       if(req.body.hasOwnProperty(key) && key != 'id') reqObject[key] = req.body[key];
     }
-  console.log('req.body: ', req.body);
-  console.log('reqObject: ', reqObject);
+  // reqObject is an object with field name and value, i.e., { priority : 'High'}
   Card.findByIdAndUpdate(req.body.id, {
-    // $set: {
-    //   status: req.body.status
-    // }
     $set: reqObject
   },
   function (err, card) {
