@@ -41,9 +41,12 @@ var Card = React.createClass({
     this.createReq('priority', thePriority);
     },
   createReq (fieldName, fieldValue) {
+<<<<<<< HEAD
     if(this.props.data._id == (undefined || 'undefined' || null)) {
       console.log('error: this.props.data._id = ', this.props.data._id);
     }
+=======
+>>>>>>> 07af57904f9fbe5cfce9b7d1f9b7af52c472ae77
     var myRequest = {
       id : this.props.data._id || 0,
     };
