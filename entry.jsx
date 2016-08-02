@@ -10,7 +10,6 @@ import App from './App.js';
 
 ReactDOM.render(
   <Router history={hashHistory}>
-    <Route path="/new" component={Form} />
     <Route path='*' component={App} />
   </Router>, document.getElementById('content')
 );

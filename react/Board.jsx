@@ -6,7 +6,9 @@ import Column from './Column.jsx';
 
 var Board = React.createClass({
   getInitialState: function(){
-    return {};
+    return {
+      showForm:false,
+    };
   },
   updateBoard () { //passed down to children as a prop to update board when adding/moving a card
     this.queryDatabase();
@@ -24,12 +26,15 @@ var Board = React.createClass({
     this.setState({data:JSON.parse(data.currentTarget.response)});
   },
   renderForm () {
-    ReactDOM.render(<Form />, document.getElementById('content'));
+    this.setState({showForm:true});
+  },
+  hideForm () {
+    this.setState({showForm:false});
   },
   render() {
     return (
       <div>
-        <Column updateBoard={this.updateBoard} data={this.state.data} />
+        <Column showForm={this.state.showForm} hideForm={this.hideForm} updateBoard={this.updateBoard} data={this.state.data} />
         <div className="center">
           <span onClick={this.renderForm} className="newCard">&#43;</span>
         </div>
