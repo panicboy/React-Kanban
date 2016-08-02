@@ -22,13 +22,21 @@ var Column = React.createClass({
     }
     // Do something with the data
     var newStatus = null;
-    if(event.target.id.length > 3) newStatus = event.target.id;
-    if(event.target.getAttribute("data-status") !== null) newStatus = event.target.getAttribute("data-status");
-    if(newStatus === null) newStatus = event.target.parentNode.parentNode.id;
-    if(newStatus == 'InProgress') newStatus = 'In Progress';
-    if('Queue In Progress Done Blocker'.indexOf(newStatus) >= 0 ) cardData.status = newStatus;
-    if(newStatus == 'InProgress') newStatus = 'In Progress';
-
+    if(event.target.id.length > 3) {
+      newStatus = event.target.id;
+    }
+    if(event.target.getAttribute("data-status") !== null) {
+      newStatus = event.target.getAttribute("data-status");
+    }
+    if(newStatus === null) {
+      newStatus = event.target.parentNode.parentNode.id;
+    }
+    if(newStatus === 'InProgress') {
+      newStatus = 'In Progress';
+    }
+    if('Queue In Progress Done Blocker'.indexOf(newStatus) >= 0 ) {
+      cardData.status = newStatus;
+    }
 
     var req = new XMLHttpRequest();
     req.open('PUT', `/edit/`);
