@@ -28,7 +28,8 @@ var Column = React.createClass({
     if(event.target.getAttribute("data-status") !== null) newStatus = event.target.getAttribute("data-status");
     if(newStatus === null) newStatus = event.target.parentNode.parentNode.id;
     if(newStatus == 'InProgress') newStatus = 'In Progress';
-    if(newStatus !== null && newStatus.length > 3) cardData.status = newStatus
+    if('Queue In Progress Done Blocker'.indexOf(newStatus) >= 0 ) cardData.status = newStatus;
+
     let req = new XMLHttpRequest();
     req.open('PUT', `/edit/`);
     req.setRequestHeader("Content-Type", "application/json");
