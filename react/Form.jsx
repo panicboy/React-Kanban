@@ -41,16 +41,31 @@ var Form = React.createClass({
       canSubmit: false,
     });
   },
+  //these two methods disable the back button while editing
+  back () {
+    ReactDOM.render(<Board />, document.getElementById('content'));
+  },
+  shouldIback () {
+    if(this.state.title === undefined) {
+      console.log('returning');
+      return '↩';
+    }
+  },
   render() {
     return (
-      <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="input">
-        <MyInput value={this.state.title} name="title" title="Title" required />
-        <MyInput value={this.state.priority} name="priority" title="Priority" validations="isIn:['low','medium','high','blocker','Low','Medium','High','Blocker']" validationError="Please choose either low, medium, high, or blocker." required />
-        <MyInput value={this.state.createdBy} name="createdby" title="Created By" required />
-        <MyInput value={this.state.assignedTo} name="assignedto" title="Assigned To" required />
-        <MyInput value={this.state.status} name="status" type="hidden" />
-        <button type="submit" disabled={!this.state.canSubmit}> Submit </button>
-      </Formsy.Form>
+      <div>
+        <Formsy.Form id="form" onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="input">
+          <MyInput value={this.state.title} name="title" title="Title" required />
+          <MyInput value={this.state.priority} name="priority" title="Priority" validations="isIn:['low','medium','high','blocker','Low','Medium','High','Blocker']" validationError="Please choose either low, medium, high, or blocker." required />
+          <MyInput value={this.state.createdBy} name="createdby" title="Created By" required />
+          <MyInput value={this.state.assignedTo} name="assignedto" title="Assigned To" required />
+          <MyInput value={this.state.status} name="status" type="hidden" />
+          <button type="submit" disabled={!this.state.canSubmit}> Submit </button>
+        </Formsy.Form>
+        <div className="center">
+          <span onClick={this.back} className="backArrow">{this.shouldIback()}</span>
+        </div>
+      </div>
     );
   }
 });

@@ -60,11 +60,16 @@ var Card = React.createClass({
     ReactDOM.render(<Form {...this.state}/>,document.getElementById('content'));
     this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
   },
+  timestamp () {
+    var date = new Date(this.props.data.createdAt);
+    return `${date.getMonth()}/${date.getDay()}/${date.getFullYear() - 2000}`;
+  },
   render() {
     return (
       <div key={this.props.data._id} className={'card small small-card ' + this.props.data.priority} data-id={this.props.data._id} data-createdat={this.props.data.createdAt} draggable="true">
         <span onClick={this.deleteItem} className="close">&#120;</span>
         <span onClick={this.editItem} className="edit">&#9998;</span>
+        <span className="timestamp">{this.timestamp()}</span>
         <span className="title small">{this.state.title}</span>
         <span className="assigned-to small">Assignee: {this.state.assignedTo}</span>
         <span className="created-by small">Assignor: {this.state.createdBy}</span>

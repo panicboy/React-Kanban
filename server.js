@@ -85,8 +85,8 @@ app.post('/', (req, res) => {
   newCard.save( (err, data) => {
     if(err) console.log(err);
     else {
-      console.log(`Saved : ' + ${data}`);
-    }
+      console.log('Successfully saved.');
+  }
   });
 });
 
