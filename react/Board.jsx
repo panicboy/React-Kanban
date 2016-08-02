@@ -13,7 +13,7 @@ var Board = React.createClass({
   },
   queryDatabase () {
     var req = new XMLHttpRequest();
-    req.open('GET', 'http://localhost:3000/data');
+    req.open('GET', '/data');
     req.addEventListener('load', this.loadData);
     req.send();
   },

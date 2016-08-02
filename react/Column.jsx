@@ -4,7 +4,7 @@ import Card from './Card.jsx';
 var Column = React.createClass({
   getDefaultProps() {
     return {
-      data: []
+      data: [],
     };
   },
   render() {
@@ -28,21 +28,21 @@ var Column = React.createClass({
     var queueArr = [];
     var inProgressArr = [];
     var doneArr = [];
-    data.forEach( (e) => {
+    data.forEach( (e,i,a) => {
       switch(e.status) {
         case 'Queue':
           queueArr.push(
-            <Card updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'InProgress':
           inProgressArr.push(
-            <Card updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'Done':
           doneArr.push(
-            <Card updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
       }
