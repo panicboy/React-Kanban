@@ -1,0 +1,122 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
+
+html, body {
+  min-height: 100% !important;
+  height: 100%;
+}
+body {
+  font-family: Open Sans;
+  background: #333;
+  color:black;
+  text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+}
+
+header {
+  padding: 2em 0;
+  width: 100%;
+  border-bottom: 20px groove silver;
+  color: silver;
+}
+header h1 {
+  margin: 0;
+  text-align: center;
+  font-size: 4em;
+  font-weight: 300;
+  letter-spacing: 5px;
+  text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+}
+
+#content{
+  height:100%;
+  width: 100%;
+}
+
+.small-card{
+  font-size: 12px;
+  line-height: 15px;
+  width: 30%;
+  height: 10em;
+  border: solid 1px black;
+  padding: 10px;
+  margin-bottom: 15px;
+  margin-left: 20px;
+  background-color: #8D56E5;
+}
+.small-card {
+  text-align:center;
+}
+
+.low,
+.Low {
+  background-color: #b3ffb3;
+}
+
+.medium,
+.Medium {
+  background-color: #FFD175;
+}
+
+.high,
+.High {
+  background-color: #FF769B;
+}
+
+.blocker,
+.Blocker {
+  background-color: #ED4252;
+}
+
+.column{
+  height:100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 33.33%;
+  min-height: 15em;
+  justify-content: space-between;
+  align-content: flex-start;
+  padding: 15px;
+  background-color:grey;
+  border-bottom: 20px ridge silver;
+  border-left: 10px ridge silver;
+  border-right: 10px groove silver;
+}
+
+.column-holder{
+  height:100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  align-items: stretch;
+}
+
+.small-card > span{
+  display: table;
+}
+
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #ff0000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.small-card > .title{
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+button{
+  padding: 5px 7.5px;
+  background: #fff;
+}
