@@ -68,8 +68,18 @@ var Card = React.createClass({
   },
   editItem () {
     //on edit button click
-    ReactDOM.render(<Form {...this.state}/>,document.getElementById('content'));
-    this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
+    if(!this.props.editFormsBeingShown) {
+      try {
+        this.props.renderEditFormQueue(this.state);
+      } catch (e) {
+        try {
+          this.props.renderEditFormInProgress(this.state);
+        } catch (e) {
+          this.props.renderEditFormDone(this.state);
+        }
+      }
+      this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
+    }
   },
   timestamp () {
     var date = new Date(this.props.data.createdAt);
