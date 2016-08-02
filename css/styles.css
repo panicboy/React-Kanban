@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
 
 html, body {
-  min-height: 100% !important;
+  min-height: 100%;
   height: 100%;
 }
 body {
@@ -30,22 +30,39 @@ header h1 {
   height:100%;
   width: 100%;
 }
+.center {
+  display:flex;
+  justify-content: center;
+}
+.newCard {
+  font-size:10em;
+  cursor:pointer;
+  color:aqua;
+  text-shadow: 1px 1px aqua;
+}
 
 .small-card{
   font-size: 12px;
   line-height: 15px;
-  width: 30%;
-  height: 10em;
+  height: 40%;
   border: solid 1px black;
   padding: 10px;
-  margin-bottom: 15px;
-  margin-left: 20px;
   background-color: #8D56E5;
-}
-.small-card {
+  margin:15px auto;
   text-align:center;
 }
 
+@media (min-width:1200px) {
+  .small-card {
+    width:100%;
+
+  }
+}
+@media (min-width:1600px) {
+  .small-card {
+    width:40%;
+  }
+}
 .low,
 .Low {
   background-color: #b3ffb3;
@@ -72,7 +89,7 @@ header h1 {
   flex-direction: row;
   flex-wrap: wrap;
   width: 33.33%;
-  min-height: 15em;
+  min-height: 10em;
   justify-content: space-between;
   align-content: flex-start;
   padding: 15px;
@@ -95,20 +112,35 @@ header h1 {
   display: table;
 }
 
+.timestamp {
+  float:right;
 
-/* The Close Button */
+}
+
 .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
+  color: #aaaaaa;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-    color: #ff0000;
-    text-decoration: none;
-    cursor: pointer;
+  color: #ff0000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.edit {
+  color:#4d4d4d;
+  float:right;
+  font-size:24px;
+  font-weight:bold;
+}
+.edit:hover,
+.edit:focus {
+  color: #ff0000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .small-card > .title{
@@ -117,6 +149,45 @@ header h1 {
   margin-bottom: 5px;
 }
 button{
-  padding: 5px 7.5px;
+  padding: 3% 5%;
   background: #fff;
+}
+form {
+  display: table;
+  margin: 40px auto;
+  background: #f2f2f2;
+  padding:25px 100px;
+  border-radius:3px;
+}
+form label {
+  position: relative;
+  display: block;
+  color: #000;
+  font-size:20px;
+}
+form input {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+form span {
+  color:red;
+}
+form button {
+  display:block;
+  margin:10px auto;
+  text-transform: uppercase;
+}
+
+.backArrow {
+  font-size:8em;
+  cursor:pointer;
+  color:aqua;
+  text-shadow: 1px 1px aqua;
 }
