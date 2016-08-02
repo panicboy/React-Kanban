@@ -1,4 +1,4 @@
-import React, { Component, PropTypes} from 'react';
+import React from 'react';
 import Card from './Card.jsx';
 
 var Column = React.createClass({
@@ -27,21 +27,21 @@ var Column = React.createClass({
     var queueArr = [];
     var inProgressArr = [];
     var doneArr = [];
-    data.forEach( (e) => {
+    data.forEach( (e,i,a) => {
       switch(e.status) {
         case 'Queue':
           queueArr.push(
-            <Card updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'In Progress':
           inProgressArr.push(
-            <Card updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'Done':
           doneArr.push(
-            <Card updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
       }

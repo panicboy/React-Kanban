@@ -44,6 +44,7 @@ header h1 {
 .card {
   font-size: 12px;
   line-height: 15px;
+  width:100%;
   height: 40%;
   border: solid 1px black;
   padding: 10px;
@@ -55,12 +56,6 @@ header h1 {
   text-transform:uppercase;
 }
 
-@media (min-width:1200px) {
-  .card {
-    width:100%;
-
-  }
-}
 @media (min-width:1600px) {
   .card {
     width:40%;
@@ -150,9 +145,16 @@ header h1 {
   font-weight: bold;
   margin-bottom: 5px;
 }
+
 button{
-  padding: 3% 5%;
-  background: #fff;
+   font-size:20px;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+    color: #FFFFFF;
+}
+
+button:hover{
+ background-color: #26759E; background-image: -webkit-gradient(linear, left top, left bottom, from(#26759E), to(#133D5B));
+ background-image: linear-gradient(to bottom, #26759E, #133D5B);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#26759E, endColorstr=#133D5B);
 }
 form {
   display: table;

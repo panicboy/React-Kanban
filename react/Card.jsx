@@ -1,33 +1,7 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {DragSource} from 'react-dnd';
-
 import Form from './Form.jsx';
-
-
-
-const cardSource = {
-  beginDrag(props) {
-    return {
-      text: props.text
-    };
-  }
-};
-
-function collect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  };
-}
-
-const propTypes = {
-  text: PropTypes.string.isRequired,
-  isDragging: PropTypes.bool.isRequired,
-  connectDragSource: PropTypes.func.isRequired
-};
-
 
 var Card = React.createClass({
   getInitialState() {
@@ -91,7 +65,6 @@ var Card = React.createClass({
     return `${date.getMonth()}/${date.getDay()}/${date.getFullYear() - 2000}`;
   },
   render() {
-    const { isDragging, connectDragSource, text } = this.props;
     return (
       <div key={this.props.data._id} className={`card ${this.props.data.priority}`} data-id={this.props.data._id} data-createdat={this.props.data.createdAt} draggable="true">
         <span onClick={this.deleteItem} className="close">&#120;</span>
@@ -108,7 +81,5 @@ var Card = React.createClass({
     )
   }
 });
-
-Card.propTypes = propTypes;
 
 export default Card;
