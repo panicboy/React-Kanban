@@ -43,17 +43,16 @@ var Form = React.createClass({
   },
   //these two methods disable the back button while editing
   back () {
-    ReactDOM.render(<Board />, document.getElementById('content'));
+    this.props.hideForm();
   },
   shouldIback () {
     if(this.state.title === undefined) {
-      console.log('returning');
       return '↩';
     }
   },
   render() {
     return (
-      <div>
+      <div className="formDiv">
         <Formsy.Form id="form" onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="input">
           <MyInput value={this.state.title} name="title" title="Title" required />
           <MyInput value={this.state.priority} name="priority" title="Priority" validations="isIn:['low','medium','high','blocker','Low','Medium','High','Blocker']" validationError="Please choose either low, medium, high, or blocker." required />

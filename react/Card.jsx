@@ -34,14 +34,20 @@ var Card = React.createClass({
   },
   cyclePriority(){
     var thePriority = this.props.data.priority.toLowerCase();
-    if('low medium high blocker'.indexOf(thePriority) < 0) thePriority = 'blocker';
+    if('low medium high blocker'.indexOf(thePriority) < 0) {
+      thePriority = 'blocker';
+    }
     thePriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[thePriority];
     this.createReq('priority', thePriority);
-  },
+    },
   createReq (fieldName, fieldValue) {
-    let myRequest = {id : this.props.data._id};
+    if(this.props.data._id == (undefined || 'undefined' || null)) {
+      console.log('error: this.props.data._id = ', this.props.data._id);
+    }
+    var myRequest = {
+      id : this.props.data._id || 0,
+    };
     myRequest[fieldName] = fieldValue;
-    console.log('myRequest: ', myRequest);
     var req = new XMLHttpRequest();
     req.open('PUT', `/edit/`);
     req.setRequestHeader("Content-Type", "application/json");

@@ -5,7 +5,7 @@ html, body {
   height: 100%;
 }
 body {
-  font-family: Open Sans;
+  font-family: Open Sans, 'Helvetica','Arial';
   background: #333;
   color:black;
   text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
@@ -40,7 +40,9 @@ header h1 {
   color: aqua;
   text-shadow: 1px 1px aqua;
 }
-
+.formDiv {
+  margin:0 auto;
+}
 .card {
   font-size: 12px;
   line-height: 15px;
@@ -61,6 +63,7 @@ header h1 {
     width:40%;
   }
 }
+
 .low,
 .Low {
   background-color: #b3ffb3;
@@ -79,6 +82,10 @@ header h1 {
 .blocker,
 .Blocker {
   background-color: #ED4252;
+}
+.priority,
+.status {
+  cursor:pointer;
 }
 
 .column{
@@ -160,9 +167,10 @@ header h1 {
 }
 
 button{
-   font-size:20px;
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
-    color: #FFFFFF;
+  font-size:20px;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  color: #FFFFFF;
+  background-image: linear-gradient(to bottom, #3093C7, #1C5A85);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#3093C7, endColorstr=#1C5A85);
 }
 
 button:hover{
@@ -171,22 +179,22 @@ button:hover{
 }
 form {
   display: table;
-  margin: 40px auto;
+  margin: 10px auto;
   background: #f2f2f2;
-  padding:25px 100px;
+  padding:10px 10px;
   border-radius:3px;
 }
 form label {
   position: relative;
   display: block;
   color: #000;
-  font-size:20px;
+  font-size:12px;
 }
 form input {
   display: block;
   width: 100%;
-  height: 34px;
-  padding: 6px 12px;
+  height: 20px;
+  padding: 6px 6px;
   font-size: 14px;
   color: #555;
   border: 1px solid #CCC;
@@ -198,8 +206,9 @@ form span {
 }
 form button {
   display:block;
-  margin:10px auto;
+  margin:2px auto;
   text-transform: uppercase;
+  font-size:10px;
 }
 
 .backArrow {

@@ -1,6 +1,8 @@
 import React from 'react';
 import Card from './Card.jsx';
 
+import Form from './Form.jsx';
+
 var Column = React.createClass({
   getDefaultProps() {
     return {
@@ -13,6 +15,7 @@ var Column = React.createClass({
       <div className="container column-holder">
         <div id="Queue" className="column">
           {cards[0]}
+          {this.props.showForm ? <Form hideForm={this.props.hideForm} /> : null}
         </div>
         <div id="InProgress" className="column">
           {cards[1]}
@@ -31,17 +34,17 @@ var Column = React.createClass({
       switch(e.status) {
         case 'Queue':
           queueArr.push(
-            <Card key={i} updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'In Progress' || 'InProgress' :
           inProgressArr.push(
-            <Card key={i} updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'Done':
           doneArr.push(
-            <Card key={i} updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
       }
