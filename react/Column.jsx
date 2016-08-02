@@ -9,18 +9,45 @@ var Column = React.createClass({
       data: [],
     };
   },
+  preventDefault (event) {
+    event.preventDefault();
+  },
+  drop (event) {
+    event.preventDefault();
+    let cardData;
+    try {
+      cardData = JSON.parse(event.dataTransfer.getData('text'));
+    } catch (e) {
+      // If the text data isn't parsable we'll just ignore it.
+      console.log(`couldn't parse dropped data: `, e);
+      return;
+    }
+    // Do something with the data
+    let newStatus = event.target.id;
+    if(newStatus == 'InProgress') newStatus = 'In Progress';
+    cardData.status = newStatus;
+    let req = new XMLHttpRequest();
+    req.open('PUT', `/edit/`);
+    req.setRequestHeader("Content-Type", "application/json");
+    req.addEventListener('load', (data) => {
+      this.props.updateBoard();
+    });
+    req.send(JSON.stringify(
+      cardData
+    ));
+  },
   render() {
     var cards = this.createByColumn(this.props.data);
     return (
       <div className="container column-holder">
-        <div id="Queue" className="column">
+        <div id="Queue" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
           {cards[0]}
           {this.props.showForm ? <Form hideForm={this.props.hideForm} /> : null}
         </div>
-        <div id="InProgress" className="column">
+        <div id="InProgress" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
           {cards[1]}
         </div>
-        <div id="Done" className="column">
+        <div id="Done" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
           {cards[2]}
         </div>
       </div>

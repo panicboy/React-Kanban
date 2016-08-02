@@ -22,6 +22,13 @@ var Card = React.createClass({
       status: this.props.data.status,
     });
   },
+  dragStart(event) {
+    var cardData = {
+      id: this.props.data._id,
+      status: this.props.data.status
+    };
+    event.dataTransfer.setData('text', JSON.stringify(cardData));
+  },
   handleStatusLeft () {
     var status = this.props.data.status.replace(/\s/g, '');
     status = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[status];
@@ -41,12 +48,9 @@ var Card = React.createClass({
     this.createReq('priority', thePriority);
     },
   createReq (fieldName, fieldValue) {
-<<<<<<< HEAD
     if(this.props.data._id == (undefined || 'undefined' || null)) {
       console.log('error: this.props.data._id = ', this.props.data._id);
     }
-=======
->>>>>>> 07af57904f9fbe5cfce9b7d1f9b7af52c472ae77
     var myRequest = {
       id : this.props.data._id || 0,
     };
@@ -83,7 +87,7 @@ var Card = React.createClass({
   },
   render() {
     return (
-      <div key={this.props.data._id} className={'card small small-card ' + this.props.data.priority} data-id={this.props.data._id} data-createdat={this.props.data.createdAt} draggable="true">
+      <div key={this.props.data._id} className={'card small small-card ' + this.props.data.priority} data-id={this.props.data._id} data-status={this.props.data.status} data-updatedat={this.props.data.updatedAt} draggable="true" onDragStart={this.dragStart}>
         <span onClick={this.deleteItem} className="close">×</span>
         <span onClick={this.editItem} className="edit">&#9998;</span>
         <span className="timestamp">{this.timestamp()}</span>
