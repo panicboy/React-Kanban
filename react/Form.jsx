@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import Board from './Board.jsx';
 import MyInput from './MyInput.jsx';

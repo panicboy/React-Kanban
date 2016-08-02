@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import Form from './Form.jsx';
 
@@ -40,14 +39,14 @@ var Card = React.createClass({
     this.createReq('status', status);
   },
   cyclePriority(){
-    var thePriority = this.props.data.priority.toLowerCase();
+    var thePriority = this.state.priority.toLowerCase();
     if('low medium high blocker'.indexOf(thePriority) < 0) {
       thePriority = 'blocker';
     }
     thePriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[thePriority];
     this.createReq('priority', thePriority);
     this.setState({priority: thePriority}); //added to fix bug where cycle priority wasn't working with edit
-    },
+  },
   createReq (fieldName, fieldValue) {
     var myRequest = {
       id : this.props.data._id || 0,
@@ -94,7 +93,7 @@ var Card = React.createClass({
   },
   render() {
     return (
-      <div key={this.props.data._id} className={`card ${this.props.data.priority}`} data-id={this.props.data._id} data-createdat={this.props.data.createdAt} onDragStart={this.dragStart} draggable="true">
+       <div key={this.props.data._id} className={`card ${this.state.priority}`} data-id={this.props.data._id} data-status={this.state.status} data-updatedat={this.props.data.updatedAt} draggable="true" onDragStart={this.dragStart}>
         <span onClick={this.deleteItem} className="close">&#120;</span>
         <span onClick={this.editItem} className="edit">&#9998;</span>
         <span className="timestamp">{this.timestamp()}</span>

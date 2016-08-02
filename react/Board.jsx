@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import Form from './Form.jsx';
 import Column from './Column.jsx';
@@ -17,7 +16,8 @@ var Board =  React.createClass({
       editFormsBeingShown: 0,
     };
   },
-  updateBoard () { //passed down to children as a prop to update board when adding/moving a card
+  updateBoard () {
+  //passed down to children as a prop to update board
     this.queryDatabase();
   },
   componentDidMount() {
