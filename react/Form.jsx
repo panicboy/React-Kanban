@@ -77,7 +77,7 @@ var Form = React.createClass({
   },
   checkValues () {
     if(this.props.status) {
-      return [this.props.status.title,this.props.status.priority,this.props.status.createdBy,this.props.status.assignedTo];
+      return [this.props.status.title,this.props.status.priority,this.props.status.createdBy,this.props.status.assignedTo,this.props.status.status];
     } else {
       return ['','','','',''];
     }

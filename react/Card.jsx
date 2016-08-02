@@ -46,6 +46,7 @@ var Card = React.createClass({
     }
     thePriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[thePriority];
     this.createReq('priority', thePriority);
+    this.setState({priority: thePriority}); //added to fix bug where cycle priority wasn't working with edit
     },
   createReq (fieldName, fieldValue) {
     var myRequest = {
@@ -75,6 +76,7 @@ var Card = React.createClass({
   },
   editItem () { //on edit button click
     if(!this.props.editFormsBeingShown) {
+      this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
       try {
         this.props.renderEditFormQueue(this.state);
       } catch (e) {
@@ -84,7 +86,6 @@ var Card = React.createClass({
           this.props.renderEditFormDone(this.state);
         }
       }
-      this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
     }
   },
   timestamp () {

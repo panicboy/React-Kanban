@@ -80,7 +80,7 @@ app.put('/edit/', (req, res) => {
 app.delete('/delete/', (req, res) => {
   Card.findByIdAndRemove({"_id":req.body.id},
   function (err, card) {
-    if (err) return console.log(`Erroror with DELETE: ${err}`);
+    if (err) return console.log(`Error with DELETE: ${err}`);
     return res.json(card);
   });
 });

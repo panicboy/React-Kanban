@@ -21,9 +21,6 @@ var Column = React.createClass({
       return;
     }
     // Do something with the data
-    if(!event.target.allowDrop) { //check if its a card or a colum
-      return;
-    }
     var newStatus = event.target.id;
     if(newStatus == 'InProgress') newStatus = 'In Progress';
     cardData.status = newStatus;

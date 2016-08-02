@@ -33,7 +33,9 @@ var Board =  React.createClass({
     this.setState({data:JSON.parse(data.currentTarget.response)});
   },
   renderForm () {
-    this.setState({showForm:true});
+    this.setState({
+      showForm:true,
+    });
   },
   renderEditFormQueue (state) {
     this.setState({
@@ -57,7 +59,9 @@ var Board =  React.createClass({
     });
   },
   hideForm () {
-    this.setState({showForm:false});
+    this.setState({
+      showForm:false,
+    });
   },
   hideEditFormQueue () {
     this.setState({
@@ -83,7 +87,7 @@ var Board =  React.createClass({
   render() {
     return (
       <div>
-        <Column allowDrop={true} editFormsBeingShown={this.state.editFormsBeingShown} showEditFormQueueState={this.state.showEditFormQueueState}  showEditFormInProgressState={this.state.showEditFormInProgressState}  showEditFormDoneState={this.state.showEditFormDoneState} showEditFormQueue={this.state.showEditFormQueue} showEditFormInProgress={this.state.showEditFormInProgress} showEditFormDone={this.state.showEditFormDone} renderEditFormQueue={this.renderEditFormQueue} hideEditFormQueue={this.hideEditFormQueue} renderEditFormInProgress={this.renderEditFormInProgress} hideEditFormInProgress={this.hideEditFormInProgress} renderEditFormDone={this.renderEditFormDone} hideEditFormDone={this.hideEditFormDone} showForm={this.state.showForm} hideForm={this.hideForm} updateBoard={this.updateBoard} data={this.state.data} />
+        <Column editFormsBeingShown={this.state.editFormsBeingShown} showEditFormQueueState={this.state.showEditFormQueueState}  showEditFormInProgressState={this.state.showEditFormInProgressState}  showEditFormDoneState={this.state.showEditFormDoneState} showEditFormQueue={this.state.showEditFormQueue} showEditFormInProgress={this.state.showEditFormInProgress} showEditFormDone={this.state.showEditFormDone} renderEditFormQueue={this.renderEditFormQueue} hideEditFormQueue={this.hideEditFormQueue} renderEditFormInProgress={this.renderEditFormInProgress} hideEditFormInProgress={this.hideEditFormInProgress} renderEditFormDone={this.renderEditFormDone} hideEditFormDone={this.hideEditFormDone} showForm={this.state.showForm} hideForm={this.hideForm} updateBoard={this.updateBoard} data={this.state.data} />
         <div className="center">
           <span onClick={this.renderForm} className="newCard">&#43;</span>
         </div>
