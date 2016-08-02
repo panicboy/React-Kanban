@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component, PropTypes} from 'react';
 import Card from './Card.jsx';
 
 var Column = React.createClass({
   getDefaultProps() {
     return {
-      data: []
+      data: [],
     };
   },
   render() {

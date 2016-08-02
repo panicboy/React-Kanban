@@ -41,7 +41,7 @@ header h1 {
   text-shadow: 1px 1px aqua;
 }
 
-.small-card{
+.card {
   font-size: 12px;
   line-height: 15px;
   height: 40%;
@@ -51,15 +51,18 @@ header h1 {
   margin:15px auto;
   text-align:center;
 }
+.priority {
+  text-transform:uppercase;
+}
 
 @media (min-width:1200px) {
-  .small-card {
+  .card {
     width:100%;
 
   }
 }
 @media (min-width:1600px) {
-  .small-card {
+  .card {
     width:40%;
   }
 }
@@ -93,7 +96,7 @@ header h1 {
   justify-content: space-between;
   align-content: flex-start;
   padding: 15px;
-  background-color:grey;
+  background-color: grey;
   border-bottom: 20px ridge silver;
   border-left: 10px ridge silver;
   border-right: 10px groove silver;
@@ -108,13 +111,12 @@ header h1 {
   align-items: stretch;
 }
 
-.small-card > span{
+.card > span{
   display: table;
 }
 
 .timestamp {
   float:right;
-
 }
 
 .close {
@@ -143,7 +145,7 @@ header h1 {
   cursor: pointer;
 }
 
-.small-card > .title{
+.card > .title{
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 5px;
