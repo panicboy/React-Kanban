@@ -36,7 +36,11 @@ var Form = React.createClass({
       try {
         this.props.hideEditFormInProgress();
       } catch(e) {
-        this.props.hideEditFormDone();
+        try {
+          this.props.hideEditFormDone();
+        } catch(e) {
+          //put code in here
+        }
       }
     }
   },

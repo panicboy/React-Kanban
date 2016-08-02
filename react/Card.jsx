@@ -22,6 +22,13 @@ var Card = React.createClass({
       status: this.props.data.status,
     });
   },
+  dragStart(event) {
+    var cardData = {
+      id: this.props.data._id,
+      status: this.props.data.status,
+    };
+    event.dataTransfer.setData('text', JSON.stringify(cardData));
+  },
   handleStatusLeft () {
     var status = this.props.data.status.replace(/\s/g, '');;
     status = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[status];
@@ -66,8 +73,7 @@ var Card = React.createClass({
       "id":`${this.props.data._id}`,
     }))
   },
-  editItem () {
-    //on edit button click
+  editItem () { //on edit button click
     if(!this.props.editFormsBeingShown) {
       try {
         this.props.renderEditFormQueue(this.state);
@@ -87,7 +93,7 @@ var Card = React.createClass({
   },
   render() {
     return (
-      <div key={this.props.data._id} className={`card ${this.props.data.priority}`} data-id={this.props.data._id} data-createdat={this.props.data.createdAt} draggable="true">
+      <div key={this.props.data._id} className={`card ${this.props.data.priority}`} data-id={this.props.data._id} data-createdat={this.props.data.createdAt} onDragStart={this.dragStart} draggable="true">
         <span onClick={this.deleteItem} className="close">&#120;</span>
         <span onClick={this.editItem} className="edit">&#9998;</span>
         <span className="timestamp">{this.timestamp()}</span>
