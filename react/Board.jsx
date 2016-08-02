@@ -1,11 +1,14 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+
+import Form from './Form.jsx';
 import Column from './Column.jsx';
 
 var Board = React.createClass({
   getInitialState: function(){
     return {};
   },
-  updateBoard () {
+  updateBoard () { //passed down to children as a prop to update board when adding/moving a card
     this.queryDatabase();
   },
   componentDidMount() {
@@ -18,22 +21,20 @@ var Board = React.createClass({
     req.send();
   },
   loadData (data) {
-    var parsedData = JSON.parse(data.currentTarget.response);
-    this.setState({data:parsedData});
+    this.setState({data:JSON.parse(data.currentTarget.response)});
+  },
+  renderForm () {
+    ReactDOM.render(<Form />, document.getElementById('content'));
   },
   render() {
     return (
       <div>
         <Column updateBoard={this.updateBoard} data={this.state.data} />
+        <div className="center">
+          <span onClick={this.renderForm} className="newCard">&#43;</span>
+        </div>
       </div>
     )
   }
 });
-Board.defaultProps = {
-  data: [],
-};
-
-Board.propTypes = {
-  data: React.PropTypes.array,
-};
 export default Board;

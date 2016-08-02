@@ -8,8 +8,7 @@ var Column = React.createClass({
     };
   },
   render() {
-    var data = this.props.data;
-    var cards = this.createByColumn(data);
+    var cards = this.createByColumn(this.props.data);
     return (
       <div className="container column-holder">
         <div id="Queue" className="column">
@@ -35,7 +34,7 @@ var Column = React.createClass({
             <Card key={i} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
-        case 'InProgress':
+        case 'In Progress' || 'InProgress' :
           inProgressArr.push(
             <Card key={i} updateBoard={this.props.updateBoard} data={e} />
           )
@@ -49,10 +48,6 @@ var Column = React.createClass({
     });
     return [queueArr, inProgressArr, doneArr];
   },
-
-sayHi(){
-  console.log('Hi!');
-},
 });
 
 export default Column;
