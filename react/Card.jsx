@@ -40,12 +40,13 @@ var Card = React.createClass({
     this.createReq('status', status);
   },
   cyclePriority(){
-    var thePriority = this.props.data.priority.toLowerCase();
+    var thePriority = this.state.priority.toLowerCase();
     if('low medium high blocker'.indexOf(thePriority) < 0) {
       thePriority = 'blocker';
     }
     thePriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[thePriority];
     this.createReq('priority', thePriority);
+    this.setState({priority: thePriority});
     },
   createReq (fieldName, fieldValue) {
     if(this.props.data._id == (undefined || 'undefined' || null)) {
@@ -87,7 +88,7 @@ var Card = React.createClass({
   },
   render() {
     return (
-      <div key={this.props.data._id} className={'card small small-card ' + this.props.data.priority} data-id={this.props.data._id} data-status={this.props.data.status} data-updatedat={this.props.data.updatedAt} draggable="true" onDragStart={this.dragStart}>
+      <div key={this.props.data._id} className={'card small small-card ' + this.state.priority} data-id={this.props.data._id} data-status={this.state.status} data-updatedat={this.props.data.updatedAt} draggable="true" onDragStart={this.dragStart}>
         <span onClick={this.deleteItem} className="close">×</span>
         <span onClick={this.editItem} className="edit">&#9998;</span>
         <span className="timestamp">{this.timestamp()}</span>

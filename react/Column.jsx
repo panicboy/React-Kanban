@@ -23,9 +23,12 @@ var Column = React.createClass({
       return;
     }
     // Do something with the data
-    let newStatus = event.target.id;
+    let newStatus = null;
+    if(event.target.id.length >3) newStatus = event.target.id;
+    if(event.target.getAttribute("data-status") !== null) newStatus = event.target.getAttribute("data-status");
+    if(newStatus === null) newStatus = event.target.parentNode.parentNode.id;
     if(newStatus == 'InProgress') newStatus = 'In Progress';
-    cardData.status = newStatus;
+    if(newStatus !== null && newStatus.length > 3) cardData.status = newStatus
     let req = new XMLHttpRequest();
     req.open('PUT', `/edit/`);
     req.setRequestHeader("Content-Type", "application/json");
