@@ -70,7 +70,7 @@ var Column = React.createClass({
   },
   render() {
     var cards = [];
-    if(this.props.data.length > 0) {
+    if(this.props.data) {
       cards = this.createByColumn(this.props.data);
     }
     return (

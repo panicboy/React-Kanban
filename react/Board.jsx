@@ -8,23 +8,20 @@ import Immutable from 'immutable';
 import {connect} from 'react-redux';
 
 var Board =  React.createClass({
-  getInitialState: function(){
-    return {
-      showForm:false,
-      showEditFormQueue:false,
-      showEditFormQueueState: {},
-      showEditFormInProgress:false,
-      showEditFormInProgressState: {},
-      showEditFormDone:false,
-      showEditFormDoneState: {},
-      editFormsBeingShown: 0,
-    };
-  },
-  updateBoard () {
-  //passed down to children as a prop to update board
-    this.queryDatabase();
-  },
   componentDidMount() {
+    this.updateBoard();
+  },
+  // setBoard () {
+  //   var req = new XMLHttpRequest();
+  //   req.open('GET', '/data');
+  //   req.addEventListener('load', this.setBoardData);
+  //   req.send();
+  // },
+  // setBoardData(data) {
+  //   this.props.setBoard(JSON.parse(data.currentTarget.response));
+  //   console.log(this.props.data);
+  // },
+  updateBoard () {
     this.queryDatabase();
   },
   queryDatabase () {
@@ -37,16 +34,15 @@ var Board =  React.createClass({
     this.props.updateBoard(JSON.parse(data.currentTarget.response));
   },
   renderForm () {
-    this.setState({
-      showForm:true,
-    });
+    this.props.renderForm();
   },
   renderEditFormQueue (state) {
-    this.setState({
-      showEditFormQueue:true,
-      showEditFormQueueState: state,
-      editFormsBeingShown: 1,
-    });
+    // this.setState({
+    //   showEditFormQueue:true,
+    //   showEditFormQueueState: state,
+    //   editFormsBeingShown: 1,
+    // });
+    this.props.renderEditFormQueue(state);
   },
   renderEditFormInProgress (state) {
     this.setState({
@@ -63,9 +59,7 @@ var Board =  React.createClass({
     });
   },
   hideForm () {
-    this.setState({
-      showForm:false,
-    });
+    this.props.hideForm();
   },
   hideEditFormQueue () {
     this.setState({
@@ -91,7 +85,7 @@ var Board =  React.createClass({
   render() {
     return (
       <div>
-        <Column editFormsBeingShown={this.state.editFormsBeingShown} showEditFormQueueState={this.state.showEditFormQueueState}  showEditFormInProgressState={this.state.showEditFormInProgressState}  showEditFormDoneState={this.state.showEditFormDoneState} showEditFormQueue={this.state.showEditFormQueue} showEditFormInProgress={this.state.showEditFormInProgress} showEditFormDone={this.state.showEditFormDone} renderEditFormQueue={this.renderEditFormQueue} hideEditFormQueue={this.hideEditFormQueue} renderEditFormInProgress={this.renderEditFormInProgress} hideEditFormInProgress={this.hideEditFormInProgress} renderEditFormDone={this.renderEditFormDone} hideEditFormDone={this.hideEditFormDone} showForm={this.state.showForm} hideForm={this.hideForm} updateBoard={this.updateBoard} data={this.props.data} />
+        <Column editFormsBeingShown={this.props.editFormsBeingShown} showEditFormQueue={this.props.showEditFormQueueState}  showEditFormInProgressState={this.props.showEditFormInProgressState}  showEditFormDoneState={this.props.showEditFormDoneState} showEditFormQueue={this.props.showEditFormQueue} showEditFormInProgress={this.props.showEditFormInProgress} showEditFormDone={this.props.showEditFormDone} renderEditFormQueue={this.renderEditFormQueue} hideEditFormQueue={this.hideEditFormQueue} renderEditFormInProgress={this.renderEditFormInProgress} hideEditFormInProgress={this.hideEditFormInProgress} renderEditFormDone={this.renderEditFormDone} hideEditFormDone={this.hideEditFormDone} showForm={this.props.showForm} hideForm={this.hideForm} updateBoard={this.updateBoard} data={this.props.data} />
         <div className="center">
           <span onClick={this.renderForm} className="newCard">&#43;</span>
         </div>
@@ -100,8 +94,17 @@ var Board =  React.createClass({
   }
 });
 var mapStateToProps = (state) => {
+  // var stateBoardReducer = state.boardReducer.toJS()
   return {
-    data: state.boardReducer.toJS(),
+    data: state.boardReducer.toJS().data,
+    showForm:state.boardReducer.toJS().showForm,
+    showEditFormQueue:state.boardReducer.toJS().showEditFormQueue,
+    showEditFormQueueState:state.boardReducer.toJS().showFormQueueState,
+    showEditFormInProgress:state.boardReducer.toJS().showFormInProgress,
+    showEditFormInProgressState:state.boardReducer.toJS().showFormInProgressState,
+    showEditFormDone:state.boardReducer.toJS().showEditFormDone,
+    showEditFormDoneState: state.boardReducer.toJS().showFormDoneState,
+    editFormsBeingShown: state.boardReducer.toJS().editFormsBeingShown,
   }
 }
 
@@ -113,6 +116,22 @@ var mapDispatchToProps = (dispatch) => {
         data,
       })
     },
+    renderForm: () => {
+      dispatch({
+        type:'SHOW_FORM',
+      })
+    },
+    hideForm: () => {
+      dispatch({
+        type:'HIDE_FORM',
+      })
+    },
+    renderEditFormQueue: (data) => {
+      dispatch({
+        type:'SHOW_EDIT_FORM_QUEUE',
+        data,
+      })
+    }
   }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Board);
