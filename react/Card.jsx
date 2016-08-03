@@ -88,8 +88,8 @@ var Card = React.createClass({
     }
   },
   timestamp () {
-    var date = new Date(this.props.data.createdAt);
-    return `${date.getMonth()}/${date.getDay()}/${date.getFullYear() - 2000}`;
+    var date = new Date(this.props.data.updatedAt);
+    return date.toLocaleTimeString('en-US', { hour12: false });
   },
   render() {
     return (

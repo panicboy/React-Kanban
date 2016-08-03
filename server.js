@@ -1,7 +1,5 @@
-import Immutable from 'immutable';
-import { connect } from 'react-redux';
+var express = require('express');
 var app = express();
-
 
 var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
@@ -9,10 +7,9 @@ var timestamps = require('mongoose-timestamp');
 var webpack = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
-
 var config = require('./webpack.config');
-var compiler = webpack(config);
 
+var compiler = webpack(config);
 var PORTNUM = 3000; //default port
 
 var methodOverride = require('method-override');
@@ -34,7 +31,7 @@ var cardSchema = new Schema({
 
 cardSchema.plugin(timestamps);
 mongoose.model('Card', cardSchema);
-var Card = mongoose.model('Card', cardSchema);
+ var Card = mongoose.model('Card', cardSchema);
 
 app.use(methodOverride());
 app.use(bodyParser.json());
@@ -49,7 +46,6 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 
 app.get('/', (req, res) => {
-  console.log('/ requested');
   return res.render('index');
 });
 
@@ -89,30 +85,23 @@ app.delete('/delete/', (req, res) => {
   });
 });
 
-var postsPerSecond = 0; //spam protection
 app.post('/', (req, res) => {
-  setInterval( () => {
-    postsPerSecond = 0;
-  }, 1000); //clears every second
-  if(postsPerSecond === 0) {
-    var body = req.body;
-    var newCard = new Card({
-      title: body.title || "Title",
-      priority: body.priority || "Priority",
-      status: body.status || "Queue",
-      createdBy: body.createdby || "Created By",
-      assignedTo: body.assignedto || "Assigned To",
-    });
-    newCard.save( (err, data) => {
-      if(err) console.log(err);
-      else {
-        console.log('Successfully saved.');
-      }
-    });
-    postsPerSecond++;
-  } else {
-    console.log('Could not save. Spam protection invoked.');
-  }
+  var body = req.body;
+  var newCard = new Card({
+    title: body.title || "Title",
+    priority: body.priority || "Priority",
+    status: body.status || "Queue",
+    createdBy: body.createdby || "Created By",
+    assignedTo: body.assignedto || "Assigned To",
+  });
+  newCard.save( (err, data) => {
+    if(err) {
+      console.log(err);
+    } else {
+      let saveDate = new Date();
+      console.log('Successfully saved. ', saveDate.toLocaleTimeString('en-US', { hour12: false }));
+    }
+  });
 });
 
 app.listen(PORTNUM, () => {
