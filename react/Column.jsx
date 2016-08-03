@@ -1,6 +1,8 @@
 import React from 'react';
-import Card from './Card.jsx';
+import Immutable from 'immutable';
+import { connect } from 'react-redux';
 
+import Card from './Card.jsx';
 import Form from './Form.jsx';
 
 var Column = React.createClass({
@@ -24,8 +26,10 @@ var Column = React.createClass({
     }
     // Do something with the data
     let newStatus = null;
-    if(event.target.id.length >3) newStatus = event.target.id;
-    if(event.target.getAttribute("data-status") !== null) newStatus = event.target.getAttribute("data-status");
+    if(event.target.id.length >3) newStatus = event.target.id; // event target is a column
+    // event target is a card
+    if(event.target.getAttribute("data-status") !== null) newStatus = event.target.parentNode.id;
+    // event target is an element on a card
     if(newStatus === null) newStatus = event.target.parentNode.parentNode.id;
     if(newStatus == 'InProgress') newStatus = 'In Progress';
     if('Queue In Progress Done Blocker'.indexOf(newStatus) >= 0 ) cardData.status = newStatus;
