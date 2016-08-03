@@ -1,25 +1,21 @@
-'use strict';
-
 import Immutable from 'immutable';
 
-const initialState = Immutable.List();
+var initialState = Immutable.Map();
 
-const boardReducer = (state = initialState, action) => {
-
-  let newState = state;
-
+var boardReducer = (state = initialState, action) => {
+  console.log(state);
+  var newState = state;
   switch(action.type) {
-
-    // case 'SET_ITEMS':
-    //   return Immutable.fromJS(action.data);
-
-    // case 'DELETE_ITEM':
-    // console.log('state: ', state);
-    //   return state.delete(action.indx);
-
+    case 'UPDATE_BOARD':
+      return Immutable.fromJS(action.data);
+      break;
+    case 'REMOVE_ITEM':
+      return state.delete(action.id);
+      break;
     default:
-     return newState;
+      return newState;
   }
+
 };
 
 export default boardReducer;

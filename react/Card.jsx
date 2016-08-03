@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Immutable from 'immutable';
-import { connect } from 'react-redux';
 
 import Form from './Form.jsx';
 
@@ -27,12 +24,12 @@ var Card = React.createClass({
   dragStart(event) {
     var cardData = {
       id: this.props.data._id,
-      status: this.props.data.status
+      status: this.props.data.status,
     };
     event.dataTransfer.setData('text', JSON.stringify(cardData));
   },
   handleStatusLeft () {
-    var status = this.props.data.status.replace(/\s/g, '');
+    var status = this.props.data.status.replace(/\s/g, '');;
     status = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[status];
     this.createReq('status', status);
   },
@@ -48,12 +45,9 @@ var Card = React.createClass({
     }
     thePriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[thePriority];
     this.createReq('priority', thePriority);
-    this.setState({priority: thePriority});
-    },
+    this.setState({priority: thePriority}); //added to fix bug where cycle priority wasn't working with edit
+  },
   createReq (fieldName, fieldValue) {
-    if(this.props.data._id == (undefined || 'undefined' || null)) {
-      console.log('error: this.props.data._id = ', this.props.data._id);
-    }
     var myRequest = {
       id : this.props.data._id || 0,
     };
@@ -79,19 +73,28 @@ var Card = React.createClass({
       "id":`${this.props.data._id}`,
     }))
   },
-  editItem () {
-    //on edit button click
-    ReactDOM.render(<Form {...this.state}/>,document.getElementById('content'));
-    this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
+  editItem () { //on edit button click
+    if(!this.props.editFormsBeingShown) {
+      this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
+      try {
+        this.props.renderEditFormQueue(this.state);
+      } catch (e) {
+        try {
+          this.props.renderEditFormInProgress(this.state);
+        } catch (e) {
+          this.props.renderEditFormDone(this.state);
+        }
+      }
+    }
   },
   timestamp () {
-    var date = new Date(this.props.data.updatedAt);
-    return date.toLocaleTimeString('en-US', { hour12: false });
+    var date = new Date(this.props.data.createdAt);
+    return `${date.getMonth()}/${date.getDay()}/${date.getFullYear() - 2000}`;
   },
   render() {
     return (
-      <div key={this.props.data._id} className={'card small small-card ' + this.state.priority} data-id={this.props.data._id} data-status={this.state.status} data-updatedat={this.props.data.updatedAt} draggable="true" onDragStart={this.dragStart}>
-        <span onClick={this.deleteItem} className="close">×</span>
+       <div key={this.props.data._id} className={`card ${this.state.priority}`} data-id={this.props.data._id} data-status={this.state.status} data-updatedat={this.props.data.updatedAt} draggable="true" onDragStart={this.dragStart}>
+        <span onClick={this.deleteItem} className="close">&#120;</span>
         <span onClick={this.editItem} className="edit">&#9998;</span>
         <span className="timestamp">{this.timestamp()}</span>
         <span className="title small">{this.props.data.title}</span>

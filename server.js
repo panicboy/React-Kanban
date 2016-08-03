@@ -9,9 +9,10 @@ var timestamps = require('mongoose-timestamp');
 var webpack = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
-var config = require('./webpack.config');
 
+var config = require('./webpack.config');
 var compiler = webpack(config);
+
 var PORTNUM = 3000; //default port
 
 var methodOverride = require('method-override');
@@ -83,7 +84,7 @@ app.put('/edit/', (req, res) => {
 app.delete('/delete/', (req, res) => {
   Card.findByIdAndRemove({"_id":req.body.id},
   function (err, card) {
-    if (err) return console.log(`Erroror with DELETE: ${err}`);
+    if (err) return console.log(`Error with DELETE: ${err}`);
     return res.json(card);
   });
 });

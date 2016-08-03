@@ -1,40 +1,39 @@
 import React from 'react';
-import Immutable from 'immutable';
-import { connect } from 'react-redux';
-
 import Card from './Card.jsx';
+
 import Form from './Form.jsx';
 
 var Column = React.createClass({
-  getDefaultProps() {
-    return {
-      data: [],
-    };
-  },
   preventDefault (event) {
     event.preventDefault();
   },
   drop (event) {
     event.preventDefault();
-    let cardData;
+    var cardData;
     try {
       cardData = JSON.parse(event.dataTransfer.getData('text'));
-    } catch (e) {
-      // If the text data isn't parsable we'll just ignore it.
-      console.log(`couldn't parse dropped data: `, e);
+    } catch (e) { // If the text data isn't parsable ignore it.
       return;
     }
     // Do something with the data
-    let newStatus = null;
-    if(event.target.id.length >3) newStatus = event.target.id; // event target is a column
-    // event target is a card
-    if(event.target.getAttribute("data-status") !== null) newStatus = event.target.parentNode.id;
-    // event target is an element on a card
-    if(newStatus === null) newStatus = event.target.parentNode.parentNode.id;
-    if(newStatus == 'InProgress') newStatus = 'In Progress';
-    if('Queue In Progress Done Blocker'.indexOf(newStatus) >= 0 ) cardData.status = newStatus;
+    var newStatus = null;
+    if(event.target.id.length > 3) {
+      newStatus = event.target.id;
+    }
+    if(event.target.getAttribute("data-status") !== null) {
+      newStatus = event.target.getAttribute("data-status");
+    }
+    if(newStatus === null) {
+      newStatus = event.target.parentNode.parentNode.id;
+    }
+    if(newStatus === 'InProgress') {
+      newStatus = 'In Progress';
+    }
+    if('Queue In Progress Done Blocker'.indexOf(newStatus) >= 0 ) {
+      cardData.status = newStatus;
+    }
 
-    let req = new XMLHttpRequest();
+    var req = new XMLHttpRequest();
     req.open('PUT', `/edit/`);
     req.setRequestHeader("Content-Type", "application/json");
     req.addEventListener('load', (data) => {
@@ -44,23 +43,6 @@ var Column = React.createClass({
       cardData
     ));
   },
-  render() {
-    var cards = this.createByColumn(this.props.data);
-    return (
-      <div className="container column-holder">
-        <div id="Queue" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
-          {cards[0]}
-          {this.props.showForm ? <Form hideForm={this.props.hideForm} /> : null}
-        </div>
-        <div id="InProgress" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
-          {cards[1]}
-        </div>
-        <div id="Done" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
-          {cards[2]}
-        </div>
-      </div>
-    )
-  },
   createByColumn(data) {
     var queueArr = [];
     var inProgressArr = [];
@@ -69,22 +51,45 @@ var Column = React.createClass({
       switch(e.status) {
         case 'Queue':
           queueArr.push(
-            <Card key={i} showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormQueue={this.props.renderEditFormQueue}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
-        case 'In Progress' || 'InProgress' :
+        case 'In Progress':
           inProgressArr.push(
-            <Card key={i} showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormInProgress={this.props.renderEditFormInProgress}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'Done':
           doneArr.push(
-            <Card key={i} showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
+            <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormDone={this.props.renderEditFormDone}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
       }
     });
     return [queueArr, inProgressArr, doneArr];
+  },
+  render() {
+    var cards = [];
+    if(this.props.data.length > 0) {
+      cards = this.createByColumn(this.props.data);
+    }
+    return (
+      <div className="container column-holder">
+        <div id="Queue" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
+          {cards[0]}
+          {this.props.showForm ? <Form updateBoard={this.props.updateBoard} hideForm={this.props.hideForm} /> : null}
+          {this.props.showEditFormQueue ? <Form updateBoard={this.props.updateBoard} status={this.props.showEditFormQueueState} hideEditFormQueue={this.props.hideEditFormQueue} /> : null}
+        </div>
+        <div id="InProgress" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
+          {cards[1]}
+          {this.props.showEditFormInProgress ? <Form editFormsBeingShown={this.props.editFormsBeingShown} updateBoard={this.props.updateBoard} status={this.props.showEditFormInProgressState} hideEditFormInProgress={this.props.hideEditFormInProgress} /> : null}
+        </div>
+        <div id="Done" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
+          {cards[2]}
+          {this.props.showEditFormDone ? <Form editFormsBeingShown={this.props.editFormsBeingShown} updateBoard={this.props.updateBoard} status={this.props.showEditFormDoneState} hideEditFormDone={this.props.hideEditFormDone} /> : null}
+        </div>
+      </div>
+    )
   },
 });
 

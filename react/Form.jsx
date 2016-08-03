@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Immutable from 'immutable';
-import { connect } from 'react-redux';
 
 import Board from './Board.jsx';
 import MyInput from './MyInput.jsx';
@@ -31,7 +28,20 @@ var Form = React.createClass({
     req.open('POST', '/', true);
     req.setRequestHeader("Content-type", "application/json");
     req.send(JSON.stringify(data));
-    ReactDOM.render(<Board />,document.getElementById('content'));
+    this.props.updateBoard();
+    try {
+      this.props.hideEditFormQueue();
+    } catch (e) {
+      try {
+        this.props.hideEditFormInProgress();
+      } catch(e) {
+        try {
+          this.props.hideEditFormDone();
+        } catch(e) {
+          //put code in here
+        }
+      }
+    }
   },
   enableButton() { //triggered by onValid input by Formsy, enabled submit button
     this.setState({
@@ -45,22 +55,42 @@ var Form = React.createClass({
   },
   //these two methods disable the back button while editing
   back () {
-    this.props.hideForm();
+    try {
+      this.props.hideForm();
+    } catch(e) {
+      try {
+        this.props.hideEditFormQueue();
+      } catch(e) {
+        try {
+          this.props.hideEditFormInProgress();
+        } catch(e) {
+          this.props.hideEditFormDone();
+        }
+      }
+    }
   },
   shouldIback () {
-    if(this.state.title === undefined) {
+    if(this.props.status === undefined) {
       return '↩';
     }
   },
+  checkValues () {
+    if(this.props.status) {
+      return [this.props.status.title,this.props.status.priority,this.props.status.createdBy,this.props.status.assignedTo,this.props.status.status];
+    } else {
+      return ['','','','',''];
+    }
+  },
   render() {
+    var values = this.checkValues();
     return (
       <div className="formDiv">
         <Formsy.Form id="form" onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="input">
-          <MyInput value={this.state.title} name="title" title="Title" required />
-          <MyInput value={this.state.priority} name="priority" title="Priority" validations="isIn:['low','medium','high','blocker','Low','Medium','High','Blocker']" validationError="Please choose either low, medium, high, or blocker." required />
-          <MyInput value={this.state.createdBy} name="createdby" title="Created By" required />
-          <MyInput value={this.state.assignedTo} name="assignedto" title="Assigned To" required />
-          <MyInput value={this.state.status} name="status" type="hidden" />
+          <MyInput value={values[0]} name="title" title="Title" required />
+          <MyInput value={values[1]} name="priority" title="Priority" validations="isIn:['low','medium','high','blocker','Low','Medium','High','Blocker']" validationError="Please choose either low, medium, high, or blocker." required />
+          <MyInput value={values[2]} name="createdby" title="Created By" required />
+          <MyInput value={values[3]} name="assignedto" title="Assigned To" required />
+          <MyInput value={values[4]} name="status" type="hidden" />
           <button type="submit" disabled={!this.state.canSubmit}> Submit </button>
         </Formsy.Form>
         <div className="center">
