@@ -7,9 +7,10 @@ var timestamps = require('mongoose-timestamp');
 var webpack = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
-var config = require('./webpack.config');
 
+var config = require('./webpack.config');
 var compiler = webpack(config);
+
 var PORTNUM = 3000; //default port
 
 var methodOverride = require('method-override');

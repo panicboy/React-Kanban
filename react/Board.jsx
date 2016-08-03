@@ -34,9 +34,7 @@ var Board =  React.createClass({
     req.send();
   },
   loadData (data) {
-    this.setState({
-      data:JSON.parse(data.currentTarget.response),
-    });
+    this.props.updateBoard(JSON.parse(data.currentTarget.response));
   },
   renderForm () {
     this.setState({
@@ -93,7 +91,7 @@ var Board =  React.createClass({
   render() {
     return (
       <div>
-        <Column editFormsBeingShown={this.state.editFormsBeingShown} showEditFormQueueState={this.state.showEditFormQueueState}  showEditFormInProgressState={this.state.showEditFormInProgressState}  showEditFormDoneState={this.state.showEditFormDoneState} showEditFormQueue={this.state.showEditFormQueue} showEditFormInProgress={this.state.showEditFormInProgress} showEditFormDone={this.state.showEditFormDone} renderEditFormQueue={this.renderEditFormQueue} hideEditFormQueue={this.hideEditFormQueue} renderEditFormInProgress={this.renderEditFormInProgress} hideEditFormInProgress={this.hideEditFormInProgress} renderEditFormDone={this.renderEditFormDone} hideEditFormDone={this.hideEditFormDone} showForm={this.state.showForm} hideForm={this.hideForm} updateBoard={this.updateBoard} data={this.state.data} />
+        <Column editFormsBeingShown={this.state.editFormsBeingShown} showEditFormQueueState={this.state.showEditFormQueueState}  showEditFormInProgressState={this.state.showEditFormInProgressState}  showEditFormDoneState={this.state.showEditFormDoneState} showEditFormQueue={this.state.showEditFormQueue} showEditFormInProgress={this.state.showEditFormInProgress} showEditFormDone={this.state.showEditFormDone} renderEditFormQueue={this.renderEditFormQueue} hideEditFormQueue={this.hideEditFormQueue} renderEditFormInProgress={this.renderEditFormInProgress} hideEditFormInProgress={this.hideEditFormInProgress} renderEditFormDone={this.renderEditFormDone} hideEditFormDone={this.hideEditFormDone} showForm={this.state.showForm} hideForm={this.hideForm} updateBoard={this.updateBoard} data={this.props.data} />
         <div className="center">
           <span onClick={this.renderForm} className="newCard">&#43;</span>
         </div>
@@ -101,17 +99,20 @@ var Board =  React.createClass({
     )
   }
 });
+var mapStateToProps = (state) => {
+  return {
+    data: state.boardReducer.toJS(),
+  }
+}
 
-var mapStateToProps = (state, ownProps) => {
-  return {};
-};
 var mapDispatchToProps = (dispatch) => {
   return {
-    updateBoard: () => {
+    updateBoard: (data) => {
       dispatch({
         type: 'UPDATE_BOARD',
+        data,
       })
-    }
+    },
   }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Board);

@@ -1,12 +1,13 @@
 import Immutable from 'immutable';
 
-var initialState = Immutable.List();
+var initialState = Immutable.Map();
 
-var editReducer = (state = initialState, action) => {
+var boardReducer = (state = initialState, action) => {
+  console.log(state);
   var newState = state;
   switch(action.type) {
     case 'UPDATE_BOARD':
-      // return Immutable.fromJS(action.data);
+      return Immutable.fromJS(action.data);
       break;
     case 'REMOVE_ITEM':
       return state.delete(action.id);

@@ -4,11 +4,6 @@ import Card from './Card.jsx';
 import Form from './Form.jsx';
 
 var Column = React.createClass({
-  getDefaultProps() {
-    return {
-      data: [],
-    };
-  },
   preventDefault (event) {
     event.preventDefault();
   },
@@ -74,7 +69,10 @@ var Column = React.createClass({
     return [queueArr, inProgressArr, doneArr];
   },
   render() {
-    var cards = this.createByColumn(this.props.data);
+    var cards = [];
+    if(this.props.data.length > 0) {
+      cards = this.createByColumn(this.props.data);
+    }
     return (
       <div className="container column-holder">
         <div id="Queue" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
