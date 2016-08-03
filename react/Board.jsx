@@ -3,6 +3,10 @@ import React from 'react';
 import Form from './Form.jsx';
 import Column from './Column.jsx';
 
+//redux
+import Immutable from 'immutable';
+import {connect} from 'react-redux';
+
 var Board =  React.createClass({
   getInitialState: function(){
     return {
@@ -30,7 +34,9 @@ var Board =  React.createClass({
     req.send();
   },
   loadData (data) {
-    this.setState({data:JSON.parse(data.currentTarget.response)});
+    this.setState({
+      data:JSON.parse(data.currentTarget.response),
+    });
   },
   renderForm () {
     this.setState({
@@ -95,4 +101,17 @@ var Board =  React.createClass({
     )
   }
 });
-export default Board;
+
+var mapStateToProps = (state, ownProps) => {
+  return {};
+};
+var mapDispatchToProps = (dispatch) => {
+  return {
+    updateBoard: () => {
+      dispatch({
+        type: 'UPDATE_BOARD',
+      })
+    }
+  }
+};
+export default connect(mapStateToProps,mapDispatchToProps)(Board);
