@@ -7,6 +7,7 @@ import  { createStore, combineReducers } from 'redux';
 
 const reducer = combineReducers(reducers);
 const store = createStore(reducer);
+console.log('store.getState(): ', store.getState());
 
 import Form from './react/Form.jsx';
 import App from './App.js';

@@ -1,5 +1,7 @@
-var express = require('express');
+import Immutable from 'immutable';
+import { connect } from 'react-redux';
 var app = express();
+
 
 var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
@@ -31,7 +33,7 @@ var cardSchema = new Schema({
 
 cardSchema.plugin(timestamps);
 mongoose.model('Card', cardSchema);
- var Card = mongoose.model('Card', cardSchema);
+var Card = mongoose.model('Card', cardSchema);
 
 app.use(methodOverride());
 app.use(bodyParser.json());
@@ -46,6 +48,7 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 
 app.get('/', (req, res) => {
+  console.log('/ requested');
   return res.render('index');
 });
 

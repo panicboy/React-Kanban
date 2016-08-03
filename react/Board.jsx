@@ -16,6 +16,7 @@ var Board = React.createClass({
     this.queryDatabase();
   },
   componentDidMount() {
+    console.log('board mounted. this: ', this);
     this.queryDatabase();
   },
   queryDatabase () {
