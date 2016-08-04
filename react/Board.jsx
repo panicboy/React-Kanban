@@ -58,16 +58,17 @@ var Board =  React.createClass({
   }
 });
 var mapStateToProps = (state) => {
+  var s = state.boardReducer.toJS();
   return {
-    data: state.boardReducer.toJS().data,
-    showForm:state.boardReducer.toJS().showForm,
-    showEditFormQueue:state.boardReducer.toJS().showEditFormQueue,
-    showEditFormQueueState:state.boardReducer.toJS().showEditFormQueueState,
-    showEditFormInProgress:state.boardReducer.toJS().showEditFormInProgress,
-    showEditFormInProgressState:state.boardReducer.toJS().showEditFormInProgressState,
-    showEditFormDone:state.boardReducer.toJS().showEditFormDone,
-    showEditFormDoneState: state.boardReducer.toJS().showEditFormDoneState,
-    editFormsBeingShown: state.boardReducer.toJS().editFormsBeingShown,
+    data: s.data,
+    showForm:s.showForm,
+    showEditFormQueue:s.showEditFormQueue,
+    showEditFormQueueState:s.showEditFormQueueState,
+    showEditFormInProgress:s.showEditFormInProgress,
+    showEditFormInProgressState:s.showEditFormInProgressState,
+    showEditFormDone:s.showEditFormDone,
+    showEditFormDoneState: s.showEditFormDoneState,
+    editFormsBeingShown: s.editFormsBeingShown,
   }
 }
 
@@ -79,25 +80,12 @@ var mapDispatchToProps = (dispatch) => {
         data,
       })
     },
-    renderForm: () => {
-      dispatch({
-        type: 'SHOW_FORM',
-      })
-    },
-    hideForm: () => {
-      dispatch({
-        type:'HIDE_FORM',
-      })
-    },
+
+    renderForm: () => {dispatch({type: 'SHOW_FORM'})},
     renderEditFormQueue: (status) => {
       dispatch({
         type:'SHOW_EDIT_FORM_QUEUE',
         status,
-      })
-    },
-    hideEditFormQueue: () => {
-      dispatch({
-        type:'HIDE_EDIT_FORM_QUEUE',
       })
     },
     renderEditFormInProgress: (status) => {
@@ -106,22 +94,16 @@ var mapDispatchToProps = (dispatch) => {
         status,
       })
     },
-    hideEditFormInProgress: () => {
-      dispatch({
-        type:'HIDE_EDIT_FORM_INPROGRESS',
-      })
-    },
     renderEditFormDone: (status) => {
       dispatch({
         type:'SHOW_EDIT_FORM_DONE',
         status,
       })
     },
-    hideEditFormDone: () => {
-      dispatch({
-        type:'HIDE_EDIT_FORM_DONE',
-      })
-    },
+    hideForm: () => {dispatch({type:'HIDE_FORM'})},
+    hideEditFormQueue: () => {dispatch({type:'HIDE_EDIT_FORM_QUEUE'})},
+    hideEditFormInProgress: () => {dispatch({type:'HIDE_EDIT_FORM_INPROGRESS'})},
+    hideEditFormDone: () => {dispatch({type:'HIDE_EDIT_FORM_DONE'})},
   }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Board);

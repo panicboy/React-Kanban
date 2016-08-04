@@ -22,7 +22,7 @@ var Card = React.createClass({
   },
   cyclePriority(){
     var newPriority = this.props.data.priority.toLowerCase();
-    if('low medium high blocker'.indexOf(newPriority) < 0) {
+    if('low medium high blocker'.includes(newPriority)) {
      newPriority = 'blocker';
     }
    newPriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[newPriority];

@@ -28,7 +28,7 @@ var Column = React.createClass({
     if(newStatus === 'InProgress') {
       newStatus = 'In Progress';
     }
-    if('Queue In Progress Done Blocker'.indexOf(newStatus) >= 0 ) {
+    if('Queue In Progress Done Blocker'.includes(newStatus)) {
       cardData.status = newStatus;
     }
     var req = new XMLHttpRequest();
@@ -42,33 +42,31 @@ var Column = React.createClass({
     ));
   },
   createByColumn(data) {
-    var queueArr = [];
-    var inProgressArr = [];
-    var doneArr = [];
+    var arr = [[],[],[]];
 
     data.forEach( (e,i,a) => {
       switch(e.status) {
         case 'Queue':
-          queueArr.push(
+          arr[0].push(
             <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormQueue={this.props.renderEditFormQueue}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'In Progress':
-          inProgressArr.push(
+          arr[1].push(
             <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormInProgress={this.props.renderEditFormInProgress}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'Done':
-          doneArr.push(
+          arr[2].push(
             <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormDone={this.props.renderEditFormDone}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
       }
     });
-    return [queueArr, inProgressArr, doneArr];
+    return arr;
   },
   render() {
-    var cards = [];
+    var cards;
     if(this.props.data) {
       cards = this.createByColumn(this.props.data);
     }
