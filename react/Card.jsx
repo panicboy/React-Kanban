@@ -11,25 +11,26 @@ var Card = React.createClass({
     event.dataTransfer.setData('text', JSON.stringify(cardData));
   },
   handleStatusLeft () {
-    var status = this.props.data.status.replace(/\s/g, '');;
-    status = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[status];
-    this.createReq('status', status);
+    var newStatus = this.props.data.status.replace(/\s/g, '');;
+    newStatus = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[newStatus];
+    this.createPutRequest('status', newStatus);
+    this.props.updateBoard();
   },
   handleStatusRight () {
-    var status = this.props.data.status.replace(/\s/g, '');
-    status = {Queue: 'In Progress', InProgress: 'Done', Done: 'Queue'}[status];
-    this.createReq('status', status);
+    var newStatus = this.props.data.status.replace(/\s/g, '');
+    newStatus = {Queue: 'In Progress', InProgress: 'Done', Done: 'Queue'}[newStatus];
+    this.createPutRequest('status', newStatus);
+    this.props.updateBoard();
   },
   cyclePriority(){
-    var thePriority = this.state.priority.toLowerCase();
-    if('low medium high blocker'.indexOf(thePriority) < 0) {
-      thePriority = 'blocker';
+    var newPriority = this.props.data.priority.toLowerCase();
+    if('low medium high blocker'.indexOf(newPriority) < 0) {
+     newPriority = 'blocker';
     }
-    thePriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[thePriority];
-    this.createReq('priority', thePriority);
-    this.setState({priority: thePriority}); //added to fix bug where cycle priority wasn't working with edit
+   newPriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[thePriority];
+    this.createPutRequest('priority', newPriority);
   },
-  createReq (fieldName, fieldValue) {
+  createPutRequest (fieldName, fieldValue) {
     var myRequest = {
       id : this.props.data._id || 0,
     };
@@ -91,4 +92,7 @@ var Card = React.createClass({
   }
 });
 
+
 export default Card;
+
+

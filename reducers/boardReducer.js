@@ -30,9 +30,9 @@ var boardReducer = (state = initialState, action) => {
     case 'HIDE_EDIT_FORM_INPROGRESS':
       return newStateHide(newState, 'InProgress', action);
     case 'SHOW_EDIT_FORM_DONE':
-      return newStateShow(newState, 'DONE', action);
+      return newStateShow(newState, 'Done', action);
     case 'HIDE_EDIT_FORM_DONE':
-      return newStateHide(newState, 'DONE', action);
+      return newStateHide(newState, 'Done', action);
     default:
       return newState;
   }
