@@ -25,31 +25,41 @@ var Board =  React.createClass({
   renderForm () {
     this.props.renderForm();
   },
-  renderEditFormQueue (state) {
-    this.props.renderEditFormQueue(state);
-  },
-  renderEditFormInProgress (state) {
-    this.props.renderEditFormInProgress(state);
-  },
-  renderEditFormDone (state) {
-    this.props.renderEditFormDone(state);
-  },
   hideForm () {
     this.props.hideForm();
   },
-  hideEditFormQueue () {
-    this.props.hideEditFormQueue();
+
+  toggleEditFormQueue (state) {
+    this.props.toggleEditFormQueue(state);
   },
-  hideEditFormInProgress () {
-    this.props.hideEditFormInProgress();
+  toggleEditFormInProgress (state) {
+    this.props.toggleEditFormInProgress(state);
   },
-  hideEditFormDone () {
-    this.props.hideEditFormDone();
+  toggleEditFormDone (state) {
+    this.props.toggleEditFormDone(state);
   },
   render() {
     return (
       <div>
-        <Column editFormsBeingShown={this.props.editFormsBeingShown} showEditFormQueueState={this.props.showEditFormQueueState} showEditFormInProgressState={this.props.showEditFormInProgressState}  showEditFormDoneState={this.props.showEditFormDoneState} showEditFormQueue={this.props.showEditFormQueue} showEditFormInProgress={this.props.showEditFormInProgress} showEditFormDone={this.props.showEditFormDone} renderEditFormQueue={this.renderEditFormQueue} hideEditFormQueue={this.hideEditFormQueue} renderEditFormInProgress={this.renderEditFormInProgress} hideEditFormInProgress={this.hideEditFormInProgress} renderEditFormDone={this.renderEditFormDone} hideEditFormDone={this.hideEditFormDone} showForm={this.props.showForm} hideForm={this.hideForm} updateBoard={this.updateBoard} data={this.props.data} />
+        <Column
+        isEditing={this.props.isEditing}
+
+        toggleEditFormQueue={this.toggleEditFormQueue}
+        showEditFormQueue={this.props.showEditFormQueue}
+        showEditFormQueueState={this.props.showEditFormQueueState}
+
+        toggleEditFormInProgress={this.toggleEditFormInProgress}
+        showEditFormInProgress={this.props.showEditFormInProgress}
+        showEditFormInProgressState={this.props.showEditFormInProgressState}
+
+        toggleEditFormDone={this.toggleEditFormDone}
+        showEditFormDone={this.props.showEditFormDone}
+        showEditFormDoneState={this.props.showEditFormDoneState}
+
+        showForm={this.props.showForm}
+        hideForm={this.hideForm}
+        updateBoard={this.updateBoard}
+        data={this.props.data} />
         <div className="center">
           <span onClick={this.renderForm} className="newCard">&#43;</span>
         </div>
@@ -68,7 +78,7 @@ var mapStateToProps = (state) => {
     showEditFormInProgressState:s.showEditFormInProgressState,
     showEditFormDone:s.showEditFormDone,
     showEditFormDoneState: s.showEditFormDoneState,
-    editFormsBeingShown: s.editFormsBeingShown,
+    isEditing: s.isEditing,
   }
 }
 
@@ -82,28 +92,26 @@ var mapDispatchToProps = (dispatch) => {
     },
 
     renderForm: () => {dispatch({type: 'SHOW_FORM'})},
-    renderEditFormQueue: (status) => {
-      dispatch({
-        type:'SHOW_EDIT_FORM_QUEUE',
-        status,
-      })
-    },
-    renderEditFormInProgress: (status) => {
-      dispatch({
-        type:'SHOW_EDIT_FORM_INPROGRESS',
-        status,
-      })
-    },
-    renderEditFormDone: (status) => {
-      dispatch({
-        type:'SHOW_EDIT_FORM_DONE',
-        status,
-      })
-    },
     hideForm: () => {dispatch({type:'HIDE_FORM'})},
-    hideEditFormQueue: () => {dispatch({type:'HIDE_EDIT_FORM_QUEUE'})},
-    hideEditFormInProgress: () => {dispatch({type:'HIDE_EDIT_FORM_INPROGRESS'})},
-    hideEditFormDone: () => {dispatch({type:'HIDE_EDIT_FORM_DONE'})},
+
+    toggleEditFormQueue: (status) => {
+      dispatch({
+        type:'TOGGLE_EDIT_FORM_QUEUE',
+        status,
+      })
+    },
+    toggleEditFormInProgress: (status) => {
+      dispatch({
+        type:'TOGGLE_EDIT_FORM_INPROGRESS',
+        status,
+      })
+    },
+    toggleEditFormDone: (status) => {
+      dispatch({
+        type:'TOGGLE_EDIT_FORM_DONE',
+        status,
+      })
+    },
   }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Board);

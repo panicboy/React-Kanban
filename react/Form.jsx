@@ -4,9 +4,9 @@ import Board from './Board.jsx';
 import MyInput from './MyInput.jsx';
 
 function hideAForm(status, props) {
-  if(status === 'Queue') return props.hideEditFormQueue();
-  if(status === 'In Progress') return props.hideEditFormInProgress();
-  if(status === 'Done') return props.hideEditFormDone();
+  if(status === 'Queue') return props.toggleEditFormQueue();
+  if(status === 'In Progress') return props.toggleEditFormInProgress();
+  if(status === 'Done') return props.toggleEditFormDone();
   return props.hideForm();
 }
 var Form = React.createClass({

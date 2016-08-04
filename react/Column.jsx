@@ -44,21 +44,49 @@ var Column = React.createClass({
   createByColumn(data) {
     var arr = [[],[],[]];
 
+        console.log(this.props);
     data.forEach( (e,i,a) => {
       switch(e.status) {
         case 'Queue':
           arr[0].push(
-            <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormQueue={this.props.renderEditFormQueue}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
+            <Card
+            key={i}
+            isEditing={this.props.isEditing}
+            showEditFormQueue={this.props.showEditFormQueue}
+            toggleEditFormQueue={this.props.toggleEditFormQueue}
+
+            showForm={this.props.showForm}
+            hideForm={this.props.hideForm}
+            updateBoard={this.props.updateBoard}
+            data={e} />
           )
           break;
         case 'In Progress':
           arr[1].push(
-            <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormInProgress={this.props.renderEditFormInProgress}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
+            <Card
+            key={i}
+            isEditing={this.props.isEditing}
+            showEditFormInProgress={this.props.showEditFormInProgress}
+            toggleEditFormInProgress={this.props.toggleEditFormInProgress}
+
+            showForm={this.props.showForm}
+            hideForm={this.props.hideForm}
+            updateBoard={this.props.updateBoard}
+            data={e} />
           )
           break;
         case 'Done':
           arr[2].push(
-            <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormDone={this.props.renderEditFormDone}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
+            <Card
+            key={i}
+            isEditing={this.props.isEditing}
+            showEditFormDone={this.props.showEditFormDone}
+            toggleEditFormDone={this.props.toggleEditFormDone}
+
+            showForm={this.props.showForm}
+            hideForm={this.props.hideForm}
+            updateBoard={this.props.updateBoard}
+            data={e} />
           )
           break;
       }
@@ -72,18 +100,59 @@ var Column = React.createClass({
     }
     return (
       <div className="container column-holder">
-        <div id="Queue" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
+        <div
+          id="Queue"
+          className="column"
+          onDragOver={this.preventDefault}
+          onDrop={this.drop}
+        >
           {cards[0]}
-          {this.props.showForm ? <Form updateBoard={this.props.updateBoard} hideForm={this.props.hideForm} /> : null}
-          {this.props.showEditFormQueue ? <Form updateBoard={this.props.updateBoard} status={this.props.showEditFormQueueState} hideEditFormQueue={this.props.hideEditFormQueue} /> : null}
+          {this.props.showForm ?
+            (
+              <Form
+                updateBoard={this.props.updateBoard}
+                hideForm={this.props.hideForm}
+              />
+            ) : null}
+          {this.props.showEditFormQueue ?
+            (
+              <Form
+                updateBoard={this.props.updateBoard}
+                status={this.props.showEditFormQueueState}
+                toggleEditFormQueue={this.props.toggleEditFormQueue}
+              />
+            ) : null}
         </div>
-        <div id="InProgress" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
-          {cards[1]}
-          {this.props.showEditFormInProgress ? <Form editFormsBeingShown={this.props.editFormsBeingShown} updateBoard={this.props.updateBoard} status={this.props.showEditFormInProgressState} hideEditFormInProgress={this.props.hideEditFormInProgress} /> : null}
+        <div id="InProgress"
+          className="column"
+          onDragOver={this.preventDefault}
+          onDrop={this.drop}
+        >
+        {cards[1]}
+        {this.props.showEditFormInProgress ?
+          (
+            <Form
+              updateBoard={this.props.updateBoard}
+              status={this.props.showEditFormInProgressState}
+              toggleEditFormInProgress={this.props.toggleEditFormInProgress}
+            />
+          ) : null}
         </div>
-        <div id="Done" className="column" onDragOver={this.preventDefault} onDrop={this.drop}>
+        <div
+          id="Done"
+          className="column"
+          onDragOver={this.preventDefault}
+          onDrop={this.drop}
+        >
           {cards[2]}
-          {this.props.showEditFormDone ? <Form editFormsBeingShown={this.props.editFormsBeingShown} updateBoard={this.props.updateBoard} status={this.props.showEditFormDoneState} hideEditFormDone={this.props.hideEditFormDone} /> : null}
+          {this.props.showEditFormDone ?
+            (
+              <Form
+                updateBoard={this.props.updateBoard}
+                status={this.props.showEditFormDoneState}
+                toggleEditFormDone={this.props.toggleEditFormDone}
+              />
+            ) : null}
         </div>
       </div>
     )

@@ -22,7 +22,7 @@ var Card = React.createClass({
   },
   cyclePriority(){
     var newPriority = this.props.data.priority.toLowerCase();
-    if('low medium high blocker'.includes(newPriority)) {
+    if(!'low medium high blocker'.includes(newPriority)) {
      newPriority = 'blocker';
     }
    newPriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[newPriority];
@@ -55,11 +55,11 @@ var Card = React.createClass({
     }))
   },
   editItem () { //on edit button click
-    if(this.props.editFormsBeingShown === 0) {
+    if(!this.props.isEditing) {
       this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
-      if(this.props.data.status === 'Queue') this.props.renderEditFormQueue(this.props.data);
-      if(this.props.data.status === 'In Progress') this.props.renderEditFormInProgress(this.props.data);
-      if(this.props.data.status === 'Done') this.props.renderEditFormDone(this.props.data);
+      if(this.props.data.status === 'Queue') this.props.toggleEditFormQueue(this.props.data);
+      if(this.props.data.status === 'In Progress') this.props.toggleEditFormInProgress(this.props.data);
+      if(this.props.data.status === 'Done') this.props.toggleEditFormDone(this.props.data);
     }
   },
   timestamp () {
