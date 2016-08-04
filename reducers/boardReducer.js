@@ -17,10 +17,8 @@ var boardReducer = (state = initialState, action) => {
   switch(action.type) {
     case 'UPDATE_BOARD':
       return newState.set("data", action.data);
-    case 'SHOW_FORM':
-      return newState.update("showForm", bool => bool = true);
-    case 'HIDE_FORM':
-      return newState.update("showForm", bool => bool = false);
+    case 'TOGGLE_EDIT_FORM_':
+      return newState.update("showForm", bool => bool = !bool);
     case 'TOGGLE_EDIT_FORM_QUEUE':
       return toggleVisibility(newState, 'Queue', action);
     case 'TOGGLE_EDIT_FORM_INPROGRESS':

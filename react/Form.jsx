@@ -4,8 +4,7 @@ import Board from './Board.jsx';
 import MyInput from './MyInput.jsx';
 
 function hideAForm(status, props) {
-  if (!status) return props.hideForm();
-  return props.toggleEditForm(null, status.replace(' ','').toUpperCase());;
+  return props.toggleEditForm(status, status.replace(' ','').toUpperCase());;
 }
 var Form = React.createClass({
   submit(data) { //on data submit, send all data as a normal form
@@ -18,7 +17,7 @@ var Form = React.createClass({
   },
   //these two methods disable the back button while editing
   back () {
-    hideAForm(null, this.props);
+    hideAForm('', this.props);
   },
   shouldIback () {
     if(this.props.status === undefined) {

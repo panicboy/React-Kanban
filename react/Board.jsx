@@ -22,12 +22,6 @@ var Board =  React.createClass({
   loadData (data) {
     this.props.updateBoard(JSON.parse(data.currentTarget.response));
   },
-  renderForm () {
-    this.props.renderForm();
-  },
-  hideForm () {
-    this.props.hideForm();
-  },
   toggleEditForm (state, status) {
     this.props.toggleEditForm(state, status);
   },
@@ -50,11 +44,14 @@ var Board =  React.createClass({
         toggleEditForm={this.toggleEditForm}
 
         showForm={this.props.showForm}
-        hideForm={this.hideForm}
+
         updateBoard={this.updateBoard}
         data={this.props.data} />
         <div className="center">
-          <span onClick={this.renderForm} className="newCard">&#43;</span>
+          <span
+            onClick={() => {this.toggleEditForm('','')}}
+            className="newCard">&#43;
+          </span>
         </div>
       </div>
     )
@@ -83,17 +80,12 @@ var mapDispatchToProps = (dispatch) => {
         data,
       })
     },
-
-    renderForm: () => {dispatch({type: 'SHOW_FORM'})},
-    hideForm: () => {dispatch({type:'HIDE_FORM'})},
-
     toggleEditForm: (state, status) => {
       dispatch({
         type:`TOGGLE_EDIT_FORM_${status}`,
         state,
       })
     },
-
   }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Board);

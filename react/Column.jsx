@@ -43,8 +43,6 @@ var Column = React.createClass({
   },
   createByColumn(data) {
     var arr = [[],[],[]];
-
-        console.log(this.props);
     data.forEach( (e,i,a) => {
       switch(e.status) {
         case 'Queue':
@@ -55,8 +53,6 @@ var Column = React.createClass({
             showEditFormQueue={this.props.showEditFormQueue}
             toggleEditForm={this.props.toggleEditForm}
 
-            showForm={this.props.showForm}
-            hideForm={this.props.hideForm}
             updateBoard={this.props.updateBoard}
             data={e} />
           )
@@ -69,8 +65,6 @@ var Column = React.createClass({
             showEditFormInProgress={this.props.showEditFormInProgress}
             toggleEditForm={this.props.toggleEditForm}
 
-            showForm={this.props.showForm}
-            hideForm={this.props.hideForm}
             updateBoard={this.props.updateBoard}
             data={e} />
           )
@@ -83,8 +77,6 @@ var Column = React.createClass({
             showEditFormDone={this.props.showEditFormDone}
             toggleEditForm={this.props.toggleEditForm}
 
-            showForm={this.props.showForm}
-            hideForm={this.props.hideForm}
             updateBoard={this.props.updateBoard}
             data={e} />
           )
@@ -111,7 +103,7 @@ var Column = React.createClass({
             (
               <Form
                 updateBoard={this.props.updateBoard}
-                hideForm={this.props.hideForm}
+                toggleEditForm={this.props.toggleEditForm}
               />
             ) : null}
           {this.props.showEditFormQueue ?
