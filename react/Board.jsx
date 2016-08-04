@@ -31,6 +31,9 @@ var Board =  React.createClass({
       <div>
         <Column
         isEditing={this.props.isEditing}
+        updateBoard={this.updateBoard}
+
+        form={this.props.form}
 
         editForm_Q={this.props.editForm_Q}
         editForm_QState={this.props.editForm_QState}
@@ -43,14 +46,14 @@ var Board =  React.createClass({
 
         toggleEditForm={this.toggleEditForm}
 
-        form={this.props.form}
-
-        updateBoard={this.updateBoard}
-        data={this.props.data} />
+        data={this.props.data}
+      />
         <div className="center">
           <span
             onClick={() => {this.toggleEditForm('','')}}
-            className="newCard">&#43;
+            className="newCard"
+          >
+            &#43;
           </span>
         </div>
       </div>

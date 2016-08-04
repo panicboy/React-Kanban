@@ -57,7 +57,7 @@ app.get('/data', (req, res) => {
 });
 
 
-app.put('/edit/', (req, res) => {
+app.put('/edit', (req, res) => {
   Card.findByIdAndUpdate(req.body.id, {
     $set: req.body
   },
@@ -68,7 +68,7 @@ app.put('/edit/', (req, res) => {
 });
 
 
-app.delete('/delete/', (req, res) => {
+app.delete('/delete', (req, res) => {
   Card.findByIdAndRemove({"_id":req.body.id},
   function (err, card) {
     if (err) return console.log(`Error with DELETE: ${err}`);

@@ -89,7 +89,7 @@ var Card = React.createClass({
           {this.timestamp()}
         </span>
         <span
-        className="title">
+          className="title">
           {this.props.data.title}
         </span>
         <span

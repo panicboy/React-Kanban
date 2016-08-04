@@ -13,7 +13,7 @@ var Form = React.createClass({
     this.hideAForm(data.status);
   },
   hideAForm(status) {
-    return this.props.toggleEditForm(status, status.replace(' ','').toUpperCase());;
+    return this.props.toggleEditForm(status, status.replace(' ','').toUpperCase());
   },
   backArrow () {
     if(this.props.status === undefined) {
@@ -24,9 +24,8 @@ var Form = React.createClass({
     var state = this.props.status;
     if(state) {
       return [state.title,state.priority,state.createdBy,state.assignedTo,state.status];
-    } else {
-      return ['','','','',''];
     }
+    return ['','','','',''];
   },
   render() {
     var values = this.checkValues();
