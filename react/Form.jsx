@@ -3,9 +3,6 @@ import React from 'react';
 import Board from './Board.jsx';
 import MyInput from './MyInput.jsx';
 
-function hideAForm(status, props) {
-  return props.toggleEditForm(status, status.replace(' ','').toUpperCase());;
-}
 var Form = React.createClass({
   submit(data) { //on data submit, send all data as a normal form
     var req = new XMLHttpRequest();
@@ -13,7 +10,10 @@ var Form = React.createClass({
     req.setRequestHeader("Content-type", "application/json");
     req.send(JSON.stringify(data));
     this.props.updateBoard();
-    hideAForm(data.status, this.props);
+    this.hideAForm(data.status);
+  },
+  hideAForm(status) {
+    return this.props.toggleEditForm(status, status.replace(' ','').toUpperCase());;
   },
   backArrow () {
     if(this.props.status === undefined) {
@@ -70,8 +70,10 @@ var Form = React.createClass({
         </Formsy.Form>
         <div className="center">
           <span
-            onClick={() => {hideAForm('',this.props)}}
-            className="backArrow">{(this.backArrow())}
+            onClick={() => {this.hideAForm('')}}
+            className="backArrow"
+          >
+            {(this.backArrow())}
           </span>
         </div>
       </div>
