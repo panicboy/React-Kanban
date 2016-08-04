@@ -3,24 +3,6 @@ import React from 'react';
 import Form from './Form.jsx';
 
 var Card = React.createClass({
-  // getInitialState() {
-  //   return {
-  //     title: '',
-  //     priority: '',
-  //     createdBy: '',
-  //     assignedTo: '',
-  //     status: '',
-  //   };
-  // },
-  // componentDidMount() {
-  //   this.setState({
-  //     title: this.props.data.title,
-  //     priority: this.props.data.priority,
-  //     createdBy: this.props.data.createdBy,
-  //     assignedTo: this.props.data.assignedTo,
-  //     status: this.props.data.status,
-  //   });
-  // },
   dragStart(event) {
     var cardData = {
       id: this.props.data._id,

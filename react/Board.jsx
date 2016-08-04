@@ -30,18 +30,10 @@ var Board =  React.createClass({
     this.props.renderEditFormQueue(state);
   },
   renderEditFormInProgress (state) {
-    this.setState({
-      showEditFormInProgress:true,
-      showEditFormInProgressState: state,
-      editFormsBeingShown: 1,
-    });
+    this.props.renderEditFormInProgress(state);
   },
   renderEditFormDone (state) {
-    this.setState({
-      showEditFormDone:true,
-      showEditFormDoneState: state,
-      editFormsBeingShown: 1,
-    });
+    this.props.renderEditFormDone(state);
   },
   hideForm () {
     this.props.hideForm();
@@ -50,18 +42,10 @@ var Board =  React.createClass({
     this.props.hideEditFormQueue();
   },
   hideEditFormInProgress () {
-    this.setState({
-      showEditFormInProgress: false,
-      showEditFormInProgressState: {},
-      editFormsBeingShown: 0,
-    })
+    this.props.hideEditFormInProgress();
   },
   hideEditFormDone () {
-    this.setState({
-      showEditFormDone: false,
-      showEditFormDoneState: {},
-      editFormsBeingShown: 0,
-    })
+    this.props.hideEditFormDone();
   },
   render() {
     return (
@@ -117,7 +101,28 @@ var mapDispatchToProps = (dispatch) => {
         type:'HIDE_EDIT_FORM_QUEUE',
       })
     },
-
+    renderEditFormInProgress: (status) => {
+      dispatch({
+        type:'SHOW_EDIT_FORM_INPROGRESS',
+        status,
+      })
+    },
+    hideEditFormInProgress: () => {
+      dispatch({
+        type:'HIDE_EDIT_FORM_INPROGRESS',
+      })
+    },
+    renderEditFormDone: (status) => {
+      dispatch({
+        type:'SHOW_EDIT_FORM_DONE',
+        status,
+      })
+    },
+    hideEditFormDone: () => {
+      dispatch({
+        type:'HIDE_EDIT_FORM_DONE',
+      })
+    },
   }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Board);

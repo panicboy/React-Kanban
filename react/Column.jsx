@@ -32,7 +32,6 @@ var Column = React.createClass({
     if('Queue In Progress Done Blocker'.indexOf(newStatus) >= 0 ) {
       cardData.status = newStatus;
     }
-
     var req = new XMLHttpRequest();
     req.open('PUT', `/edit/`);
     req.setRequestHeader("Content-Type", "application/json");
@@ -47,7 +46,7 @@ var Column = React.createClass({
     var queueArr = [];
     var inProgressArr = [];
     var doneArr = [];
-    console.log(this.props.showEditFormQueueState);
+
     data.forEach( (e,i,a) => {
       switch(e.status) {
         case 'Queue':
