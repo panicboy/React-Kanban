@@ -12,10 +12,9 @@ var Column = React.createClass({
     var cardData;
     try {
       cardData = JSON.parse(event.dataTransfer.getData('text'));
-    } catch (e) { // If the text data isn't parsable ignore it.
+    } catch (e) {
       return;
     }
-    // Do something with the data
     var newStatus = null;
     if(event.target.id.length > 3) {
       newStatus = event.target.id;

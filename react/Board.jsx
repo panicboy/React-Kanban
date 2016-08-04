@@ -3,7 +3,6 @@ import React from 'react';
 import Form from './Form.jsx';
 import Column from './Column.jsx';
 
-//redux
 import Immutable from 'immutable';
 import {connect} from 'react-redux';
 

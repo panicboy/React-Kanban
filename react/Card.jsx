@@ -14,20 +14,18 @@ var Card = React.createClass({
     var newStatus = this.props.data.status.replace(/\s/g, '');;
     newStatus = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[newStatus];
     this.createPutRequest('status', newStatus);
-    this.props.updateBoard();
   },
   handleStatusRight () {
     var newStatus = this.props.data.status.replace(/\s/g, '');
     newStatus = {Queue: 'In Progress', InProgress: 'Done', Done: 'Queue'}[newStatus];
     this.createPutRequest('status', newStatus);
-    this.props.updateBoard();
   },
   cyclePriority(){
     var newPriority = this.props.data.priority.toLowerCase();
     if('low medium high blocker'.indexOf(newPriority) < 0) {
      newPriority = 'blocker';
     }
-   newPriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[thePriority];
+   newPriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[newPriority];
     this.createPutRequest('priority', newPriority);
   },
   createPutRequest (fieldName, fieldValue) {
