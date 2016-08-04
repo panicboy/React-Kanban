@@ -13,7 +13,6 @@ var compiler = webpack(config);
 
 var PORTNUM = 3000; //default port
 
-var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://localhost/test'); //database name
@@ -34,7 +33,6 @@ cardSchema.plugin(timestamps);
 mongoose.model('Card', cardSchema);
  var Card = mongoose.model('Card', cardSchema);
 
-app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 

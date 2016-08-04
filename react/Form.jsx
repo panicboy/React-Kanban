@@ -32,7 +32,11 @@ var Form = React.createClass({
     var values = this.checkValues();
     return (
       <div className="formDiv">
-        <Formsy.Form id="form" onSubmit={this.submit} className="input">
+        <Formsy.Form
+          id="form"
+          onSubmit={this.submit}
+          className="input"
+        >
           <MyInput
             value={values[0]}
             name="title"
