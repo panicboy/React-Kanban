@@ -87,10 +87,10 @@ app.delete('/delete/', (req, res) => {
 });
 
 var postsPerSecond = 0; //spam protection
+setInterval( () => {
+  postsPerSecond = 0;
+}, 1000); //clears every second
 app.post('/', (req, res) => {
-  setInterval( () => {
-    postsPerSecond = 0;
-  }, 1000); //clears every second
   if(postsPerSecond === 0) {
     var body = req.body;
     var newCard = new Card({

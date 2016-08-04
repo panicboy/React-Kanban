@@ -3,24 +3,24 @@ import React from 'react';
 import Form from './Form.jsx';
 
 var Card = React.createClass({
-  getInitialState() {
-    return {
-      title: '',
-      priority: '',
-      createdBy: '',
-      assignedTo: '',
-      status: '',
-    };
-  },
-  componentDidMount() {
-    this.setState({
-      title: this.props.data.title,
-      priority: this.props.data.priority,
-      createdBy: this.props.data.createdBy,
-      assignedTo: this.props.data.assignedTo,
-      status: this.props.data.status,
-    });
-  },
+  // getInitialState() {
+  //   return {
+  //     title: '',
+  //     priority: '',
+  //     createdBy: '',
+  //     assignedTo: '',
+  //     status: '',
+  //   };
+  // },
+  // componentDidMount() {
+  //   this.setState({
+  //     title: this.props.data.title,
+  //     priority: this.props.data.priority,
+  //     createdBy: this.props.data.createdBy,
+  //     assignedTo: this.props.data.assignedTo,
+  //     status: this.props.data.status,
+  //   });
+  // },
   dragStart(event) {
     var cardData = {
       id: this.props.data._id,
@@ -74,15 +74,15 @@ var Card = React.createClass({
     }))
   },
   editItem () { //on edit button click
-    if(!this.props.editFormsBeingShown) {
+    if(this.props.editFormsBeingShown === 0) {
       this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
       try {
-        this.props.renderEditFormQueue(this.state);
+        this.props.renderEditFormQueue(this.props.data);
       } catch (e) {
         try {
-          this.props.renderEditFormInProgress(this.state);
+          this.props.renderEditFormInProgress(this.props.data);
         } catch (e) {
-          this.props.renderEditFormDone(this.state);
+          this.props.renderEditFormDone(this.props.data);
         }
       }
     }
@@ -93,7 +93,7 @@ var Card = React.createClass({
   },
   render() {
     return (
-       <div key={this.props.data._id} className={`card ${this.state.priority}`} data-id={this.props.data._id} data-status={this.state.status} data-updatedat={this.props.data.updatedAt} draggable="true" onDragStart={this.dragStart}>
+       <div key={this.props.data._id} className={`card ${this.props.data.priority}`} data-id={this.props.data._id} data-status={this.props.data.status} data-updatedat={this.props.data.updatedAt} draggable="true" onDragStart={this.dragStart}>
         <span onClick={this.deleteItem} className="close">&#120;</span>
         <span onClick={this.editItem} className="edit">&#9998;</span>
         <span className="timestamp">{this.timestamp()}</span>

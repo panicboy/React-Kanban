@@ -3,11 +3,11 @@ import Immutable from 'immutable';
 var initialState = Immutable.Map({
   showForm:false,
   showEditFormQueue:false,
-  showEditFormQueueState: {},
+  showEditFormQueueState: 0,
   showEditFormInProgress:false,
-  showEditFormInProgressState: {},
+  showEditFormInProgressState: 0,
   showEditFormDone:false,
-  showEditFormDoneState: {},
+  showEditFormDoneState: 0,
   editFormsBeingShown: 0,
   data: [],
 });
@@ -25,14 +25,15 @@ var boardReducer = (state = initialState, action) => {
       return newState;
     case 'SHOW_EDIT_FORM_QUEUE':
       newState = newState.update("showEditFormQueue", bool => bool = true);
-      newState = newState.set("showEditFormQueueState", action.data);
       newState = newState.set("editFormsBeingShown", 1);
+      newState = newState.set("showEditFormQueueState", action.status);
       return newState;
     case 'HIDE_EDIT_FORM_QUEUE':
       newState = newState.update("showEditFormQueue", bool => bool = false);
       newState = newState.set("showEditFormQueueState", {});
       newState = newState.set("editFormsBeingShown", 0);
       return newState;
+
     default:
       return newState;
   }
