@@ -93,6 +93,7 @@ app.delete('/delete/', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
 app.post('/', (req, res) => {
   var body = req.body;
   var newCard = new Card({
@@ -110,6 +111,32 @@ app.post('/', (req, res) => {
       console.log('Successfully saved. ', saveDate.toLocaleTimeString('en-US', { hour12: false }));
     }
   });
+=======
+var postsPerSecond = 0; //spam protection
+setInterval( () => {
+  postsPerSecond = 0;
+}, 1000); //clears every second
+app.post('/', (req, res) => {
+  if(postsPerSecond === 0) {
+    var body = req.body;
+    var newCard = new Card({
+      title: body.title || "Title",
+      priority: body.priority || "Priority",
+      status: body.status || "Queue",
+      createdBy: body.createdby || "Created By",
+      assignedTo: body.assignedto || "Assigned To",
+    });
+    newCard.save( (err, data) => {
+      if(err) console.log(err);
+      else {
+        console.log('Successfully saved.');
+      }
+    });
+    postsPerSecond++;
+  } else {
+    console.log('Could not save. Spam protection invoked.');
+  }
+>>>>>>> 3a31ed9be48d3ba66b7fb9f78a8bd5ecf8edec80
 });
 
 app.listen(PORTNUM, () => {

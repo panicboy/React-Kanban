@@ -47,6 +47,7 @@ var Column = React.createClass({
     var queueArr = [];
     var inProgressArr = [];
     var doneArr = [];
+    console.log(this.props.showEditFormQueueState);
     data.forEach( (e,i,a) => {
       switch(e.status) {
         case 'Queue':
