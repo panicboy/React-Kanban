@@ -33,7 +33,7 @@ var boardReducer = (state = initialState, action) => {
 };
 function toggleVisibility (newState, status, action) {
   newState = newState.update(`showEditForm${status}`, bool => bool = !bool);
-  if(action.status) newState = newState.set(`showEditForm${status}State`, action.status);
+  if(action.state) newState = newState.set(`showEditForm${status}State`, action.state);
   newState = newState.update("isEditing", bool => bool = !bool);
   return newState;
 }

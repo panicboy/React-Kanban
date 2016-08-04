@@ -53,7 +53,7 @@ var Column = React.createClass({
             key={i}
             isEditing={this.props.isEditing}
             showEditFormQueue={this.props.showEditFormQueue}
-            toggleEditFormQueue={this.props.toggleEditFormQueue}
+            toggleEditForm={this.props.toggleEditForm}
 
             showForm={this.props.showForm}
             hideForm={this.props.hideForm}
@@ -67,7 +67,7 @@ var Column = React.createClass({
             key={i}
             isEditing={this.props.isEditing}
             showEditFormInProgress={this.props.showEditFormInProgress}
-            toggleEditFormInProgress={this.props.toggleEditFormInProgress}
+            toggleEditForm={this.props.toggleEditForm}
 
             showForm={this.props.showForm}
             hideForm={this.props.hideForm}
@@ -81,7 +81,7 @@ var Column = React.createClass({
             key={i}
             isEditing={this.props.isEditing}
             showEditFormDone={this.props.showEditFormDone}
-            toggleEditFormDone={this.props.toggleEditFormDone}
+            toggleEditForm={this.props.toggleEditForm}
 
             showForm={this.props.showForm}
             hideForm={this.props.hideForm}
@@ -119,7 +119,8 @@ var Column = React.createClass({
               <Form
                 updateBoard={this.props.updateBoard}
                 status={this.props.showEditFormQueueState}
-                toggleEditFormQueue={this.props.toggleEditFormQueue}
+                toggleEditForm={this.props.toggleEditForm}
+
               />
             ) : null}
         </div>
@@ -134,7 +135,7 @@ var Column = React.createClass({
             <Form
               updateBoard={this.props.updateBoard}
               status={this.props.showEditFormInProgressState}
-              toggleEditFormInProgress={this.props.toggleEditFormInProgress}
+              toggleEditForm={this.props.toggleEditForm}
             />
           ) : null}
         </div>
@@ -150,7 +151,7 @@ var Column = React.createClass({
               <Form
                 updateBoard={this.props.updateBoard}
                 status={this.props.showEditFormDoneState}
-                toggleEditFormDone={this.props.toggleEditFormDone}
+                toggleEditForm={this.props.toggleEditForm}
               />
             ) : null}
         </div>

@@ -28,33 +28,26 @@ var Board =  React.createClass({
   hideForm () {
     this.props.hideForm();
   },
+  toggleEditForm (state, status) {
+    this.props.toggleEditForm(state, status);
+  },
 
-  toggleEditFormQueue (state) {
-    this.props.toggleEditFormQueue(state);
-  },
-  toggleEditFormInProgress (state) {
-    this.props.toggleEditFormInProgress(state);
-  },
-  toggleEditFormDone (state) {
-    this.props.toggleEditFormDone(state);
-  },
   render() {
     return (
       <div>
         <Column
         isEditing={this.props.isEditing}
 
-        toggleEditFormQueue={this.toggleEditFormQueue}
         showEditFormQueue={this.props.showEditFormQueue}
         showEditFormQueueState={this.props.showEditFormQueueState}
 
-        toggleEditFormInProgress={this.toggleEditFormInProgress}
         showEditFormInProgress={this.props.showEditFormInProgress}
         showEditFormInProgressState={this.props.showEditFormInProgressState}
 
-        toggleEditFormDone={this.toggleEditFormDone}
         showEditFormDone={this.props.showEditFormDone}
         showEditFormDoneState={this.props.showEditFormDoneState}
+
+        toggleEditForm={this.toggleEditForm}
 
         showForm={this.props.showForm}
         hideForm={this.hideForm}
@@ -94,24 +87,13 @@ var mapDispatchToProps = (dispatch) => {
     renderForm: () => {dispatch({type: 'SHOW_FORM'})},
     hideForm: () => {dispatch({type:'HIDE_FORM'})},
 
-    toggleEditFormQueue: (status) => {
+    toggleEditForm: (state, status) => {
       dispatch({
-        type:'TOGGLE_EDIT_FORM_QUEUE',
-        status,
+        type:`TOGGLE_EDIT_FORM_${status}`,
+        state,
       })
     },
-    toggleEditFormInProgress: (status) => {
-      dispatch({
-        type:'TOGGLE_EDIT_FORM_INPROGRESS',
-        status,
-      })
-    },
-    toggleEditFormDone: (status) => {
-      dispatch({
-        type:'TOGGLE_EDIT_FORM_DONE',
-        status,
-      })
-    },
+
   }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Board);

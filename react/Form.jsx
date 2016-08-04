@@ -4,10 +4,8 @@ import Board from './Board.jsx';
 import MyInput from './MyInput.jsx';
 
 function hideAForm(status, props) {
-  if(status === 'Queue') return props.toggleEditFormQueue();
-  if(status === 'In Progress') return props.toggleEditFormInProgress();
-  if(status === 'Done') return props.toggleEditFormDone();
-  return props.hideForm();
+  if (!status) return props.hideForm();
+  return props.toggleEditForm(null, status.replace(' ','').toUpperCase());;
 }
 var Form = React.createClass({
   submit(data) { //on data submit, send all data as a normal form
