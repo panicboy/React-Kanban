@@ -3,12 +3,12 @@ import Immutable from 'immutable';
 var initialState = Immutable.Map({
   showForm:false,
   showEditFormQueue:false,
-  showEditFormQueueState: 0,
+  showEditFormQueueState: {},
   showEditFormInProgress:false,
-  showEditFormInProgressState: 0,
+  showEditFormInProgressState: {},
   showEditFormDone:false,
-  showEditFormDoneState: 0,
-  editFormsBeingShown: 0,
+  showEditFormDoneState: {},
+  isEditing: false,
   data: [],
 });
 
@@ -17,36 +17,22 @@ var boardReducer = (state = initialState, action) => {
   switch(action.type) {
     case 'UPDATE_BOARD':
       return newState.set("data", action.data);
-    case 'SHOW_FORM':
-      return newState.update("showForm", bool => bool = true);
-    case 'HIDE_FORM':
-      return newState.update("showForm", bool => bool = false );
-    case 'SHOW_EDIT_FORM_QUEUE':
-      return newStateShow(newState, 'Queue', action);
-    case 'HIDE_EDIT_FORM_QUEUE':
-      return newStateHide(newState, 'Queue', action);
-    case 'SHOW_EDIT_FORM_INPROGRESS':
-      return newStateShow(newState, 'InProgress', action);
-    case 'HIDE_EDIT_FORM_INPROGRESS':
-      return newStateHide(newState, 'InProgress', action);
-    case 'SHOW_EDIT_FORM_DONE':
-      return newStateShow(newState, 'Done', action);
-    case 'HIDE_EDIT_FORM_DONE':
-      return newStateHide(newState, 'Done', action);
+    case 'TOGGLE_EDIT_FORM_':
+      return newState.update("showForm", bool => bool = !bool);
+    case 'TOGGLE_EDIT_FORM_QUEUE':
+      return toggleVisibility(newState, 'Queue', action);
+    case 'TOGGLE_EDIT_FORM_INPROGRESS':
+      return toggleVisibility(newState, 'InProgress', action);
+    case 'TOGGLE_EDIT_FORM_DONE':
+      return toggleVisibility(newState, 'Done', action);
     default:
       return newState;
   }
 };
-function newStateShow(newState, status, action) {
-  newState = newState.update(`showEditForm${status}`, bool => bool = true);
-  newState = newState.set(`showEditForm${status}State`, action.status);
-  newState = newState.set("editFormsBeingShown", 1);
-  return newState;
-}
-function newStateHide(newState, status, action) {
-  newState = newState.update(`showEditForm${status}`, bool => bool = false);
-  newState = newState.set(`showEditForm${status}State`, {});
-  newState = newState.set("editFormsBeingShown", 0);
+function toggleVisibility (newState, status, action) {
+  newState = newState.update(`showEditForm${status}`, bool => bool = !bool);
+  if(action.state) newState = newState.set(`showEditForm${status}State`, action.state);
+  newState = newState.update("isEditing", bool => bool = !bool);
   return newState;
 }
 

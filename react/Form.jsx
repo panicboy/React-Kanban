@@ -11,42 +11,17 @@ function hideAForm(status, props) {
 }
 var Form = React.createClass({
   submit(data) { //on data submit, send all data as a normal form
-    var req = new XMLHttpRequest();
+    var req = new XMLHttpRequgit add .est();
     if(data.id.length < 2) req.open('POST', '/', true);
     if(data.id.length > 1) req.open('PUT', '/edit/', true);
     req.setRequestHeader("Content-type", "application/json");
     req.send(JSON.stringify(data));
     this.props.updateBoard();
-<<<<<<< HEAD
-    try {
-      this.props.hideEditFormQueue();
-    } catch (e) {
-      try {
-        this.props.hideEditFormInProgress();
-      } catch(e) {
-        try {
-          this.props.hideEditFormDone();
-          //put code in here
-        }
-      }
-    }
-  },
-  enableButton() { //triggered by onValid input by Formsy, enabled submit button
-    this.setState({
-      canSubmit: true,
-    });
-  },
-  disableButton() {
-    this.setState({
-      canSubmit: false,
-    });
-=======
     hideAForm(data.status, this.props);
->>>>>>> e3f5baab52d4f1bfdba45751b6a955208ed6c9d3
   },
   //these two methods disable the back button while editing
   back () {
-    hideAForm(null, this.props);
+    hideAForm('', this.props);
   },
   shouldIback () {
     if(this.props.status === undefined) {
@@ -54,15 +29,10 @@ var Form = React.createClass({
     }
   },
   checkValues () {
-<<<<<<< HEAD
-    if(this.props.status) {
       // add id to the form to determine if it's new or an update
-      return [this.props.status.title,this.props.status.priority,this.props.status.createdBy,this.props.status.assignedTo,this.props.status.status,this.props.status._id];
-=======
     var state = this.props.status;
     if(state) {
-      return [state.title,state.priority,state.createdBy,state.assignedTo,state.status];
->>>>>>> e3f5baab52d4f1bfdba45751b6a955208ed6c9d3
+      return [state.title, state.priority, state.createdBy, state.assignedTo, state.status, state._id];
     } else {
       return ['','','','','',''];
     }
@@ -76,12 +46,8 @@ var Form = React.createClass({
           <MyInput value={values[1]} name="priority" title="Priority" validations="isIn:['low','medium','high','blocker','Low','Medium','High','Blocker']" validationError="Please choose either low, medium, high, or blocker." required />
           <MyInput value={values[2]} name="createdby" title="Created By" required />
           <MyInput value={values[3]} name="assignedto" title="Assigned To" required />
-<<<<<<< HEAD
-          <MyInput value={values[4]} name="this.props.status" type="hidden" />
-          <MyInput value={values[5]} name="id" type="hidden" />
-=======
           <MyInput value={values[4]} name="status" type="hidden" />
->>>>>>> e3f5baab52d4f1bfdba45751b6a955208ed6c9d3
+          <MyInput value={values[5]} name="id" type="hidden" />
           <button type="submit" > Submit </button>
         </Formsy.Form>
         <div className="center">
