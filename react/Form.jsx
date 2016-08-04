@@ -11,7 +11,7 @@ function hideAForm(status, props) {
 }
 var Form = React.createClass({
   submit(data) { //on data submit, send all data as a normal form
-    var req = new XMLHttpRequgit add .est();
+    var req = new XMLHttpRequest();
     if(data.id.length < 2) req.open('POST', '/', true);
     if(data.id.length > 1) req.open('PUT', '/edit/', true);
     req.setRequestHeader("Content-type", "application/json");
