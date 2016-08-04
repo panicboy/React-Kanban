@@ -93,7 +93,7 @@ var Column = React.createClass({
       cards = this.createByColumn(this.props.data);
     }
     return (
-      <div className="container column-holder">
+      <div className="column-holder">
         <div
           id="Queue"
           className="column"

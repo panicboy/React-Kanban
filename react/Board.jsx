@@ -6,7 +6,7 @@ import Column from './Column.jsx';
 import Immutable from 'immutable';
 import {connect} from 'react-redux';
 
-var Board =  React.createClass({
+var Board = React.createClass({
   componentDidMount() {
     this.updateBoard();
   },
@@ -25,7 +25,6 @@ var Board =  React.createClass({
   toggleEditForm (state, status) {
     this.props.toggleEditForm(state, status);
   },
-
   render() {
     return (
       <div>
@@ -60,6 +59,8 @@ var Board =  React.createClass({
     )
   }
 });
+
+
 var mapStateToProps = (state) => {
   var s = state.boardReducer.toJS();
   return {
