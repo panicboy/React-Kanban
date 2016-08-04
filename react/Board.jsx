@@ -32,18 +32,18 @@ var Board =  React.createClass({
         <Column
         isEditing={this.props.isEditing}
 
-        showEditFormQueue={this.props.showEditFormQueue}
-        showEditFormQueueState={this.props.showEditFormQueueState}
+        editForm_Q={this.props.editForm_Q}
+        editForm_QState={this.props.editForm_QState}
 
-        showEditFormInProgress={this.props.showEditFormInProgress}
-        showEditFormInProgressState={this.props.showEditFormInProgressState}
+        editForm_IP={this.props.editForm_IP}
+        editForm_IPState={this.props.editForm_IPState}
 
-        showEditFormDone={this.props.showEditFormDone}
-        showEditFormDoneState={this.props.showEditFormDoneState}
+        editForm_D={this.props.editForm_D}
+        editForm_DState={this.props.editForm_DState}
 
         toggleEditForm={this.toggleEditForm}
 
-        showForm={this.props.showForm}
+        form={this.props.form}
 
         updateBoard={this.updateBoard}
         data={this.props.data} />
@@ -61,13 +61,13 @@ var mapStateToProps = (state) => {
   var s = state.boardReducer.toJS();
   return {
     data: s.data,
-    showForm:s.showForm,
-    showEditFormQueue:s.showEditFormQueue,
-    showEditFormQueueState:s.showEditFormQueueState,
-    showEditFormInProgress:s.showEditFormInProgress,
-    showEditFormInProgressState:s.showEditFormInProgressState,
-    showEditFormDone:s.showEditFormDone,
-    showEditFormDoneState: s.showEditFormDoneState,
+    form:s.form,
+    editForm_Q:s.editForm_Q,
+    editForm_QState:s.editForm_QState,
+    editForm_IP:s.editForm_IP,
+    editForm_IPState:s.editForm_IPState,
+    editForm_D:s.editForm_D,
+    editForm_DState: s.editForm_DState,
     isEditing: s.isEditing,
   }
 }
