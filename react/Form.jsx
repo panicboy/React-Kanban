@@ -3,43 +3,24 @@ import React from 'react';
 import Board from './Board.jsx';
 import MyInput from './MyInput.jsx';
 
+function hideAForm(status, props) {
+  if(status === 'Queue') return props.hideEditFormQueue();
+  if(status === 'In Progress') return props.hideEditFormInProgress();
+  if(status === 'Done') return props.hideEditFormDone();
+  return props.hideForm();
+}
 var Form = React.createClass({
   submit(data) { //on data submit, send all data as a normal form
-    // console.log(data);
     var req = new XMLHttpRequest();
     req.open('POST', '/', true);
     req.setRequestHeader("Content-type", "application/json");
     req.send(JSON.stringify(data));
     this.props.updateBoard();
-    try {
-      this.props.hideEditFormQueue();
-    } catch (e) {
-      try {
-        this.props.hideEditFormInProgress();
-      } catch(e) {
-        try {
-          this.props.hideEditFormDone();
-        } catch(e) {
-          //put code in here
-        }
-      }
-    }
+    hideAForm(data.status, this.props);
   },
   //these two methods disable the back button while editing
   back () {
-    try {
-      this.props.hideForm();
-    } catch(e) {
-      try {
-        this.props.hideEditFormQueue();
-      } catch(e) {
-        try {
-          this.props.hideEditFormInProgress();
-        } catch(e) {
-          this.props.hideEditFormDone();
-        }
-      }
-    }
+    hideAForm(null, this.props);
   },
   shouldIback () {
     if(this.props.status === undefined) {
@@ -47,8 +28,9 @@ var Form = React.createClass({
     }
   },
   checkValues () {
-    if(this.props.status) {
-      return [this.props.status.title,this.props.status.priority,this.props.status.createdBy,this.props.status.assignedTo,this.props.status.status];
+    var state = this.props.status;
+    if(state) {
+      return [state.title,state.priority,state.createdBy,state.assignedTo,state.status];
     } else {
       return ['','','','',''];
     }

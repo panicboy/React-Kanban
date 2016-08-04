@@ -57,15 +57,9 @@ var Card = React.createClass({
   editItem () { //on edit button click
     if(this.props.editFormsBeingShown === 0) {
       this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
-      try {
-        this.props.renderEditFormQueue(this.props.data);
-      } catch (e) {
-        try {
-          this.props.renderEditFormInProgress(this.props.data);
-        } catch (e) {
-          this.props.renderEditFormDone(this.props.data);
-        }
-      }
+      if(this.props.data.status === 'Queue') this.props.renderEditFormQueue(this.props.data);
+      if(this.props.data.status === 'In Progress') this.props.renderEditFormInProgress(this.props.data);
+      if(this.props.data.status === 'Done') this.props.renderEditFormDone(this.props.data);
     }
   },
   timestamp () {
