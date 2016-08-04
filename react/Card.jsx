@@ -3,24 +3,6 @@ import React from 'react';
 import Form from './Form.jsx';
 
 var Card = React.createClass({
-  getInitialState() {
-    return {
-      title: '',
-      priority: '',
-      createdBy: '',
-      assignedTo: '',
-      status: '',
-    };
-  },
-  componentDidMount() {
-    this.setState({
-      title: this.props.data.title,
-      priority: this.props.data.priority,
-      createdBy: this.props.data.createdBy,
-      assignedTo: this.props.data.assignedTo,
-      status: this.props.data.status,
-    });
-  },
   dragStart(event) {
     var cardData = {
       id: this.props.data._id,
@@ -28,26 +10,21 @@ var Card = React.createClass({
     };
     event.dataTransfer.setData('text', JSON.stringify(cardData));
   },
-  handleStatusLeft () {
-    var status = this.props.data.status.replace(/\s/g, '');;
-    status = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[status];
-    this.createReq('status', status);
+  handleStatus (direction) {
+    var newStatus = this.props.data.status.replace(/\s/g, '');
+    if (direction === 'right') newStatus = {Queue: 'In Progress', InProgress: 'Done', Done: 'Queue'}[newStatus];
+    if (direction === 'left') newStatus = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[newStatus];
+    this.createPutRequest('status', newStatus);
   },
-  handleStatusRight () {
-    var status = this.props.data.status.replace(/\s/g, '');
-    status = {Queue: 'In Progress', InProgress: 'Done', Done: 'Queue'}[status];
-    this.createReq('status', status);
-  },
-  cyclePriority(){
-    var thePriority = this.state.priority.toLowerCase();
-    if('low medium high blocker'.indexOf(thePriority) < 0) {
-      thePriority = 'blocker';
+  cyclePriority() {
+    var newPriority = this.props.data.priority.toLowerCase();
+    if(!'low medium high blocker'.includes(newPriority)) {
+     newPriority = 'blocker';
     }
-    thePriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[thePriority];
-    this.createReq('priority', thePriority);
-    this.setState({priority: thePriority}); //added to fix bug where cycle priority wasn't working with edit
+    newPriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[newPriority];
+    this.createPutRequest('priority', newPriority);
   },
-  createReq (fieldName, fieldValue) {
+  createPutRequest (fieldName, fieldValue) {
     var myRequest = {
       id : this.props.data._id || 0,
     };
@@ -74,17 +51,9 @@ var Card = React.createClass({
     }))
   },
   editItem () { //on edit button click
-    if(!this.props.editFormsBeingShown) {
+    if(!this.props.isEditing) {
       this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
-      try {
-        this.props.renderEditFormQueue(this.state);
-      } catch (e) {
-        try {
-          this.props.renderEditFormInProgress(this.state);
-        } catch (e) {
-          this.props.renderEditFormDone(this.state);
-        }
-      }
+      this.props.toggleEditForm(this.props.data, this.props.data.status.replace(' ','').toUpperCase());
     }
   },
   timestamp () {
@@ -93,20 +62,74 @@ var Card = React.createClass({
   },
   render() {
     return (
-       <div key={this.props.data._id} className={`card ${this.state.priority}`} data-id={this.props.data._id} data-status={this.state.status} data-updatedat={this.props.data.updatedAt} draggable="true" onDragStart={this.dragStart}>
-        <span onClick={this.deleteItem} className="close">&#120;</span>
-        <span onClick={this.editItem} className="edit">&#9998;</span>
-        <span className="timestamp">{this.timestamp()}</span>
-        <span className="title small">{this.props.data.title}</span>
-        <span className="assigned-to small">Assignee: {this.props.data.assignedTo}</span>
-        <span className="created-by small">Assignor: {this.props.data.createdBy}</span>
-        <span className="priority small" onClick={this.cyclePriority}>Priority: {this.props.data.priority}</span>
-        <span className="status small" onClick={this.handleStatusRight}>Status: {this.props.data.status}</span>
-        <button onClick={this.handleStatusLeft}>&larr;</button>
-        <button onClick={this.handleStatusRight}>&rarr;</button>
+      <div
+        key={this.props.data._id}
+        className={`card ${this.props.data.priority}`}
+        data-id={this.props.data._id}
+        data-status={this.props.data.status}
+        data-updatedat={this.props.data.updatedAt}
+        draggable="true"
+        onDragStart={this.dragStart}
+      >
+        <span
+          onClick={this.deleteItem}
+          className="close"
+        >
+          &#120;
+        </span>
+        <span
+          onClick={this.editItem}
+          className="edit"
+        >
+          &#9998;
+        </span>
+        <span
+          className="timestamp"
+        >
+          {this.timestamp()}
+        </span>
+        <span
+          className="title">
+          {this.props.data.title}
+        </span>
+        <span
+          className="assigned-to"
+        >
+          Assignee: {this.props.data.assignedTo}
+        </span>
+        <span
+          className="created-by"
+        >
+          Assignor: {this.props.data.createdBy}
+        </span>
+        <span
+          className="priority"
+          onClick={this.cyclePriority}
+        >
+          Priority: {this.props.data.priority}
+        </span>
+        <span
+          className="status"
+          onClick={() => {this.handleStatus('right')}}
+        >
+          Status: {this.props.data.status}
+        </span>
+        <button
+          onClick={() => {this.handleStatus('left')}}
+        >
+          &larr;
+        </button>
+        <button
+          onClick={() => {this.handleStatus('right')}}
+        >
+          &rarr;
+        </button>
       </div>
     )
   }
 });
 
+
 export default Card;
+
+

@@ -7,12 +7,12 @@ var timestamps = require('mongoose-timestamp');
 var webpack = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
-var config = require('./webpack.config');
 
+var config = require('./webpack.config');
 var compiler = webpack(config);
+
 var PORTNUM = 3000; //default port
 
-var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://localhost/test'); //database name
@@ -33,7 +33,6 @@ cardSchema.plugin(timestamps);
 mongoose.model('Card', cardSchema);
  var Card = mongoose.model('Card', cardSchema);
 
-app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -58,17 +57,9 @@ app.get('/data', (req, res) => {
 });
 
 
-app.put('/edit/', (req, res) => {
-  // now updates a single field
-   var reqObject = {};
-    for(var key in req.body) {
-      if(req.body.hasOwnProperty(key) && key != 'id') {
-        reqObject[key] = req.body[key];
-      }
-    }
-  // reqObject is an object with field name and value, i.e., { priority : 'High'}
+app.put('/edit', (req, res) => {
   Card.findByIdAndUpdate(req.body.id, {
-    $set: reqObject
+    $set: req.body
   },
   function (err, card) {
     if (err) return console.log('Error: ', err);
@@ -77,7 +68,7 @@ app.put('/edit/', (req, res) => {
 });
 
 
-app.delete('/delete/', (req, res) => {
+app.delete('/delete', (req, res) => {
   Card.findByIdAndRemove({"_id":req.body.id},
   function (err, card) {
     if (err) return console.log(`Error with DELETE: ${err}`);
@@ -86,10 +77,10 @@ app.delete('/delete/', (req, res) => {
 });
 
 var postsPerSecond = 0; //spam protection
+setInterval( () => {
+  postsPerSecond = 0;
+}, 1000); //clears every second
 app.post('/', (req, res) => {
-  setInterval( () => {
-    postsPerSecond = 0;
-  }, 1000); //clears every second
   if(postsPerSecond === 0) {
     var body = req.body;
     var newCard = new Card({

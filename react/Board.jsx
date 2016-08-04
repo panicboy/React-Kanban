@@ -3,24 +3,14 @@ import React from 'react';
 import Form from './Form.jsx';
 import Column from './Column.jsx';
 
-var Board =  React.createClass({
-  getInitialState: function(){
-    return {
-      showForm:false,
-      showEditFormQueue:false,
-      showEditFormQueueState: {},
-      showEditFormInProgress:false,
-      showEditFormInProgressState: {},
-      showEditFormDone:false,
-      showEditFormDoneState: {},
-      editFormsBeingShown: 0,
-    };
+import Immutable from 'immutable';
+import {connect} from 'react-redux';
+
+var Board = React.createClass({
+  componentDidMount() {
+    this.updateBoard();
   },
   updateBoard () {
-  //passed down to children as a prop to update board
-    this.queryDatabase();
-  },
-  componentDidMount() {
     this.queryDatabase();
   },
   queryDatabase () {
@@ -30,69 +20,76 @@ var Board =  React.createClass({
     req.send();
   },
   loadData (data) {
-    this.setState({data:JSON.parse(data.currentTarget.response)});
+    this.props.updateBoard(JSON.parse(data.currentTarget.response));
   },
-  renderForm () {
-    this.setState({
-      showForm:true,
-    });
-  },
-  renderEditFormQueue (state) {
-    this.setState({
-      showEditFormQueue:true,
-      showEditFormQueueState: state,
-      editFormsBeingShown: 1,
-    });
-  },
-  renderEditFormInProgress (state) {
-    this.setState({
-      showEditFormInProgress:true,
-      showEditFormInProgressState: state,
-      editFormsBeingShown: 1,
-    });
-  },
-  renderEditFormDone (state) {
-    this.setState({
-      showEditFormDone:true,
-      showEditFormDoneState: state,
-      editFormsBeingShown: 1,
-    });
-  },
-  hideForm () {
-    this.setState({
-      showForm:false,
-    });
-  },
-  hideEditFormQueue () {
-    this.setState({
-      showEditFormQueue: false,
-      showEditFormQueueState: {},
-      editFormsBeingShown: 0,
-    })
-  },
-  hideEditFormInProgress () {
-    this.setState({
-      showEditFormInProgress: false,
-      showEditFormInProgressState: {},
-      editFormsBeingShown: 0,
-    })
-  },
-  hideEditFormDone () {
-    this.setState({
-      showEditFormDone: false,
-      showEditFormDoneState: {},
-      editFormsBeingShown: 0,
-    })
+  toggleEditForm (state, status) {
+    this.props.toggleEditForm(state, status);
   },
   render() {
     return (
       <div>
-        <Column editFormsBeingShown={this.state.editFormsBeingShown} showEditFormQueueState={this.state.showEditFormQueueState}  showEditFormInProgressState={this.state.showEditFormInProgressState}  showEditFormDoneState={this.state.showEditFormDoneState} showEditFormQueue={this.state.showEditFormQueue} showEditFormInProgress={this.state.showEditFormInProgress} showEditFormDone={this.state.showEditFormDone} renderEditFormQueue={this.renderEditFormQueue} hideEditFormQueue={this.hideEditFormQueue} renderEditFormInProgress={this.renderEditFormInProgress} hideEditFormInProgress={this.hideEditFormInProgress} renderEditFormDone={this.renderEditFormDone} hideEditFormDone={this.hideEditFormDone} showForm={this.state.showForm} hideForm={this.hideForm} updateBoard={this.updateBoard} data={this.state.data} />
+        <Column
+        isEditing={this.props.isEditing}
+        updateBoard={this.updateBoard}
+
+        form={this.props.form}
+
+        editForm_Q={this.props.editForm_Q}
+        editForm_QState={this.props.editForm_QState}
+
+        editForm_IP={this.props.editForm_IP}
+        editForm_IPState={this.props.editForm_IPState}
+
+        editForm_D={this.props.editForm_D}
+        editForm_DState={this.props.editForm_DState}
+
+        toggleEditForm={this.toggleEditForm}
+
+        data={this.props.data}
+      />
         <div className="center">
-          <span onClick={this.renderForm} className="newCard">&#43;</span>
+          <span
+            onClick={() => {this.toggleEditForm('','')}}
+            className="newCard"
+          >
+            &#43;
+          </span>
         </div>
       </div>
     )
   }
 });
-export default Board;
+
+
+var mapStateToProps = (state) => {
+  var s = state.boardReducer.toJS();
+  return {
+    data: s.data,
+    form: s.form,
+    editForm_Q: s.editForm_Q,
+    editForm_QState: s.editForm_QState,
+    editForm_IP: s.editForm_IP,
+    editForm_IPState: s.editForm_IPState,
+    editForm_D: s.editForm_D,
+    editForm_DState: s.editForm_DState,
+    isEditing: s.isEditing,
+  }
+}
+
+var mapDispatchToProps = (dispatch) => {
+  return {
+    updateBoard: (data) => {
+      dispatch({
+        type: 'UPDATE_BOARD',
+        data,
+      })
+    },
+    toggleEditForm: (state, status) => {
+      dispatch({
+        type:`TOGGLE_EDIT_FORM_${status}`,
+        state,
+      })
+    },
+  }
+};
+export default connect(mapStateToProps,mapDispatchToProps)(Board);
