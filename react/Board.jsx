@@ -93,9 +93,7 @@ var mapStateToProps = (state) => {
     showEditFormInProgressState: state.boardReducer.toJS().showEditFormInProgressState,
     showEditFormDone: state.boardReducer.toJS().showEditFormDone,
     showEditFormDoneState: state.boardReducer.toJS().showEditFormDoneState,
-    editFormsBeingShown: state.boardReducer.toJS().editFormsBeingShown,
-    editMode: state.boardReducer.toJS().editMode,
-    createMode: state.boardReducer.toJS().createMode
+    editFormsBeingShown: state.boardReducer.toJS().editFormsBeingShown
   }
 }
 
@@ -128,12 +126,6 @@ var mapDispatchToProps = (dispatch) => {
         type:'HIDE_EDIT_FORM_QUEUE',
       })
     },
-    setEditMode: () => {
-      dispatch({
-        type:'SET_EDIT_MODE',
-      })
-    },
-
   }
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Board);
