@@ -16,7 +16,7 @@ var Card = React.createClass({
     if (direction === 'left') newStatus = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[newStatus];
     this.createPutRequest('status', newStatus);
   },
-  cyclePriority(){
+  cyclePriority() {
     var newPriority = this.props.data.priority.toLowerCase();
     if(!'low medium high blocker'.includes(newPriority)) {
      newPriority = 'blocker';
