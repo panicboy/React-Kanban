@@ -26,6 +26,15 @@ var Board =  React.createClass({
   renderForm () {
     this.props.renderForm();
   },
+  setEditMode() {
+    this.props.setEditMode();
+  },
+  setCreateMode() {
+    this.setState({
+      editMode: false,
+      createMode: true
+    });
+  },
   renderEditFormQueue (state) {
     this.props.renderEditFormQueue(state);
   },
@@ -77,14 +86,16 @@ var Board =  React.createClass({
 var mapStateToProps = (state) => {
   return {
     data: state.boardReducer.toJS().data,
-    showForm:state.boardReducer.toJS().showForm,
-    showEditFormQueue:state.boardReducer.toJS().showEditFormQueue,
-    showEditFormQueueState:state.boardReducer.toJS().showEditFormQueueState,
-    showEditFormInProgress:state.boardReducer.toJS().showEditFormInProgress,
-    showEditFormInProgressState:state.boardReducer.toJS().showEditFormInProgressState,
-    showEditFormDone:state.boardReducer.toJS().showEditFormDone,
+    showForm: state.boardReducer.toJS().showForm,
+    showEditFormQueue: state.boardReducer.toJS().showEditFormQueue,
+    showEditFormQueueState: state.boardReducer.toJS().showEditFormQueueState,
+    showEditFormInProgress: state.boardReducer.toJS().showEditFormInProgress,
+    showEditFormInProgressState: state.boardReducer.toJS().showEditFormInProgressState,
+    showEditFormDone: state.boardReducer.toJS().showEditFormDone,
     showEditFormDoneState: state.boardReducer.toJS().showEditFormDoneState,
     editFormsBeingShown: state.boardReducer.toJS().editFormsBeingShown,
+    editMode: state.boardReducer.toJS().editMode,
+    createMode: state.boardReducer.toJS().createMode
   }
 }
 
@@ -115,6 +126,11 @@ var mapDispatchToProps = (dispatch) => {
     hideEditFormQueue: () => {
       dispatch({
         type:'HIDE_EDIT_FORM_QUEUE',
+      })
+    },
+    setEditMode: () => {
+      dispatch({
+        type:'SET_EDIT_MODE',
       })
     },
 

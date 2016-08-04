@@ -41,7 +41,7 @@ var Card = React.createClass({
     this.createReq('status', status);
   },
   cyclePriority(){
-    var thePriority = this.state.priority.toLowerCase();
+    var thePriority = this.props.data.priority.toLowerCase();
     if('low medium high blocker'.indexOf(thePriority) < 0) {
       thePriority = 'blocker';
     }
@@ -76,19 +76,27 @@ var Card = React.createClass({
     }))
   },
   editItem () { //on edit button click
+     console.log(`Queue: ${this.props.data.status=='Queue'}, In Progress: ${this.props.data.status=='In Progress'}, Done: ${this.props.data.status=='Done'}`);
     if(this.props.editFormsBeingShown === 0) {
-      this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
-      try {
-        this.props.renderEditFormQueue(this.props.data);
-      } catch (e) {
-        try {
-          this.props.renderEditFormInProgress(this.props.data);
-        } catch (e) {
-          this.props.renderEditFormDone(this.props.data);
-        }
-      }
+      if(this.props.data.status=='Queue') this.props.renderEditFormQueue(this.props.data);
+      if(this.props.data.status=='In Progess') this.props.renderEditFormInProgress(this.props.data);
+      if(this.props.data.status=='Done') this.props.renderEditFormDone(this.props.data);
     }
   },
+  // editItem2 () { //on edit button click
+  //   console.log(`Queue: ${this.props.data.status=='Queue'}, In Progress: ${this.props.data.status=='In Progress'}, Done: ${this.props.data.status=='Done'}`);
+  //   if(this.props.editFormsBeingShown === 0) {
+  //     try {
+  //       this.props.renderEditFormQueue(this.props.data);
+  //     } catch (e) {
+  //       try {
+  //         this.props.renderEditFormInProgress(this.props.data);
+  //       } catch (e) {
+  //         this.props.renderEditFormDone(this.props.data);
+  //       }
+  //     }
+  //   }
+  // },
   timestamp () {
     var date = new Date(this.props.data.updatedAt);
     return date.toLocaleTimeString('en-US', { hour12: false });

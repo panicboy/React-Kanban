@@ -25,7 +25,8 @@ var Form = React.createClass({
   // },
   submit(data) { //on data submit, send all data as a normal form
     var req = new XMLHttpRequest();
-    req.open('POST', '/', true);
+    if(data.id.length < 2) req.open('POST', '/', true);
+    if(data.id.length > 1) req.open('PUT', '/edit/', true);
     req.setRequestHeader("Content-type", "application/json");
     req.send(JSON.stringify(data));
     this.props.updateBoard();
@@ -37,7 +38,6 @@ var Form = React.createClass({
       } catch(e) {
         try {
           this.props.hideEditFormDone();
-        } catch(e) {
           //put code in here
         }
       }
@@ -75,11 +75,11 @@ var Form = React.createClass({
     }
   },
   checkValues () {
-    // var status = this.props.showEditFormQueueState.toJS();
     if(this.props.status) {
-      return [this.props.status.title,this.props.status.priority,this.props.status.createdBy,this.props.status.assignedTo,this.props.status.status];
+      // add id to the form to determine if it's new or an update
+      return [this.props.status.title,this.props.status.priority,this.props.status.createdBy,this.props.status.assignedTo,this.props.status.status,this.props.status._id];
     } else {
-      return ['','','','',''];
+      return ['','','','','',''];
     }
   },
   render() {
@@ -92,6 +92,7 @@ var Form = React.createClass({
           <MyInput value={values[2]} name="createdby" title="Created By" required />
           <MyInput value={values[3]} name="assignedto" title="Assigned To" required />
           <MyInput value={values[4]} name="this.props.status" type="hidden" />
+          <MyInput value={values[5]} name="id" type="hidden" />
           <button type="submit" > Submit </button>
         </Formsy.Form>
         <div className="center">
