@@ -31,7 +31,6 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.6.1",
     "redux": "^3.5.2",
-    "superagent": "^2.1.0",
     "webpack-hot-middleware": "^2.12.2"
   },
   "devDependencies": {
