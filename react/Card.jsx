@@ -21,7 +21,7 @@ var Card = React.createClass({
     if(!'low medium high blocker'.includes(newPriority)) {
      newPriority = 'blocker';
     }
-   newPriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[newPriority];
+    newPriority =  {low: 'Medium', medium: 'High', high: 'Blocker', blocker: 'Low'}[newPriority];
     this.createPutRequest('priority', newPriority);
   },
   createPutRequest (fieldName, fieldValue) {
@@ -62,17 +62,68 @@ var Card = React.createClass({
   },
   render() {
     return (
-       <div key={this.props.data._id} className={`card ${this.props.data.priority}`} data-id={this.props.data._id} data-status={this.props.data.status} data-updatedat={this.props.data.updatedAt} draggable="true" onDragStart={this.dragStart}>
-        <span onClick={this.deleteItem} className="close">&#120;</span>
-        <span onClick={this.editItem} className="edit">&#9998;</span>
-        <span className="timestamp">{this.timestamp()}</span>
-        <span className="title small">{this.props.data.title}</span>
-        <span className="assigned-to small">Assignee: {this.props.data.assignedTo}</span>
-        <span className="created-by small">Assignor: {this.props.data.createdBy}</span>
-        <span className="priority small" onClick={this.cyclePriority}>Priority: {this.props.data.priority}</span>
-        <span className="status small" onClick={() => {this.handleStatus('right')}}>Status: {this.props.data.status}</span>
-        <button onClick={() => {this.handleStatus('left')}}>&larr;</button>
-        <button onClick={() => {this.handleStatus('right')}}>&rarr;</button>
+      <div
+        key={this.props.data._id}
+        className={`card ${this.props.data.priority}`}
+        data-id={this.props.data._id}
+        data-status={this.props.data.status}
+        data-updatedat={this.props.data.updatedAt}
+        draggable="true"
+        onDragStart={this.dragStart}
+      >
+        <span
+          onClick={this.deleteItem}
+          className="close"
+        >
+          &#120;
+        </span>
+        <span
+          onClick={this.editItem}
+          className="edit"
+        >
+          &#9998;
+        </span>
+        <span
+          className="timestamp"
+        >
+          {this.timestamp()}
+        </span>
+        <span
+        className="title">
+          {this.props.data.title}
+        </span>
+        <span
+          className="assigned-to"
+        >
+          Assignee: {this.props.data.assignedTo}
+        </span>
+        <span
+          className="created-by"
+        >
+          Assignor: {this.props.data.createdBy}
+        </span>
+        <span
+          className="priority"
+          onClick={this.cyclePriority}
+        >
+          Priority: {this.props.data.priority}
+        </span>
+        <span
+          className="status"
+          onClick={() => {this.handleStatus('right')}}
+        >
+          Status: {this.props.data.status}
+        </span>
+        <button
+          onClick={() => {this.handleStatus('left')}}
+        >
+          &larr;
+        </button>
+        <button
+          onClick={() => {this.handleStatus('right')}}
+        >
+          &rarr;
+        </button>
       </div>
     )
   }
