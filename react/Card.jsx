@@ -10,14 +10,10 @@ var Card = React.createClass({
     };
     event.dataTransfer.setData('text', JSON.stringify(cardData));
   },
-  handleStatusLeft () {
-    var newStatus = this.props.data.status.replace(/\s/g, '');;
-    newStatus = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[newStatus];
-    this.createPutRequest('status', newStatus);
-  },
-  handleStatusRight () {
+  handleStatus (direction) {
     var newStatus = this.props.data.status.replace(/\s/g, '');
-    newStatus = {Queue: 'In Progress', InProgress: 'Done', Done: 'Queue'}[newStatus];
+    if (direction === 'right') newStatus = {Queue: 'In Progress', InProgress: 'Done', Done: 'Queue'}[newStatus];
+    if (direction === 'left') newStatus = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[newStatus];
     this.createPutRequest('status', newStatus);
   },
   cyclePriority(){
@@ -74,9 +70,9 @@ var Card = React.createClass({
         <span className="assigned-to small">Assignee: {this.props.data.assignedTo}</span>
         <span className="created-by small">Assignor: {this.props.data.createdBy}</span>
         <span className="priority small" onClick={this.cyclePriority}>Priority: {this.props.data.priority}</span>
-        <span className="status small" onClick={this.handleStatusRight}>Status: {this.props.data.status}</span>
-        <button onClick={this.handleStatusLeft}>&larr;</button>
-        <button onClick={this.handleStatusRight}>&rarr;</button>
+        <span className="status small" onClick={() => {this.handleStatus('right')}}>Status: {this.props.data.status}</span>
+        <button onClick={() => {this.handleStatus('left')}}>&larr;</button>
+        <button onClick={() => {this.handleStatus('right')}}>&rarr;</button>
       </div>
     )
   }
