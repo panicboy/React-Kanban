@@ -12,10 +12,9 @@ var Column = React.createClass({
     var cardData;
     try {
       cardData = JSON.parse(event.dataTransfer.getData('text'));
-    } catch (e) { // If the text data isn't parsable ignore it.
+    } catch (e) {
       return;
     }
-    // Do something with the data
     var newStatus = null;
     if(event.target.id.length > 3) {
       newStatus = event.target.id;
@@ -29,10 +28,9 @@ var Column = React.createClass({
     if(newStatus === 'InProgress') {
       newStatus = 'In Progress';
     }
-    if('Queue In Progress Done Blocker'.indexOf(newStatus) >= 0 ) {
+    if('Queue In Progress Done Blocker'.includes(newStatus)) {
       cardData.status = newStatus;
     }
-
     var req = new XMLHttpRequest();
     req.open('PUT', `/edit/`);
     req.setRequestHeader("Content-Type", "application/json");
@@ -44,33 +42,31 @@ var Column = React.createClass({
     ));
   },
   createByColumn(data) {
-    var queueArr = [];
-    var inProgressArr = [];
-    var doneArr = [];
-    console.log(this.props.showEditFormQueueState);
+    var arr = [[],[],[]];
+
     data.forEach( (e,i,a) => {
       switch(e.status) {
         case 'Queue':
-          queueArr.push(
+          arr[0].push(
             <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormQueue={this.props.renderEditFormQueue}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'In Progress':
-          inProgressArr.push(
+          arr[1].push(
             <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormInProgress={this.props.renderEditFormInProgress}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
         case 'Done':
-          doneArr.push(
+          arr[2].push(
             <Card key={i} editFormsBeingShown={this.props.editFormsBeingShown} renderEditFormDone={this.props.renderEditFormDone}  showForm={this.props.showForm} hideForm={this.props.hideForm} updateBoard={this.props.updateBoard} data={e} />
           )
           break;
       }
     });
-    return [queueArr, inProgressArr, doneArr];
+    return arr;
   },
   render() {
-    var cards = [];
+    var cards;
     if(this.props.data) {
       cards = this.createByColumn(this.props.data);
     }

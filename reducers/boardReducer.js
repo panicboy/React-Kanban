@@ -18,25 +18,36 @@ var boardReducer = (state = initialState, action) => {
     case 'UPDATE_BOARD':
       return newState.set("data", action.data);
     case 'SHOW_FORM':
-      newState = newState.update("showForm", bool => bool = true);
-      return newState;
+      return newState.update("showForm", bool => bool = true);
     case 'HIDE_FORM':
-      newState = newState.update("showForm", bool => bool = false );
-      return newState;
+      return newState.update("showForm", bool => bool = false );
     case 'SHOW_EDIT_FORM_QUEUE':
-      newState = newState.update("showEditFormQueue", bool => bool = true);
-      newState = newState.set("editFormsBeingShown", 1);
-      newState = newState.set("showEditFormQueueState", action.status);
-      return newState;
+      return newStateShow(newState, 'Queue', action);
     case 'HIDE_EDIT_FORM_QUEUE':
-      newState = newState.update("showEditFormQueue", bool => bool = false);
-      newState = newState.set("showEditFormQueueState", {});
-      newState = newState.set("editFormsBeingShown", 0);
-      return newState;
-
+      return newStateHide(newState, 'Queue', action);
+    case 'SHOW_EDIT_FORM_INPROGRESS':
+      return newStateShow(newState, 'InProgress', action);
+    case 'HIDE_EDIT_FORM_INPROGRESS':
+      return newStateHide(newState, 'InProgress', action);
+    case 'SHOW_EDIT_FORM_DONE':
+      return newStateShow(newState, 'Done', action);
+    case 'HIDE_EDIT_FORM_DONE':
+      return newStateHide(newState, 'Done', action);
     default:
       return newState;
   }
 };
+function newStateShow(newState, status, action) {
+  newState = newState.update(`showEditForm${status}`, bool => bool = true);
+  newState = newState.set(`showEditForm${status}State`, action.status);
+  newState = newState.set("editFormsBeingShown", 1);
+  return newState;
+}
+function newStateHide(newState, status, action) {
+  newState = newState.update(`showEditForm${status}`, bool => bool = false);
+  newState = newState.set(`showEditForm${status}State`, {});
+  newState = newState.set("editFormsBeingShown", 0);
+  return newState;
+}
 
 export default boardReducer;
