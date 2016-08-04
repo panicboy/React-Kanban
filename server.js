@@ -12,7 +12,6 @@ var config = require('./webpack.config');
 var compiler = webpack(config);
 var PORTNUM = 3000; //default port
 
-var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://localhost/test'); //database name
@@ -33,7 +32,6 @@ cardSchema.plugin(timestamps);
 mongoose.model('Card', cardSchema);
 var Card = mongoose.model('Card', cardSchema);
 
-app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -66,7 +64,7 @@ app.get('/data', (req, res) => {
 });
 
 
-app.put('/edit/', (req, res) => {
+app.put('/edit', (req, res) => {
   Card.findByIdAndUpdate(req.body.id, {
     $set: req.body
   },
@@ -77,7 +75,7 @@ app.put('/edit/', (req, res) => {
 });
 
 
-app.delete('/delete/', (req, res) => {
+app.delete('/delete', (req, res) => {
   Card.findByIdAndRemove({"_id":req.body.id},
   function (err, card) {
     if (err) return console.log(`Error with DELETE: ${err}`);

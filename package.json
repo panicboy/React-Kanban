@@ -20,12 +20,13 @@
   "homepage": "https://github.com/Viltaria/React-Kanban#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "busboy-body-parser": "^0.1.0",
     "express": "^4.14.0",
-    "formsy-material-ui": "^0.5.0",
     "formsy-react": "^0.18.1",
     "immutable": "^3.8.1",
+<<<<<<< HEAD
     "method-override": "^2.3.6",
+=======
+>>>>>>> c29d948a167a96a8bd1c036416b9afaae67a1f81
     "mongodb": "^2.2.5",
     "mongoose": "^4.5.7",
     "react": "^15.3.0",

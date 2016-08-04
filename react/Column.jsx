@@ -50,7 +50,7 @@ var Column = React.createClass({
             <Card
             key={i}
             isEditing={this.props.isEditing}
-            showEditFormQueue={this.props.showEditFormQueue}
+            editForm_Q={this.props.editForm_Q}
             toggleEditForm={this.props.toggleEditForm}
 
             updateBoard={this.props.updateBoard}
@@ -60,25 +60,27 @@ var Column = React.createClass({
         case 'In Progress':
           arr[1].push(
             <Card
-            key={i}
-            isEditing={this.props.isEditing}
-            showEditFormInProgress={this.props.showEditFormInProgress}
-            toggleEditForm={this.props.toggleEditForm}
+              key={i}
+              isEditing={this.props.isEditing}
+              editForm_IP={this.props.editForm_IP}
+              toggleEditForm={this.props.toggleEditForm}
 
-            updateBoard={this.props.updateBoard}
-            data={e} />
+              updateBoard={this.props.updateBoard}
+              data={e}
+            />
           )
           break;
         case 'Done':
           arr[2].push(
             <Card
-            key={i}
-            isEditing={this.props.isEditing}
-            showEditFormDone={this.props.showEditFormDone}
-            toggleEditForm={this.props.toggleEditForm}
+              key={i}
+              isEditing={this.props.isEditing}
+              editForm_D={this.props.editForm_D}
+              toggleEditForm={this.props.toggleEditForm}
 
-            updateBoard={this.props.updateBoard}
-            data={e} />
+              updateBoard={this.props.updateBoard}
+              data={e}
+            />
           )
           break;
       }
@@ -99,20 +101,19 @@ var Column = React.createClass({
           onDrop={this.drop}
         >
           {cards[0]}
-          {this.props.showForm ?
+          {this.props.form ?
             (
               <Form
                 updateBoard={this.props.updateBoard}
                 toggleEditForm={this.props.toggleEditForm}
               />
             ) : null}
-          {this.props.showEditFormQueue ?
+          {this.props.editForm_Q ?
             (
               <Form
                 updateBoard={this.props.updateBoard}
-                status={this.props.showEditFormQueueState}
+                status={this.props.editForm_QState}
                 toggleEditForm={this.props.toggleEditForm}
-
               />
             ) : null}
         </div>
@@ -122,11 +123,11 @@ var Column = React.createClass({
           onDrop={this.drop}
         >
         {cards[1]}
-        {this.props.showEditFormInProgress ?
+        {this.props.editForm_IP ?
           (
             <Form
               updateBoard={this.props.updateBoard}
-              status={this.props.showEditFormInProgressState}
+              status={this.props.editForm_IPState}
               toggleEditForm={this.props.toggleEditForm}
             />
           ) : null}
@@ -138,11 +139,11 @@ var Column = React.createClass({
           onDrop={this.drop}
         >
           {cards[2]}
-          {this.props.showEditFormDone ?
+          {this.props.editForm_D ?
             (
               <Form
                 updateBoard={this.props.updateBoard}
-                status={this.props.showEditFormDoneState}
+                status={this.props.editForm_DState}
                 toggleEditForm={this.props.toggleEditForm}
               />
             ) : null}
