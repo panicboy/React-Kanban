@@ -1,4 +1,6 @@
 import React from 'react';
+import Immutable from 'immutable';
+import { connect } from 'react-redux';
 
 import Form from './Form.jsx';
 

@@ -31,19 +31,27 @@ var cardSchema = new Schema({
 
 cardSchema.plugin(timestamps);
 mongoose.model('Card', cardSchema);
- var Card = mongoose.model('Card', cardSchema);
+var Card = mongoose.model('Card', cardSchema);
 
 app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(express.static(__dirname));
+
+app.use(function(req, res, next) {
+  console.log('method: ',req.method, ' url: ',req.url);
+  next();
+ });
+
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
   stats: {
     colors: true,
   }
 }));
+
+
 
 app.get('/', (req, res) => {
   return res.render('index');
