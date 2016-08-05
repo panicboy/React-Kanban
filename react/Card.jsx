@@ -53,8 +53,7 @@ var Card = React.createClass({
     }))
   },
   editItem () { //on edit button click
-    if(!this.props.isEditing) {
-      this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
+    if(!this.props.isEditing) {//delete item so no duplicates since the form is just be rerendered
       this.props.toggleEditForm(this.props.data, this.props.data.status.replace(' ','').toUpperCase());
     }
   },

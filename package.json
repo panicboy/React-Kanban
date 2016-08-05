@@ -4,7 +4,7 @@
   "description": "> A digital Kanban board made with React",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --progress --colors --inline --content-base .",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,10 +23,7 @@
     "express": "^4.14.0",
     "formsy-react": "^0.18.1",
     "immutable": "^3.8.1",
-<<<<<<< HEAD
     "method-override": "^2.3.6",
-=======
->>>>>>> c29d948a167a96a8bd1c036416b9afaae67a1f81
     "mongodb": "^2.2.5",
     "mongoose": "^4.5.7",
     "react": "^15.3.0",

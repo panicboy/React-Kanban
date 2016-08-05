@@ -24,10 +24,12 @@ var Form = React.createClass({
   checkValues () {
       // add id to the form to determine if it's new or an update
     var state = this.props.status;
+    console.log('cardState: ', state);
     if(state) {
       return [state.title, state.priority, state.createdBy, state.assignedTo, state.status, state._id];
     } else {
       return ['','','','','',''];
+    }
   },
   render() {
     var values = this.checkValues();
@@ -52,12 +54,12 @@ var Form = React.createClass({
           />
           <MyInput
             value={values[2]}
-            name="createdby"
+            name="createdBy"
             title="Created By"
           />
           <MyInput
             value={values[3]}
-            name="assignedto"
+            name="assignedTo"
             title="Assigned To"
           />
           <MyInput
