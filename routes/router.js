@@ -8,35 +8,30 @@ Router.get('/', (req, res) => {
 });
 
 Router.get('/data', (req, res) => {
-  Card.find({}, (err, card) => {
-    if (err) {
-      return err;
-    }
-    res.set('Access-Control-Allow-Origin', '*');
+  Card.find({})
+  .then((card) => {
     return res.json(card);
+  }).catch( (err) => {
+    return console.log('Error: ', err);
   });
 });
-
 
 Router.put('/edit', (req, res) => {
   Card.findByIdAndUpdate(req.body.id, {
     $set: req.body
-  }, (err, card) => {
-    if (err) {
-      return console.log('Error: ', err);
-    }
+  }).then((card) => {
     return res.json(card);
+  }).catch((err) => {
+    return console.log('Error: ', err);
   });
 });
 
-
 Router.delete('/delete', (req, res) => {
-  Card.findByIdAndRemove({"_id":req.body.id},
-  (err, card) => {
-    if (err) {
-      return console.log(`Error with DELETE: ${err}`);
-    }
+  Card.findByIdAndRemove({"_id":req.body.id})
+  .then((card) => {
     return res.json(card);
+  }).catch((err) => {
+    return console.log('Error: ', err);
   });
 });
 

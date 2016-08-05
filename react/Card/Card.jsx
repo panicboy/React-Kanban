@@ -29,7 +29,7 @@ const Card = React.createClass({
   },
   createPutRequest (fieldName, fieldValue) {
     let myRequest = {
-      id : this.props.data._id || 0,
+      id : this.props.data._id,
     };
     myRequest[fieldName] = fieldValue;
     let req = new XMLHttpRequest();
@@ -64,15 +64,18 @@ const Card = React.createClass({
     return `${date.getMonth()}/${date.getDay()}/${date.getFullYear() - 2000}`;
   },
   render() {
+    var props = {
+      key: this.props.data._id,
+      draggable: "true",
+      onDragStart: this.dragStart,
+      className: `card ${this.props.data.priority}`,
+    };
     return (
       <div
-        key={this.props.data._id}
-        className={`card ${this.props.data.priority}`}
-        data-id={this.props.data._id}
-        data-status={this.props.data.status}
-        data-updatedat={this.props.data.updatedAt}
-        draggable="true"
-        onDragStart={this.dragStart}
+        {...props}
+        data-id = {this.props.data._id}
+        data-status = {this.props.data.status}
+        data-updatedat = {this.props.data.updatedAt}
       >
         <span
           onClick={this.deleteItem}
