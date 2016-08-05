@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Board from './Board.jsx';
+import Board from '../Board/Board.jsx';
 import MyInput from './MyInput.jsx';
 
 const Form = React.createClass({

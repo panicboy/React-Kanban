@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Form from './Form.jsx';
+import Form from '../Form/Form.jsx';
 
 const Card = React.createClass({
   dragStart(event) {

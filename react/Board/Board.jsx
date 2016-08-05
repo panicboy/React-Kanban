@@ -1,11 +1,10 @@
 import React from 'react';
 
-import Form from './Form.jsx';
-import Column from './Column.jsx';
+import Form from '../Form/Form.jsx';
+import Column from '../Column/Column.jsx';
 
-import style from "../scss/styles.scss";
+import style from "../../scss/styles.scss";
 
-import Immutable from 'immutable';
 import {connect} from 'react-redux';
 
 const Board = React.createClass({
@@ -28,7 +27,7 @@ const Board = React.createClass({
     this.props.toggleEditForm(state, status);
   },
   render() {
-    var props = {
+    let props = {
       isEditing: this.props.isEditing,
       updateBoard: this.updateBoard,
       form: this.props.form,
@@ -36,8 +35,8 @@ const Board = React.createClass({
       data: this.props.data,
     };
     ['Q','IP','D'].forEach((e) => {
-      props['editForm_' + e] = this.props['editForm_' + e];
-      props['editForm_' + e + 'State'] = this.props['editForm_' + e + 'State'];
+      props[`editForm_${e}`] = this.props[`editForm_${e}`];
+      props[`editForm_${e}State`] = this.props[`editForm_${e}State`];
     });
     return (
       <div>
@@ -58,7 +57,7 @@ const Board = React.createClass({
   }
 });
 
-var boardActions = require('./../actions/boardActions');
+var boardActions = require('../../actions/boardActions');
 var mapStateToProps = boardActions.mapStateToProps;
 var mapDispatchToProps = boardActions.mapDispatchToProps;
 

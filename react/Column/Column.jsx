@@ -1,27 +1,27 @@
 import React from 'react';
-import Card from './Card.jsx';
+import Card from '../Card/Card.jsx';
 
-import Form from './Form.jsx';
+import Form from '../Form/Form.jsx';
 
 const Column = React.createClass({
   newCard(i, status, e) {
-    var props = {
+    let props = {
       key: i,
       isEditing: this.props.isEditing,
       toggleEditForm: this.props.toggleEditForm,
       updateBoard: this.props.updateBoard,
       data: e,
     };
-    props['editForm_' + status] = this.props['editForm_' + status];
+    props[`editForm_${status}`] = this.props[`editForm_${status}`];
     return <Card {...props} />
   },
   newForm(status) {
-    var props = {
+    let props = {
       updateBoard: this.props.updateBoard,
       toggleEditForm: this.props.toggleEditForm,
     };
     if(status) {
-      props.status = this.props['editForm_' + status + 'State'];
+      props.status = this.props[`editForm_${status}State`];
     }
     return <Form {...props}/>
   },
