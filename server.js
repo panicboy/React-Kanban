@@ -1,41 +1,23 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
-var mongoose = require('mongoose');
-var timestamps = require('mongoose-timestamp');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
-var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
+const config = require('./webpack.config');
+const compiler = webpack(config);
 
-var config = require('./webpack.config');
-var compiler = webpack(config);
+const bodyParser = require('body-parser');
 
-var PORTNUM = 3000; //default port
-
-var bodyParser = require('body-parser');
-
+const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test'); //database name
-var Schema = mongoose.Schema;
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection Error. Database error.'));
-
-var cardSchema = new Schema({
-  title: String,
-  priority: String,
-  status: String,
-  createdBy: String,
-  assignedTo: String,
-});
-
-cardSchema.plugin(timestamps);
-mongoose.model('Card', cardSchema);
- var Card = mongoose.model('Card', cardSchema);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-
 app.use(express.static(__dirname));
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
@@ -44,64 +26,12 @@ app.use(webpackDevMiddleware(compiler, {
   }
 }));
 
-app.get('/', (req, res) => {
-  return res.render('index');
-});
+const Routes = require('./routes/router');
 
-app.get('/data', (req, res) => {
-  Card.find({}, (err, card) => {
-    if (err) return err;
-    res.set('Access-Control-Allow-Origin', '*');
-    return res.json(card);
-  });
-});
+app.use('/', Routes);
 
-
-app.put('/edit', (req, res) => {
-  Card.findByIdAndUpdate(req.body.id, {
-    $set: req.body
-  },
-  function (err, card) {
-    if (err) return console.log('Error: ', err);
-    return res.json(card);
-  });
-});
-
-
-app.delete('/delete', (req, res) => {
-  Card.findByIdAndRemove({"_id":req.body.id},
-  function (err, card) {
-    if (err) return console.log(`Error with DELETE: ${err}`);
-    return res.json(card);
-  });
-});
-
-var postsPerSecond = 0; //spam protection
-setInterval( () => {
-  postsPerSecond = 0;
-}, 1000); //clears every second
-app.post('/', (req, res) => {
-  if(postsPerSecond === 0) {
-    var body = req.body;
-    var newCard = new Card({
-      title: body.title || "Title",
-      priority: body.priority || "Priority",
-      status: body.status || "Queue",
-      createdBy: body.createdby || "Created By",
-      assignedTo: body.assignedto || "Assigned To",
-    });
-    newCard.save( (err, data) => {
-      if(err) console.log(err);
-      else {
-        console.log('Successfully saved.');
-      }
-    });
-    postsPerSecond++;
-  } else {
-    console.log('Could not save. Spam protection invoked.');
-  }
-});
+const PORTNUM = process.env.PORT || 3000; //default port
 
 app.listen(PORTNUM, () => {
-  console.log(`now listening on port ${PORTNUM}`);
+  console.log(`Server now listening on port ${PORTNUM}`);
 });

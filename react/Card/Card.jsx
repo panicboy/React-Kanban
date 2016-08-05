@@ -1,23 +1,26 @@
 import React from 'react';
 
-import Form from './Form.jsx';
+import Form from '../Form/Form.jsx';
 
-var Card = React.createClass({
+const Card = React.createClass({
   dragStart(event) {
-    var cardData = {
+    let cardData = {
       id: this.props.data._id,
       status: this.props.data.status,
     };
     event.dataTransfer.setData('text', JSON.stringify(cardData));
   },
   handleStatus (direction) {
-    var newStatus = this.props.data.status.replace(/\s/g, '');
-    if (direction === 'right') newStatus = {Queue: 'In Progress', InProgress: 'Done', Done: 'Queue'}[newStatus];
-    if (direction === 'left') newStatus = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[newStatus];
+    let newStatus = this.props.data.status.replace(/\s/g, '');
+    if (direction === 'right') {
+      newStatus = {Queue: 'In Progress', InProgress: 'Done', Done: 'Queue'}[newStatus];
+    } else {
+      newStatus = {Queue: 'Done', Done: 'In Progress', InProgress: 'Queue'}[newStatus];
+    }
     this.createPutRequest('status', newStatus);
   },
   cyclePriority() {
-    var newPriority = this.props.data.priority.toLowerCase();
+    let newPriority = this.props.data.priority.toLowerCase();
     if(!'low medium high blocker'.includes(newPriority)) {
      newPriority = 'blocker';
     }
@@ -25,11 +28,11 @@ var Card = React.createClass({
     this.createPutRequest('priority', newPriority);
   },
   createPutRequest (fieldName, fieldValue) {
-    var myRequest = {
+    let myRequest = {
       id : this.props.data._id || 0,
     };
     myRequest[fieldName] = fieldValue;
-    var req = new XMLHttpRequest();
+    let req = new XMLHttpRequest();
     req.open('PUT', `/edit/`);
     req.setRequestHeader("Content-Type", "application/json");
     req.addEventListener('load', (data) => {
@@ -40,7 +43,7 @@ var Card = React.createClass({
     ));
   },
   deleteItem () {
-    var req = new XMLHttpRequest();
+    let req = new XMLHttpRequest();
     req.open('DELETE', '/delete/');
     req.setRequestHeader("Content-Type", "application/json");
     req.addEventListener('load', (data) => {
@@ -57,7 +60,7 @@ var Card = React.createClass({
     }
   },
   timestamp () {
-    var date = new Date(this.props.data.createdAt);
+    let date = new Date(this.props.data.createdAt);
     return `${date.getMonth()}/${date.getDay()}/${date.getFullYear() - 2000}`;
   },
   render() {
