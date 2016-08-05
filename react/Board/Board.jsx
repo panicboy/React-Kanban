@@ -44,6 +44,11 @@ const Board = React.createClass({
         <header>
           <h1>KANBAN BOARD</h1>
         </header>
+        <div className="headers">
+          <h1>Queue</h1>
+          <h1>In Progress</h1>
+          <h1>Done</h1>
+        </div>
         <Column {... props} />
         <div className="center">
           <span
