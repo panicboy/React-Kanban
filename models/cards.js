@@ -16,3 +16,5 @@ const cardSchema = new Schema({
 cardSchema.plugin(timestamps);
 
 module.exports = mongoose.model('Card', cardSchema);
+
+

@@ -2,67 +2,42 @@
 const express = require('express'),
       Router = express.Router();
 
-const Card = require('./../models/cards.js');
+const db = require('../components/db.js');
+
 
 Router.get('/', (req, res) => {
   return res.render('index');
 });
 
 Router.get('/data', (req, res) => {
-  Card.find({})
-  .then((card) => {
-    return res.json(card);
-  }).catch( (err) => {
-    return console.log('Error: ', err);
+  db.findAllCards((data)=>{
+    if(data) {
+      res.set('Access-Control-Allow-Origin', '*');
+      return res.json(data);
+    }
   });
 });
 
 Router.put('/edit', (req, res) => {
-  Card.findByIdAndUpdate(req.body.id, {
-    $set: req.body
-  }).then((card) => {
-    return res.json(card);
-  }).catch((err) => {
-    return console.log('Error: ', err);
+   db.updateCard(req.body, (updatedCard) => {
+    if(updatedCard) {
+      return res.json(updatedCard);
+    }
   });
 });
 
 Router.delete('/delete', (req, res) => {
-  Card.findByIdAndRemove({"_id":req.body.id})
-  .then((card) => {
-    return res.json(card);
-  }).catch((err) => {
-    return console.log('Error: ', err);
+  db.deleteCard(req.body.id, (deletedCard) => {
+    if(!deletedCard) return console.log('error with delete');
+    return res.json(deletedCard);
   });
 });
 
-let postsPerSecond = 0; //spam protection
-setInterval( () => {
-  postsPerSecond = 0;
-}, 1000); //clears every second
-
 Router.post('/', (req, res) => {
-  if(postsPerSecond === 0) {
-    let body = req.body;
-    let newCard = new Card({
-      title: body.title || "Title",
-      priority: body.priority || "Priority",
-      status: body.status || "Queue",
-      createdBy: body.createdby || "Created By",
-      assignedTo: body.assignedto || "Assigned To",
-    });
-    newCard.save( (err, data) => {
-      if(err) {
-        console.log(`Error Saving. ${err}`);
-      }
-      else {
-        console.log('Successfully saved.');
-      }
-    });
-    postsPerSecond++;
-  } else {
-    console.log('Could not save. Spam protection invoked.');
-  }
+  var body = req.body;
+  db.addCard(body, (theNewCard) => {
+    if(theNewCard) return console.log('New card: ', theNewCard);
+  });
 });
 
 module.exports = Router;
