@@ -35,7 +35,7 @@ Router.delete('/delete', (req, res) => {
   });
 });
 
-var postsPerSecond = 0; //spam protection
+let postsPerSecond = 0; //spam protection
 setInterval( () => {
   postsPerSecond = 0;
 }, 1000); //clears every second
