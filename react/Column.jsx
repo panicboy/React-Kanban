@@ -3,7 +3,30 @@ import Card from './Card.jsx';
 
 import Form from './Form.jsx';
 
+
+
 const Column = React.createClass({
+  newCard(i, status, e) {
+    var props = {
+      key: i,
+      isEditing: this.props.isEditing,
+      toggleEditForm: this.props.toggleEditForm,
+      updateBoard: this.props.updateBoard,
+      data: e,
+    };
+    props['editForm_' + status] = this.props['editForm_' + status];
+    return <Card {...props} />
+  },
+  newForm(status) {
+    var props = {
+      updateBoard: this.props.updateBoard,
+      toggleEditForm: this.props.toggleEditForm,
+    };
+    if(status) {
+      props.status = this.props['editForm_' + status + 'State'];
+    }
+    return <Form {...props}/>
+  },
   preventDefault (event) {
     event.preventDefault();
   },
@@ -46,42 +69,13 @@ const Column = React.createClass({
     data.forEach( (e,i,a) => {
       switch(e.status) {
         case 'Queue':
-          arr[0].push(
-            <Card
-            key={i}
-            isEditing={this.props.isEditing}
-            editForm_Q={this.props.editForm_Q}
-            toggleEditForm={this.props.toggleEditForm}
-
-            updateBoard={this.props.updateBoard}
-            data={e} />
-          )
+          arr[0].push(this.newCard(i, 'Q', e));
           break;
         case 'In Progress':
-          arr[1].push(
-            <Card
-              key={i}
-              isEditing={this.props.isEditing}
-              editForm_IP={this.props.editForm_IP}
-              toggleEditForm={this.props.toggleEditForm}
-
-              updateBoard={this.props.updateBoard}
-              data={e}
-            />
-          )
+          arr[1].push(this.newCard(i, 'IP', e));
           break;
         case 'Done':
-          arr[2].push(
-            <Card
-              key={i}
-              isEditing={this.props.isEditing}
-              editForm_D={this.props.editForm_D}
-              toggleEditForm={this.props.toggleEditForm}
-
-              updateBoard={this.props.updateBoard}
-              data={e}
-            />
-          )
+          arr[2].push(this.newCard(i, 'D', e));
           break;
       }
     });
@@ -92,62 +86,34 @@ const Column = React.createClass({
     if(this.props.data) {
       cards = this.createByColumn(this.props.data);
     }
+    var props = {
+      className: 'column',
+      onDragOver: this.preventDefault,
+      onDrop: this.drop,
+    };
     return (
       <div className="column-holder">
         <div
           id="Queue"
-          className="column"
-          onDragOver={this.preventDefault}
-          onDrop={this.drop}
+          {...props}
         >
           {cards[0]}
-          {this.props.form ?
-            (
-              <Form
-                updateBoard={this.props.updateBoard}
-                toggleEditForm={this.props.toggleEditForm}
-              />
-            ) : null}
-          {this.props.editForm_Q ?
-            (
-              <Form
-                updateBoard={this.props.updateBoard}
-                status={this.props.editForm_QState}
-                toggleEditForm={this.props.toggleEditForm}
-
-              />
-            ) : null}
+          {this.props.form ? this.newForm() : null}
+          {this.props.editForm_Q ? this.newForm('Q') : null}
         </div>
-        <div id="InProgress"
-          className="column"
-          onDragOver={this.preventDefault}
-          onDrop={this.drop}
+        <div
+          id="InProgress"
+          {...props}
         >
         {cards[1]}
-        {this.props.editForm_IP ?
-          (
-            <Form
-              updateBoard={this.props.updateBoard}
-              status={this.props.editForm_IPState}
-              toggleEditForm={this.props.toggleEditForm}
-            />
-          ) : null}
+        {this.props.editForm_IP ? this.newForm('IP') : null}
         </div>
         <div
           id="Done"
-          className="column"
-          onDragOver={this.preventDefault}
-          onDrop={this.drop}
+          {...props}
         >
           {cards[2]}
-          {this.props.editForm_D ?
-            (
-              <Form
-                updateBoard={this.props.updateBoard}
-                status={this.props.editForm_DState}
-                toggleEditForm={this.props.toggleEditForm}
-              />
-            ) : null}
+          {this.props.editForm_D ? this.newForm('D') : null}
         </div>
       </div>
     )

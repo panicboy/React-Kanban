@@ -3,7 +3,7 @@ import React from 'react';
 import Form from './Form.jsx';
 import Column from './Column.jsx';
 
-import style from "./../scss/styles.scss";
+import style from "../scss/styles.scss";
 
 import Immutable from 'immutable';
 import {connect} from 'react-redux';
@@ -30,6 +30,9 @@ const Board = React.createClass({
   render() {
     return (
       <div>
+        <header>
+          <h1>KANBAN BOARD</h1>
+        </header>
         <Column
         isEditing={this.props.isEditing}
         updateBoard={this.updateBoard}
@@ -62,36 +65,8 @@ const Board = React.createClass({
   }
 });
 
+var boardActions = require('./../actions/boardActions');
+var mapStateToProps = boardActions.mapStateToProps;
+var mapDispatchToProps = boardActions.mapDispatchToProps;
 
-const mapStateToProps = (state) => {
-  let s = state.boardReducer.toJS();
-  return {
-    data: s.data,
-    form: s.form,
-    editForm_Q: s.editForm_Q,
-    editForm_QState: s.editForm_QState,
-    editForm_IP: s.editForm_IP,
-    editForm_IPState: s.editForm_IPState,
-    editForm_D: s.editForm_D,
-    editForm_DState: s.editForm_DState,
-    isEditing: s.isEditing,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateBoard: (data) => {
-      dispatch({
-        type: 'UPDATE_BOARD',
-        data,
-      })
-    },
-    toggleEditForm: (state, status) => {
-      dispatch({
-        type:`TOGGLE_EDIT_FORM_${status}`,
-        state,
-      })
-    },
-  }
-};
 export default connect(mapStateToProps,mapDispatchToProps)(Board);
