@@ -8,3 +8,5 @@ npm install
 npm start
 connection to 127.0.0.1:3000
 ```
+
+![Kanban Board](http://i.imgur.com/4GUrioH.png)
