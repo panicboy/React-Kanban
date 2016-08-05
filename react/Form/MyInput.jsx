@@ -1,8 +1,7 @@
-"use strict";
 import React from 'react';
 import Formsy from 'formsy-react';
 
-const MyInput = React.createClass({
+var MyInput = React.createClass({
   mixins: [Formsy.Mixin],
   changeValue(event) {
     this.setValue(event.currentTarget[this.props.type === 'checkbox' ? 'checked' : 'value']);

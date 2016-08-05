@@ -39,7 +39,7 @@ const Card = React.createClass({
     req.addEventListener('load', (data) => {
       this.props.updateBoard();
     });
-    req.send(JSON.stringify(
+    req.send(JSON.striengify(
       myRequest
     ));
   },
@@ -51,8 +51,8 @@ const Card = React.createClass({
       this.props.updateBoard();
     });
     req.send(JSON.stringify({
-      "id":`${this.props.data._id}`,
-    }))
+      "id":this.props.data._id
+    }));
   },
   editItem () { //on edit button click
     if(!this.props.isEditing) {

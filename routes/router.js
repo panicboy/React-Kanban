@@ -5,7 +5,7 @@ const express = require('express'),
 const db = require('../components/db.js');
 
 Router.get('/', (req, res) => {
-  return res.render('index');
+  return res.render('index.html');
 });
 
 Router.get('/data', (req, res) => {
@@ -18,6 +18,7 @@ Router.get('/data', (req, res) => {
 });
 
 Router.put('/edit', (req, res) => {
+  console.log('REQ.BODY' + req.body);
    db.updateCard(req.body, (updatedCard) => {
     if(updatedCard) {
       return res.json(updatedCard);
@@ -26,6 +27,7 @@ Router.put('/edit', (req, res) => {
 });
 
 Router.delete('/delete', (req, res) => {
+  // console.log(req);
   db.deleteCard(req.body.id, (deletedCard) => {
     if(!deletedCard) return console.log('error with delete');
     return res.json(deletedCard);

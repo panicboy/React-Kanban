@@ -17,20 +17,22 @@ mongoose.connect('mongodb://dbconnect:12345@ds145385.mlab.com:45385/heroku_nw354
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection Error. Database error.'));
 
-const PORTNUM = process.env.PORT || 3000; //default port
-
-const Routes = require('./routes/router');
-app.use('/', Routes);
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static(__dirname));
+app.use(express.static((__dirname)));
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
     stats: {
     colors: true,
   }
 }));
+
+const PORTNUM = process.env.PORT || 3000; //default port
+
+const Routes = require('./routes/router');
+app.use('/', Routes);
+
+app.engine('html', require('ejs').renderFile);
 
 app.listen(PORTNUM, () => {
   console.log(`Server now listening on port ${PORTNUM}`);
