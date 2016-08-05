@@ -1,12 +1,9 @@
+"use strict";
 var path = require('path');
 var webpack = require('webpack');
 
-
-
 var config = {
   entry: [
-  'webpack/hot/dev-server',
-  'webpack-hot-middleware/client',
   './entry.jsx',
   ],
   plugins: [
@@ -25,8 +22,16 @@ var config = {
         query: {
           presets: ['es2015', 'react']
         }
-      }
-    ]
+      },
+      {
+        test: /(\.scss$|\.css$)/,
+        loaders: [
+          'style',
+          'css',
+          'sass',
+        ],
+      },
+    ],
   },
 };
 

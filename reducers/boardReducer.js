@@ -1,6 +1,7 @@
+"use strict";
 import Immutable from 'immutable';
 
-var initialState = Immutable.Map({
+const initialState = Immutable.Map({
   form:false,
   editForm_Q:false, //Queue
   editForm_QState: {},
@@ -12,8 +13,8 @@ var initialState = Immutable.Map({
   data: [],
 });
 
-var boardReducer = (state = initialState, action) => {
-  var newState = state;
+const boardReducer = (state = initialState, action) => {
+  let newState = state;
   switch(action.type) {
     case 'UPDATE_BOARD':
       return newState.set("data", action.data);
@@ -29,11 +30,12 @@ var boardReducer = (state = initialState, action) => {
       return newState;
   }
 };
-function toggleVisibility (newState, status, action) {
+
+const toggleVisibility = (newState, status, action) => {
   newState = newState.update(`editForm_${status}`, bool => bool = !bool);
   if(action.state) newState = newState.set(`editForm_${status}State`, action.state);
   newState = newState.update("isEditing", bool => bool = !bool);
   return newState;
-}
+};
 
 export default boardReducer;

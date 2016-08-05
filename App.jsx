@@ -1,8 +1,7 @@
+"use strict";
 import React from 'react';
 
-import Board from './react/Board.jsx';
-import Column from './react/Column.jsx';
-import Card from './react/Card.jsx';
+import Board from './react/Board/Board.jsx';
 
 class App extends React.Component {
   render() {

@@ -1,10 +1,11 @@
+"use strict";
 //React
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
 
 //App containing all parts
-import App from './App.js';
+import App from './App.jsx';
 
 //Redux
 import { Provider } from 'react-redux';
@@ -12,8 +13,6 @@ import * as reducers from './reducers';
 import { createStore, combineReducers } from 'redux';
 var reducer = combineReducers(reducers);
 var store = createStore(reducer);
-
-
 
 ReactDOM.render(
   <Provider store={store}>

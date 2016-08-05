@@ -1,81 +1,63 @@
-var mongoose = require('mongoose');
-var timestamps = require('mongoose-timestamp');
+'use strict';
+const Card = require('./../models/cards.js');
 
-mongoose.connect('mongodb://localhost/test'); //database name
-var Schema = mongoose.Schema;
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'Connection Error. Database error.'));
-
-var cardSchema = new Schema({
-  title: String,
-  priority: String,
-  status: String,
-  createdBy: String,
-  assignedTo: String,
-});
-
-cardSchema.plugin(timestamps);
-mongoose.model('Card', cardSchema);
-var Card = mongoose.model('Card', cardSchema);
-
-module.exports.deleteCard = (theId, cb) => {
-  Card.findByIdAndRemove({"_id": theId }, (err, card) => {
+function deleteCard (id, cb) {
+  Card.findByIdAndRemove({"_id": id }, (err, card) => {
     if(err) {
-      console.log(`Error with DELETE _id: ${theId}: ${err}`);
+      console.log(`Error with DELETE _id: ${id}: ${err}`);
       return cb(false) ;
     }
-    let deleteDate = new Date();
-    console.log(`Deleted card with id: ${theId} ${deleteDate.toLocaleTimeString('en-US', { hour12: false })}`);
+    let deleteDate = new Date().toLocaleTimeString('en-US',{hour12: false});
+    console.log(`Deleted card with id: ${id} ${deleteDate}`);
     return cb(card) ;
   });
-};
+}
 
-module.exports.addCard = (cardValues, cb) => {
-  delete cardValues['id'];
-  cardValues.status = 'Queue';
-  console.log('newCard cardValues: ', cardValues);
-  let newCard = new Card(cardValues);
+function addCard (values, cb) {
+  delete values['id'];
+  values.status = 'Queue';
+  console.log('newCard values: ', values);
+  let newCard = new Card(values);
   newCard.save( (err, card, numAffected) => {
     if(err) {
       console.log(`Couldn't add new card. Error message: `, err);
       return cb(false) ;
     }
     if(numAffected > 0) {
-      let saveDate = new Date();
-      console.log(`New card id ${card._id} added saveDate.toLocaleTimeString('en-US', { hour12: false })`);
+      let saveDate = new Date().toLocaleTimeString('en-US',{hour12:false});
+      console.log(`New card id ${card._id} added ${saveDate}`);
       return cb(card) ;
     }
   });
-};
+}
 
-module.exports.updateCard = (cardValues, cb) => {
-  let theId = cardValues.id;
-  delete cardValues['id'];
-  Card.findByIdAndUpdate(theId, {
-    $set: cardValues
+function updateCard (values, cb) {
+  let id = values.id;
+  delete values['id'];
+  Card.findByIdAndUpdate(id, {
+    $set: values
   }, (err, card) => {
     if (err) {
-      console.log(`Error updating card _id ${theId}: ${err} `);
+      console.log(`Error updating card _id ${id}: ${err} `);
       return cb(false) ;
     }
-    let saveDate = new Date();
-    console.log(`Card _id ${theId} updated ${saveDate.toLocaleTimeString('en-US', { hour12: false })}`);
+    let saveDate = new Date().toLocaleTimeString('en-US',{hour12:false});
+    console.log(`Card _id ${id} updated ${saveDate}`);
     return cb(card);
   });
-};
+}
 
-module.exports.findCard = (theId, cb) => {
-  Card.findById(theId, (err, card) => {
+function findCard (id, cb) {
+  Card.findById(id, (err, card) => {
     if (err) {
-      console.log(`Error finding card _id ${theId}: ${err} `);
+      console.log(`Error finding card _id ${id}: ${err} `);
       return cb(false);
     }
     return cb(card);
   });
-};
+}
 
-module.exports.findAllCards = (cb) => {
+function findAllCards (cb) {
   Card.find({}, (err, cards) => {
     if (err) {
       console.log('error finding cards: ', err);
@@ -84,4 +66,12 @@ module.exports.findAllCards = (cb) => {
     return cb(cards);
   }
   );
+}
+
+module.exports = {
+  deleteCard,
+  addCard,
+  updateCard,
+  findCard,
+  findAllCards,
 };
