@@ -1,7 +1,6 @@
 "use strict";
 import React from 'react';
 
-import Board from '../Board/Board.jsx';
 import MyInput from './MyInput.jsx';
 
 const Form = React.createClass({
@@ -51,12 +50,12 @@ const Form = React.createClass({
           />
           <MyInput
             value={values[2]}
-            name="createdby"
+            name="createdBy"
             title="Created By"
           />
           <MyInput
             value={values[3]}
-            name="assignedto"
+            name="assignedTo"
             title="Assigned To"
           />
           <MyInput
