@@ -1,3 +1,4 @@
+"use strict";
 const mapStateToProps = (state) => {
   let s = state.boardReducer.toJS();
   return {

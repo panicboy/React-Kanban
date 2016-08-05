@@ -1,3 +1,4 @@
+"use strict";
 import Immutable from 'immutable';
 
 const initialState = Immutable.Map({

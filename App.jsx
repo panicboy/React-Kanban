@@ -1,3 +1,4 @@
+"use strict";
 import React from 'react';
 
 import Board from './react/Board/Board.jsx';
