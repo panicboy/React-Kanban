@@ -39,7 +39,7 @@ const Card = React.createClass({
     req.addEventListener('load', (data) => {
       this.props.updateBoard();
     });
-    req.send(JSON.striengify(
+    req.send(JSON.stringify(
       myRequest
     ));
   },
