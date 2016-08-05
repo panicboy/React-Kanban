@@ -38,6 +38,7 @@ Router.post('/', (req, res) => {
   db.addCard(body, (theNewCard) => {
     if(theNewCard) return console.log('New card: ', theNewCard);
   });
+  return res.end();
 });
 
 module.exports = Router;
