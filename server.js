@@ -11,7 +11,7 @@ const compiler = webpack(config);
 const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test'); //database name
+mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds145385.mlab.com:45385/heroku_nw354cmm'); //database name
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection Error. Database error.'));
