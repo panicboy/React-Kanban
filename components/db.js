@@ -38,7 +38,7 @@ function updateCard (values, cb) {
     $set: values
   }, (err, card) => {
     if (err) {
-      console.log(`Error updating card _id ${id}: ${err} `);
+      console.log(`Error updating card _id ${id}: ${err}`);
       return cb(false) ;
     }
     let saveDate = new Date().toLocaleTimeString('en-US',{hour12:false});

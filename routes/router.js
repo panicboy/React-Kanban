@@ -4,7 +4,6 @@ const express = require('express'),
 
 const db = require('../components/db.js');
 
-
 Router.get('/', (req, res) => {
   return res.render('index');
 });

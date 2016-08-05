@@ -8,8 +8,8 @@ const MyInput = React.createClass({
     this.setValue(event.currentTarget[this.props.type === 'checkbox' ? 'checked' : 'value']);
   },
   render() {
-    let className = 'form-group' + (this.props.className || ' ') + (this.showRequired() ? 'required' : this.showError() ? 'error' : null);
-    let errorMessage = this.getErrorMessage();
+    var className = 'form-group' + (this.props.className || ' ') + (this.showRequired() ? 'required' : this.showError() ? 'error' : null);
+    var errorMessage = this.getErrorMessage();
     return (
       <div className={className}>
         <label htmlFor={this.props.name}>{this.props.title}</label>
