@@ -52,6 +52,8 @@ const Column = React.createClass({
     }
     if('Queue In Progress Done Blocker'.includes(newStatus)) {
       cardData.status = newStatus;
+    } else {
+      newState = 'Queue';
     }
     let req = new XMLHttpRequest();
     req.open('PUT', `/edit/`);
