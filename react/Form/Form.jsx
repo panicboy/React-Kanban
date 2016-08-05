@@ -63,6 +63,11 @@ const Form = React.createClass({
             name="status"
             type="hidden"
           />
+          <MyInput
+            values={values[5]}
+            name="id"
+            type="hidden"
+          />
           <button type="submit">
             Submit
           </button>

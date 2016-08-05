@@ -32,7 +32,6 @@ const PORTNUM = process.env.PORT || 3000; //default port
 const Routes = require('./routes/router');
 app.use('/', Routes);
 
-app.engine('html', require('ejs').renderFile);
 
 app.listen(PORTNUM, () => {
   console.log(`Server now listening on port ${PORTNUM}`);
