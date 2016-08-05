@@ -10,7 +10,7 @@ Router.get('/', (req, res) => {
 });
 
 Router.get('/data', (req, res) => {
-  db.findAllCards((data)=>{
+  db.findAllCards((data) => {
     if(data) {
       res.set('Access-Control-Allow-Origin', '*');
       return res.json(data);
