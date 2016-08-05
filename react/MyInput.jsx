@@ -1,14 +1,14 @@
 import React from 'react';
 import Formsy from 'formsy-react';
 
-var MyInput = React.createClass({
+const MyInput = React.createClass({
   mixins: [Formsy.Mixin],
   changeValue(event) {
     this.setValue(event.currentTarget[this.props.type === 'checkbox' ? 'checked' : 'value']);
   },
   render() {
-    var className = 'form-group' + (this.props.className || ' ') + (this.showRequired() ? 'required' : this.showError() ? 'error' : null);
-    var errorMessage = this.getErrorMessage();
+    let className = 'form-group' + (this.props.className || ' ') + (this.showRequired() ? 'required' : this.showError() ? 'error' : null);
+    let errorMessage = this.getErrorMessage();
     return (
       <div className={className}>
         <label htmlFor={this.props.name}>{this.props.title}</label>

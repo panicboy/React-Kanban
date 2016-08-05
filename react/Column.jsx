@@ -3,19 +3,19 @@ import Card from './Card.jsx';
 
 import Form from './Form.jsx';
 
-var Column = React.createClass({
+const Column = React.createClass({
   preventDefault (event) {
     event.preventDefault();
   },
   drop (event) {
     event.preventDefault();
-    var cardData;
+    let cardData;
     try {
       cardData = JSON.parse(event.dataTransfer.getData('text'));
     } catch (e) {
       return;
     }
-    var newStatus = null;
+    let newStatus = null;
     if(event.target.id.length > 3) {
       newStatus = event.target.id;
     }
@@ -31,7 +31,7 @@ var Column = React.createClass({
     if('Queue In Progress Done Blocker'.includes(newStatus)) {
       cardData.status = newStatus;
     }
-    var req = new XMLHttpRequest();
+    let req = new XMLHttpRequest();
     req.open('PUT', `/edit/`);
     req.setRequestHeader("Content-Type", "application/json");
     req.addEventListener('load', (data) => {
@@ -42,7 +42,7 @@ var Column = React.createClass({
     ));
   },
   createByColumn(data) {
-    var arr = [[],[],[]];
+    let arr = [[],[],[]];
     data.forEach( (e,i,a) => {
       switch(e.status) {
         case 'Queue':
@@ -88,7 +88,7 @@ var Column = React.createClass({
     return arr;
   },
   render() {
-    var cards;
+    let cards;
     if(this.props.data) {
       cards = this.createByColumn(this.props.data);
     }

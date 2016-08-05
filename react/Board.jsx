@@ -3,10 +3,12 @@ import React from 'react';
 import Form from './Form.jsx';
 import Column from './Column.jsx';
 
+import style from "./../scss/styles.scss";
+
 import Immutable from 'immutable';
 import {connect} from 'react-redux';
 
-var Board = React.createClass({
+const Board = React.createClass({
   componentDidMount() {
     this.updateBoard();
   },
@@ -14,7 +16,7 @@ var Board = React.createClass({
     this.queryDatabase();
   },
   queryDatabase () {
-    var req = new XMLHttpRequest();
+    let req = new XMLHttpRequest();
     req.open('GET', '/data');
     req.addEventListener('load', this.loadData);
     req.send();
@@ -61,8 +63,8 @@ var Board = React.createClass({
 });
 
 
-var mapStateToProps = (state) => {
-  var s = state.boardReducer.toJS();
+const mapStateToProps = (state) => {
+  let s = state.boardReducer.toJS();
   return {
     data: s.data,
     form: s.form,
@@ -76,7 +78,7 @@ var mapStateToProps = (state) => {
   }
 }
 
-var mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     updateBoard: (data) => {
       dispatch({

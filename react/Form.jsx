@@ -3,9 +3,9 @@ import React from 'react';
 import Board from './Board.jsx';
 import MyInput from './MyInput.jsx';
 
-var Form = React.createClass({
-  submit(data) { //on data submit, send all data as a normal form
-    var req = new XMLHttpRequest();
+const Form = React.createClass({
+  handleSubmit(data) { //on data submit, send all data as a normal form
+    let req = new XMLHttpRequest();
     req.open('POST', '/', true);
     req.setRequestHeader("Content-type", "application/json");
     req.send(JSON.stringify(data));
@@ -21,19 +21,19 @@ var Form = React.createClass({
     }
   },
   checkValues () {
-    var state = this.props.status;
+    let state = this.props.status;
     if(state) {
       return [state.title,state.priority,state.createdBy,state.assignedTo,state.status];
     }
     return ['','','','',''];
   },
   render() {
-    var values = this.checkValues();
+    let values = this.checkValues();
     return (
       <div className="formDiv">
         <Formsy.Form
           id="form"
-          onSubmit={this.submit}
+          onSubmit={this.handleSubmit}
           className="input"
         >
           <MyInput
