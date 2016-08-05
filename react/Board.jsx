@@ -28,30 +28,23 @@ const Board = React.createClass({
     this.props.toggleEditForm(state, status);
   },
   render() {
+    var props = {
+      isEditing: this.props.isEditing,
+      updateBoard: this.updateBoard,
+      form: this.props.form,
+      toggleEditForm: this.toggleEditForm,
+      data: this.props.data,
+    };
+    ['Q','IP','D'].forEach((e) => {
+      props['editForm_' + e] = this.props['editForm_' + e];
+      props['editForm_' + e + 'State'] = this.props['editForm_' + e + 'State'];
+    });
     return (
       <div>
         <header>
           <h1>KANBAN BOARD</h1>
         </header>
-        <Column
-        isEditing={this.props.isEditing}
-        updateBoard={this.updateBoard}
-
-        form={this.props.form}
-
-        editForm_Q={this.props.editForm_Q}
-        editForm_QState={this.props.editForm_QState}
-
-        editForm_IP={this.props.editForm_IP}
-        editForm_IPState={this.props.editForm_IPState}
-
-        editForm_D={this.props.editForm_D}
-        editForm_DState={this.props.editForm_DState}
-
-        toggleEditForm={this.toggleEditForm}
-
-        data={this.props.data}
-      />
+        <Column {... props} />
         <div className="center">
           <span
             onClick={() => {this.toggleEditForm('','')}}

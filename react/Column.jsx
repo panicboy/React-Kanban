@@ -3,8 +3,6 @@ import Card from './Card.jsx';
 
 import Form from './Form.jsx';
 
-
-
 const Column = React.createClass({
   newCard(i, status, e) {
     var props = {
