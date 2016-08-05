@@ -17,7 +17,7 @@ const Form = React.createClass({
   },
   backArrow () {
     if(this.props.status === undefined) {
-      return '↩';
+      return '←';
     }
   },
   checkValues () {
@@ -76,6 +76,7 @@ const Form = React.createClass({
           <span
             onClick={() => {this.hideAForm('')}}
             className="backArrow"
+            id="backArrow"
           >
             {(this.backArrow())}
           </span>

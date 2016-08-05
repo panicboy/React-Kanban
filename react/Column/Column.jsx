@@ -41,6 +41,12 @@ const Column = React.createClass({
     if(event.target.id.length > 3) {
       newStatus = event.target.id;
     }
+    if(event.target.type === 'submit') {
+      newStatus = event.target.parentNode.parentNode.parentNode.id;
+    }
+    if(event.target.id === 'backArrow') {
+      newStatus = event.target.parentNode.parentNode.parentNode.id;
+    }
     if(event.target.getAttribute("data-status") !== null) {
       newStatus = event.target.getAttribute("data-status");
     }
@@ -52,8 +58,6 @@ const Column = React.createClass({
     }
     if('Queue In Progress Done Blocker'.includes(newStatus)) {
       cardData.status = newStatus;
-    } else {
-      newState = 'Queue';
     }
     let req = new XMLHttpRequest();
     req.open('PUT', `/edit/`);
