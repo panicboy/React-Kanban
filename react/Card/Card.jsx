@@ -56,13 +56,12 @@ const Card = React.createClass({
   },
   editItem () { //on edit button click
     if(!this.props.isEditing) {
-      this.deleteItem(); //delete item so no duplicates since the form is just be rerendered
       this.props.toggleEditForm(this.props.data, this.props.data.status.replace(' ','').toUpperCase());
     }
   },
   timestamp () {
-    let date = new Date(this.props.data.createdAt);
-    return `${date.getMonth()}/${date.getDay()}/${date.getFullYear() - 2000}`;
+    let date = new Date(this.props.data.updatedAt);
+    return date.toLocaleTimeString('en-US', { hour12: false });
   },
   render() {
     var props = {
@@ -77,6 +76,7 @@ const Card = React.createClass({
         data-id = {this.props.data._id}
         data-status = {this.props.data.status}
         data-updatedat = {this.props.data.updatedAt}
+        data-createdat = {this.props.data.createdAt}
       >
         <span
           onClick={this.deleteItem}

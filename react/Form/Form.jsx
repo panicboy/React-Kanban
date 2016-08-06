@@ -7,7 +7,8 @@ import MyInput from './MyInput.jsx';
 const Form = React.createClass({
   handleSubmit(data) { //on data submit, send all data as a normal form
     let req = new XMLHttpRequest();
-    req.open('POST', '/', true);
+    if(data.id.length < 2) req.open('POST', '/', true);
+    if(data.id.length > 1) req.open('PUT', '/edit/', true);
     req.setRequestHeader("Content-type", "application/json");
     req.send(JSON.stringify(data));
     this.props.updateBoard();
@@ -24,9 +25,9 @@ const Form = React.createClass({
   checkValues () {
     let state = this.props.status;
     if(state) {
-      return [state.title,state.priority,state.createdBy,state.assignedTo,state.status];
+      return [state.title, state.priority, state.createdBy, state.assignedTo, state.status, state._id];
     }
-    return ['','','','',''];
+    return ['','','','','',''];
   },
   render() {
     let values = this.checkValues();
@@ -51,17 +52,22 @@ const Form = React.createClass({
           />
           <MyInput
             value={values[2]}
-            name="createdby"
+            name="createdBy"
             title="Created By"
           />
           <MyInput
             value={values[3]}
-            name="assignedto"
+            name="assignedTo"
             title="Assigned To"
           />
           <MyInput
             value={values[4]}
             name="status"
+            type="hidden"
+          />
+          <MyInput
+            value={values[5]}
+            name="id"
             type="hidden"
           />
           <button type="submit">
